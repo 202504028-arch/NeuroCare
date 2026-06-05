@@ -1,0 +1,107 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background: #d5bad3;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.registro{
+    width: 100%;
+    max-width: 430px;
+    background: white;
+    min-height: 100vh;
+    padding: 22px;
+}
+
+.volver{
+    text-decoration: none;
+    font-size: 35px;
+    color: #10142b;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0 20px;
+}
+
+.logo img{
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+.logo h2{
+    font-size: 32px;
+    color: #10142b;
+}
+
+.logo span{
+    color: #6730e8;
+}
+
+.logo p{
+    font-size: 18px;
+}
+
+h1{
+    font-size: 42px;
+    color: #10142b;
+}
+
+.subtitulo{
+    font-size: 18px;
+    margin: 8px 0 25px;
+}
+
+.campo{
+    margin-bottom: 16px;
+}
+
+label{
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+input{
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 14px;
+    font-size: 16px;
+}
+
+input:focus{
+    outline: none;
+    border-color: #6730e8;
+}
+
+button{
+    width: 100%;
+    padding: 17px;
+    border: none;
+    border-radius: 18px;
+    background: #6730e8;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.login-link{
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    color: #6730e8;
+    font-weight: bold;
+    text-decoration: none;
+}

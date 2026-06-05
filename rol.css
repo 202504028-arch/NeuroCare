@@ -1,0 +1,191 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background: #eee7ff;
+    display: flex;
+    justify-content: center;
+}
+
+.pantalla{
+    width: 420px;
+    min-height: 100vh;
+    background: #bd99bd;
+    padding: 25px;
+    border-radius: 30px;
+}
+
+.volver{
+    display: inline-block;
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #0d1b68;
+}
+
+h1{
+    text-align: center;
+    font-size: 34px;
+    color: #10142b;
+}
+
+.subtitulo{
+    text-align: center;
+    font-size: 17px;
+    margin: 8px 0 25px;
+}
+
+.rol-card{
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 250px;
+    border-radius: 25px;
+    padding: 22px;
+    margin-bottom: 25px;
+    overflow: hidden;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+.paciente{
+    background: #f4edff;
+}
+
+.familiar{
+    background: #eafff4;
+}
+
+.texto{
+    width: 55%;
+    z-index: 2;
+}
+
+.texto h2{
+    font-size: 30px;
+    color: #10142b;
+}
+
+.texto h3{
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.paciente h3{
+    color: #6730e8;
+}
+
+.familiar h3{
+    color: #159947;
+}
+
+.texto p{
+    font-size: 16px;
+    line-height: 1.4;
+    margin-bottom: 25px;
+}
+
+.rol-card img{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 210px;
+}
+
+.rol-card button{
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    background: white;
+    cursor: pointer;
+}
+
+.btn-elegir{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 150px;
+    background: white;
+    padding: 6px 6px 6px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.circulo{
+    width: 42px;
+    height: 42px;
+    background: #6730e8;
+    color: white;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 24px;
+    line-height: 1;
+}
+
+.morado{
+    color: #6730e8;
+}
+
+.morado .circulo{
+    background: #6730e8;
+}
+.paciente button{
+    color: #6730e8;
+}
+
+.familiar button{
+    color: #159947;
+}
+
+.info{
+    background: #f4edff;
+    border-radius: 20px;
+    padding: 18px;
+    text-align: center;
+    font-size: 15px;
+}
+
+@media(max-width: 480px){
+    .pantalla{
+        width: 100%;
+        border-radius: 0;
+        padding: 22px;
+    }
+
+    h1{
+        font-size: 32px;
+    }
+
+    .rol-card{
+        min-height: 230px;
+    }
+
+    .rol-card img{
+        width: 190px;
+    }
+
+    .texto h3{
+        font-size: 34px;
+    }
+}
+.btn-verde{
+    color: #0ea53a !important;
+}
+
+.btn-verde .circulo{
+    background: #0ea53a !important;
+    color: white;
+}
