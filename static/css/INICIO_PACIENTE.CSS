@@ -1,0 +1,268 @@
+/*_________________________________Fuente Poppins (igual que el resto del proyecto)____________________________________________*/
+@font-face{
+    font-family: "Poppins";
+    src: url("Poppins/Poppins-Regular.ttf");
+}
+@font-face{
+    font-family: "Poppins";
+    src: url("Poppins/Poppins-Bold.ttf");
+    font-weight: 700;
+}
+
+body{
+    margin: 0;
+    background-color: #eee7ff;
+    font-family: "Poppins";
+}
+
+/*_________________________________Contenedor general____________________________________________*/
+.contenedor{
+    
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 90px;
+    max-width: 480px;      /* nuevo */
+    margin: 0 auto;        /* nuevo */
+
+}
+
+/*_________________________________Barra superior____________________________________________*/
+.barrasuperior{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+.barrasuperior .perfil img,
+.barrasuperior .avisos img{
+    display: flex;
+    width: 50px;
+    margin: auto 0;
+}
+.barrasuperior .perfil,
+.barrasuperior .avisos{
+    background-color: white;
+    border-radius: 50%;
+    width: 50px;
+    margin: auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.barrasuperior .logo h2{
+    font-size: 40px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.barrasuperior .logo{
+    
+    
+    display: inline-flex ;
+    align-items: center;
+    margin: 0 auto;
+}
+.barrasuperior .logo img{
+    display: flex;
+    width: 30px;
+    margin: 0 auto;
+    
+}
+.barrasuperior .logo h2{
+    margin: 0;
+    font-size: 18px;
+}
+.barrasuperior .logo span{
+    color: blueviolet;
+}
+
+/*_________________________________Saludo____________________________________________*/
+.saludos{
+    padding: 0 20px;
+}
+.saludos p{
+    margin: 0;
+}
+.saludos .nombrepaciente h1{
+    margin: 5px 0;
+    font-size: 28px;
+}
+.saludos .descripcion p{
+    color: gray;
+    font-weight: normal;
+    font-size: 15px;
+}
+
+/*_________________________________Resumen: tarjetaActividades y tarjetaMedicinas____________________________________________*/
+.resumen{
+    display: flex;
+    gap: 15px;
+    padding: 15px 20px;
+}
+.tarjetaActividades,
+.tarjetamedicina{
+    background-color: white;
+    border-radius: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 0;
+}
+.tarjetaActividades .icono img,
+.tarjetamedicina .icono img{
+    width: 70px;
+    display: flex;
+    margin:0;
+}
+.tarjetaActividades .cantidad,
+.tarjetamedicina .cantidad{
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+}
+.tarjetaActividades .texto,
+.tarjetamedicina .texto{
+    color: gray;
+    font-size: 14px;
+}
+
+/*_________________________________Progreso del dia____________________________________________*/
+.progresoDia{
+    background-color: white;
+    border-radius: 15px;
+    margin: 0 20px 15px 20px;
+    padding: 15px;
+}
+.progresoDia .texto{
+    display: flex;
+    justify-content: space-between;
+}
+.progresoDia .texto p{
+    margin: 0;
+    font-size: 14px;
+}
+.barraprogreso .barraFondo{
+    background-color: #eee7ff;
+    border-radius: 10px;
+    height: 10px;
+    margin-top: 10px;
+}
+.barraprogreso .barraRelleno{
+    background-color: blueviolet;
+    border-radius: 10px;
+    width: 40%; /* 2/5 = 40% */
+    height: 100%;
+}
+
+/*_________________________________Tarjetas grandes: Ejercicios y Recordatorios____________________________________________*/
+.seleccionaAcciones{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 20px 15px 20px;
+}
+.tarjetaEjercicios,
+.tarjetaRecordatorios{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 15px;
+    padding: 15px;
+    position: relative;
+}
+.tarjetaEjercicios .icono img,
+.tarjetaRecordatorios .icono img{
+    width: 40px;
+    height: 40px;
+}
+.tarjetaEjercicios .informacion,
+.tarjetaRecordatorios .informacion{
+    flex: 1;
+}
+.tarjetaEjercicios .informacion h1,
+.tarjetaRecordatorios .informacion h1{
+    margin: 0;
+    font-size: 16px;
+}
+.tarjetaEjercicios .informacion p,
+.tarjetaRecordatorios .informacion p{
+    margin: 5px 0 0 0;
+    font-size: 13px;
+    color: gray;
+}
+.numero{
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+.numero p{
+    margin: 0;
+}
+.boton a{
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/*______________________tarjetaEjercicios (morada)_____*/
+.tarjetaEjercicios{
+    background-color: rgb(215, 197, 230);
+}
+.tarjetaEjercicios .numero{
+    background-color: blueviolet;
+}
+.tarjetaEjercicios .boton a{
+    background-color: blueviolet;
+}
+
+/*_________________________tarjetaRecordatorios (verde)_______________*/
+.tarjetaRecordatorios{
+    background-color: #CDEFCF;
+    
+}
+.tarjetaRecordatorios .numero{
+    background-color: rgb(33, 144, 48);
+}
+.tarjetaRecordatorios .boton a{
+    background-color: rgb(33, 144, 48);
+}
+
+/*_________________________________Barra inferior____________________________________________*/
+.barraInferior{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
+}
+.barraInferior a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: gray;
+}
+.barraInferior img{
+    width: 22px;
+    height: 22px;
+}
+.barraInferior p{
+    margin: 3px 0 0 0;
+    font-size: 11px;
+}

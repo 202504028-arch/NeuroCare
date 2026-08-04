@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/INICIO_PACIENTE.css') }}">
+</head>
+<body>
+
+        <!----contenedor de mi sistema-->
+        <div class="contenedor">
+
+            <div class="barrasuperior">
+                <!---------foto de perfil------->
+                <div class="perfil">
+                    <img src="{{ url_for('static', filename='img/icono_circulo persona.png') }}" alt="">
+
+                </div>
+
+                <!---------logo de empresa------->
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo de neuroCare">
+                    <h2>Neuro<span>Care</span></h2>
+
+                </div>
+
+                <!---------Avisos------->
+                <div class="avisos">
+                    <img src="{{ url_for('static', filename='img/icono_campana.png') }}" alt="">
+                    
+                </div>
+
+            </div>
+            
+            <!---------Saludods de la empresa------->
+            <div class="saludos">
+                <div class="bienvenida">
+                    <p>Bienvenida 👋</p>
+
+                </div>
+
+                 <!-- Aquí Flask mostrará el nombre del paciente -->
+                <div class="nombrepaciente">
+                    <h1>{{ nombreCompleto }}</h1>
+                </div>
+
+                <!---------Descripcion de la empresa------->
+                <div class="descripcion">
+                    <p>Estamos contigo en cada paso.Aqui esta tu <br> resumen de hoy </p>
+                    
+                </div>
+            </div>
+
+            <!---------Resuemnde la semana de la empresa------->
+            <div class="resumen">
+                <!---------tarjeta de actividad------>
+                <div class="tarjetaActividades">
+                    <div class="icono">
+                        <img src="{{ url_for('static', filename='img/icono_check.png') }}" alt="">
+                    </div>
+                    <div class="cantidad">
+                        <p>{{ totalActividades }}</p>
+                    </div>
+                    <div class="texto">
+                        <p>Actividades</p>
+                    </div>
+
+
+                </div>
+
+                <!---------tarjeta de Medicinas------->
+                <div class="tarjetamedicina">
+                    <div class="icono">
+                        <img src="{{ url_for('static', filename='img/icono_pastilla.png') }}" alt="">
+                    </div>
+                    <div class="cantidad">
+                        <p>{{ totalRecordatorios }}</p>
+                    </div>
+                    <div class="texto">
+                        <p>Recordatorios</p>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <!---------Progreso del dia barra ------->
+            <div class="progresoDia">
+
+                <div class="texto">
+                    <p>Progreso del día</p>
+                    <p>2/5</p>
+                </div>
+                <!---------esta es la barra de progreso------->
+                <div class="barraprogreso">
+                    <div class="barraFondo">
+
+                        <div class="barraRelleno">
+                            
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <!---------tarjetas para ejercios , actividades  y recordatorios------->
+            <div class="seleccionaAcciones">
+                <!---------tarjetas para ejercicios juegos  ------------------------>
+                <div class="tarjetaEjercicios">
+                    <!---------numero de tarjeta ------->
+                    <div class="numero">
+                        <p>1</p>
+                            
+                    </div>
+
+                    <!---------icono de la terjeta  imagen  ------->
+                    <div class="icono">
+                        <img src="{{ url_for('static', filename='img/icono_cerebro_moradotarjeta.png') }}" alt="">
+
+                    </div>
+                    <!--------Informacion de ejercicios para memoria ------->
+                    <div class="informacion">
+                        <h1>Ejercicios de memoria</h1>
+                        <p>Actividades divertidas para mantener tu mente activa.</p>
+
+                    </div>
+
+                    <!--------Boton para entrar a las actividades------->
+                    <div class="boton">
+                        <a href="/actividades">Entrar</a>
+
+                    </div>
+                </div>
+
+                <!---------tarjetas para Recordatorios Medicos  ------------------------>
+                <div class="tarjetaRecordatorios">
+                        <!---------numero de tarjeta ------->
+                        <div class="numero">
+                            <p>2</p>
+                            
+                        </div>
+
+                        <!---------icono de la terjeta  imagen  ------->
+                        <div class="icono">
+                            <img src="{{ url_for('static', filename='img/icono_cerebro_verdetarjeta.png') }}" alt="">
+
+                        </div>
+                        <!--------Informacion de los recordatorios medicos ------->
+                        <div class="informacion">
+                            <h1>Recordatorios médicos</h1>
+                            <p>No olvides tus medicamentos y citas importantes.</p>
+
+                        </div>
+
+                        <!--------Boton para entrar a los recordatorios------>
+                        <div class="boton">
+                            <a href="/avisos">Entrar</a>
+
+                        </div>
+                
+
+                </div>
+
+            </div>
+
+        
+        
+            <!-------Barra inferior de la pagina------------>
+            <div class="barraInferior">
+                <!------inicio---->
+                <div class="inicio">
+                    <a href="/inicio">
+                        <img src="{{ url_for('static', filename='img/icono_casita_nitido.png') }}" alt="">
+                        <p>Inicio</p>
+                    </a>
+                </div>
+
+                <!------Actividades---->
+                <div class="actividades">
+                    <a href="/actividades">
+                        <img src="{{ url_for('static', filename='img/icono_cerebro.png') }}" alt="">
+                        <p>Actividades</p>
+                    </a>
+
+                </div>
+                <!------Avisos---->
+                <div class="avisos">
+                    <a href="/avisos">
+                        <img src="{{ url_for('static', filename='img/icono_campanaa.png') }}" alt="">
+                        <p>Avisos</p>
+                    </a>
+                </div>
+                <!------perfil---->
+                <div class="perfilMenu">
+                    <a href="/perfil">
+                        <img src="{{ url_for('static', filename='img/icono_perfil.png') }}" alt="">
+                        <p>Perfil</p>
+                    </a>
+                    
+
+                </div>
+
+
+
+            </div>     
+
+
+
+
+
+
+        </div>
+
+    
+    
+</body>
+</html>

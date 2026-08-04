@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/avisos.css') }}">
+</head>
+<body>
+
+    <!----contenedor de mi sistema-->
+    <div class="contenedor">
+
+        <!-----titulo, descripcion y boton de agregar----->
+        <div class="encabezadoAvisos">
+            <div class="titulo">
+                <h1>Avisos</h1>
+            </div>
+
+            <div class="descripcion">
+                <p>Recordatorios de hoy.</p>
+            </div>
+
+            <div class="botonAgregar" id="botonAgregar">
+                <p>+</p>
+            </div>
+        </div>
+
+        <!-----lista de recordatorios----->
+        <!-----las tarjetaAviso las crea el JS, una por cada recordatorio----->
+        <div class="listaAvisos" id="listaAvisos"></div>
+
+        <!-----mensaje cuando no hay avisos----->
+        <p class="sinAvisos" id="sinAvisos">Aún no tienes recordatorios. Toca "+" para agregar uno.</p>
+
+        <!-------Barra inferior de la pagina------------>
+        <div class="barraInferior">
+            <!------inicio---->
+            <div class="inicio">
+                <a href="/inicio">
+                    <img src="{{ url_for('static', filename='img/icono_casita_nitido.png') }}" alt="">
+                    <p>Inicio</p>
+                </a>
+            </div>
+
+            <!------Actividades---->
+            <div class="actividades">
+                <a href="/actividades">
+                    <img src="{{ url_for('static', filename='img/icono_cerebro.png') }}" alt="">
+                    <p>Actividades</p>
+                </a>
+            </div>
+
+            <!------Avisos---->
+            <div class="avisos">
+                <a href="/avisos">
+                    <img src="{{ url_for('static', filename='img/icono_campanaa.png') }}" alt="">
+                    <p>Avisos</p>
+                </a>
+            </div>
+
+            <!------perfil---->
+            <div class="perfilMenu">
+                <a href="/perfil">
+                    <img src="{{ url_for('static', filename='img/icono_perfil.png') }}" alt="">
+                    <p>Perfil</p>
+                </a>
+            </div>
+        </div>
+
+        <!-------Modal para agregar un aviso nuevo------------>
+        <div class="modalAviso" id="modalAviso">
+            <div class="cajaModal">
+                <h2>Nuevo recordatorio</h2>
+
+                <label for="inputTitulo">Título</label>
+                <input type="text" id="inputTitulo" placeholder="Ej. Tomar medicamento">
+
+                <label for="inputHora">Hora</label>
+                <input type="time" id="inputHora">
+
+                <div class="botonesModal">
+                    <button id="btnCancelarAviso" class="botonSecundario">Cancelar</button>
+                    <button id="btnGuardarAviso" class="botonPrimario">Guardar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const avisosIniciales = {{ avisos | tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/avisos.js') }}"></script>
+</body>
+</html>
+ 

@@ -1,0 +1,119 @@
+
+/*_________________________________FUente poppins____________________________________________*/
+@font-face{/*"Voy a registrar una fuente nueva."*/
+    font-family: "Poppins";/*Aquí tú le estás poniendo un nombre.*/
+    src: url("Poppins/Poppins-Regular.ttf");/*"La fuente está en esa carpeta."*/
+    
+}
+@font-face{
+    font-family: "Poppins";
+    src: url("Poppins/Poppins-Bold.ttf");
+    font-weight: 700;
+}
+body{
+    
+    margin: 0;
+    background: #eee7ff;
+    font-family: "Poppins";
+    }
+/*_________________________________Contenedor de todas los elementos de la interfaz____________________________________________*/
+/*contenedor  morado de toda la pagina*/
+
+/*_______________________________________________________________________________*/
+
+
+/*esto es la imagen el logo artura y anchura*/
+.logocerebro img{
+    
+    width: 45px;
+    height: 0 auto;
+
+/*esto es el texto de logocrebro quede centrado centrado por medio de justify-content*/ 
+/*mientras que display flex acomoda a los hijos dentro del contenedor los centra*/ 
+}
+.logocerebro{
+    display: flex;
+    justify-content: center;
+    align-items: center;/* que el logo no quede mas arriba*/
+}
+
+/*esto es texo de h2 que dice spam*/ 
+h1 span{
+color: blueviolet;
+}
+.logocerebro h2{
+    font-size: 40px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/*__________________________mascota de la pagina_____________________________________________________*/
+
+.cerebromascota{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.cerebromascota img{
+    width: 200px;
+    height:0 auto;
+}
+
+
+/*_______________________________Presentacion de la pagina y informacion_____________________________________________*/
+
+/*esto hace que el texto de presentacio h1 y p queden centradoscentrado*/
+
+.presentacion {
+text-align: center;
+font-weight: bold;
+font-size: 29px;
+}
+
+/*esto es texo de h1 que dice span quede morado*/ 
+.logocerebro span{
+    color: blueviolet;
+}
+
+/*________________________tarjetas de informacion_______________________________________________________*/
+
+
+.tarjetas {
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.tarjetas img{
+    width: 400px;
+    height: 0 auto;
+}
+
+/*________________________Boton de inciar_______________________________________________________*/
+.boton a{
+    background-color: blueviolet;
+    border-radius: 13px;
+    width: 360px;
+    height: 50px;
+    text-align: center;
+}
+.boton {
+    display: flex;/*acomoda  mis hijos alado  mio*/
+
+   justify-content: center;/*hace que el texto o contenido quede centrado enmedio*/
+
+    align-items: center;/*alinea los hijos en el centro en sentido vertical*/
+
+      
+
+}
+
+
+.boton a{/*letra*/
+    color:white;
+    font-size: 32px;
+    font-weight: bold;
+    text-decoration: none;/*quita el subrayado de los enlaces*/
+
+}

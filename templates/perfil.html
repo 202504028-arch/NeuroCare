@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroCare</title>
+   
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
+</head>
+<body>
+
+        <!----contenedor de mi sistema-->
+        <div class="contenedor">
+            <!------mi progreso-->
+            <div class="encabezadoPerfil">
+                <div class="titulo">
+                    <h1>Mi progreso</h1>
+
+                </div>
+
+            </div>
+            <!------Tarjeta con informacion del paciente------->
+            <div class="tarjetaPacinte">
+                <div class="franjaMorada">
+                    <div class="info">
+                        <div class="icono">
+                            <img src="{{ url_for('static', filename='img/usuario.png') }}" alt="">
+
+                        </div>
+
+                        <!----paciente neurocare---->
+                        <div class="etiqueta">
+                            <p>Paciente NeuroCare</p>
+
+                        </div>
+                    
+                        <!-------nombre del paciente-->
+                        <div class="nombre">
+                            <h1>{{ nombreCompleto }}</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <!-------informacion del paciente-------->
+                <div class="datosPaciente">
+                    <!-------edad-------->
+
+                        <div class="edad">
+                            <p>EDAD</p>
+                            <p>{{ edad }}</p>
+
+                        </div>
+                    <!-------tipo de sangre-------->
+
+                        <div class="tipoSangre">
+                            <P>TIPO DE SANGRE</P>
+                            <p>{{ tipoSangre }}</p>
+
+                        </div>
+
+                        <div class="sexo">
+                            <P>SEXO</P>
+                            <p>{{ sexo }}</p>
+
+                        </div>
+
+                        <div class="peso">
+                            <P>PESO</P>
+                            <p>{{ peso }}</p>
+                        </div>
+
+                        <div class="altura">
+                            <P>ALTURA</P>
+                            <p>{{ altura }}</p>
+                        </div>
+                    <!------celular------->
+                        <div class="celular">
+                            <p>CELULAR</p>
+                            <p>{{ telefono }}</p>
+
+                        </div>
+
+                    <!------alargias--------->
+                    <div class="alargias">
+                        <P>ALERGIAS</P>
+                        <p>{{ alergias }}</p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <!-------REsumen semanal-------->
+
+            <div class="resumenSemanal">
+
+                <!-------REsumen semanal-------->
+                <div class="titulo">
+                    <h1>Resumen semanal</h1>
+
+                </div>
+
+                <!-----cuadro de las actividades---------->
+                <div class="tarjetaEjerciciosRealizados">
+                    <div class="icono">
+                        <img src="{{ url_for('static', filename='img/icono_cerebro_actividad.png') }}" alt="">
+
+                    </div>
+
+                    <!-----numero de actividades---------->
+                    <div class="numero">
+                        <p>{{ ejerciciosSemana }}</p>
+
+                    </div>
+
+                    <!-----etiqueta---------->
+                    <div class="etiqueta">
+                        <p>Ejercicios realizados</p>
+                        
+
+                    </div>
+
+
+
+                </div>
+            
+                
+
+            </div>
+
+            <!-------Boton de cerrar sesion-------->
+            <div class="botonCerrarSesion">
+                <a href="/login">Cerrar sesion</a>
+
+            </div>
+
+
+            
+
+
+            
+
+            <!-------Barra inferior de la pagina------------>
+            <div class="barraInferior">
+                <!------inicio---->
+                <div class="inicio">
+                    <a href="/inicio">
+                        <img src="{{ url_for('static', filename='img/icono_casita_nitido.png') }}" alt="">
+                        <p>Inicio</p>
+                    </a>
+                </div>
+
+                <!------Actividades---->
+                <div class="actividades">
+                    <a href="/actividades">
+                        <img src="{{ url_for('static', filename='img/icono_cerebro.png') }}" alt="">
+                        <p>Actividades</p>
+                    </a>
+
+                </div>
+                <!------Avisos---->
+                <div class="avisos">
+                    <a href="/avisos">
+                        <img src="{{ url_for('static', filename='img/icono_campanaa.png') }}" alt="">
+                        <p>Avisos</p>
+                    </a>
+                </div>
+                <!------perfil---->
+                <div class="perfilMenu">
+                    <a href="/perfil">
+                        <img src="{{ url_for('static', filename='img/icono_perfil.png') }}" alt="">
+                        <p>Perfil</p>
+                    </a>
+                    
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    
+    
+</body>
+</html>

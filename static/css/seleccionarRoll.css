@@ -1,0 +1,139 @@
+/*_________________________________FUente poppins____________________________________________*/
+@font-face{/*"Voy a registrar una fuente nueva."*/
+    font-family: "Poppins";/*Aquí tú le estás poniendo un nombre.*/
+    src: url("Poppins/Poppins-Regular.ttf");/*"La fuente está en esa carpeta."*/
+    
+}
+@font-face{
+    font-family: "Poppins";
+    src: url("Poppins/Poppins-Bold.ttf");
+    font-weight: 700;
+}
+
+body{
+    
+    margin: 0;
+    background: #eee7ff;
+    font-family: "Poppins";
+    }
+
+
+
+/*_________________________________boton de salir de iniciar sesion ____________________________________________*/
+
+
+.salir a{
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+    color:blueviolet;
+    margin: 20px;
+}
+/*________________________________Prensentacion de texto ____________________________________________*/
+.presentacion{
+    text-align: center;
+    margin: 2px;
+    
+}
+
+
+/*________________________________Tarjetas de seleccion de roll____________________________________________*/
+.tarjetas{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+
+}
+/*______________________tarjeta morada_____*/
+.tarjetamorada{
+    background-color: rgb(206, 184, 224);
+    width: 370px;
+    height: 250px;
+    border-radius: 10px;
+    margin: 10px;
+
+}
+.contenido{
+    display: flex;
+}
+.texto{
+    flex: 1;
+}
+.texto span{
+    color: blueviolet;
+}
+.texto p{
+    margin: 21px;
+}
+
+.imagen img{
+    display: flex;
+    justify-content: center;
+
+    width: 100px;
+    margin:0 auto;
+}
+
+.boton a{
+    
+    background-color: white;
+    border-radius: 10px;
+    display: inline-flex;/*por si no se le puede ponerle ni ancho ni alto a el texto se usa esto*/
+    width: 100px;
+    height: 50px;
+    
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: blueviolet;
+}
+/*_________________________tarjeta verde_______________*/
+.tarjetaverde{
+    background-color: rgb(160, 215, 160);
+    width: 370px;
+    height: 280px;
+    border-radius: 10px;
+
+}
+.contenidoo{
+    display: flex;
+}
+.textoo{
+    flex: 1;
+}
+.textoo span{
+    color: rgb(33, 144, 48);
+}
+
+
+.imagenn img{
+    display: flex;
+    justify-content: center;
+
+    width: 100px;
+    margin:0 auto;
+}
+
+.botonn a{
+    
+    background-color: white;
+    border-radius: 10px;
+    display: inline-flex;/*por si no se le puede ponerle ni ancho ni alto a el texto se usa esto*/
+    width: 100px;
+    height: 50px;
+    
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(89, 167, 11);
+}

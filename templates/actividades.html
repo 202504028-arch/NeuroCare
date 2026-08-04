@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/actividades.css') }}">
+</head>
+<body>
+
+        <!----contenedor de mi sistema-->
+        <div class="contenedor">
+
+            <!-----titulo y descripcion----->
+            <div class="encabezadoActividades">
+                <!--titulo-->
+                <div class="titulo">
+                    <h1>Actividades</h1>
+
+                </div>
+                <!-----descripcion-->
+                <div class="descripcion">
+                    <p>Elige una actividad para seguir avanzando</p>
+
+                </div>
+
+            </div>
+            <!-----------Elige una actividad para seguir avanzando--->
+            <!----------tarjeta de memorama---------->
+            <div class="tarjetaActividad">
+
+                    <div class="icono">
+                        <img src="{{ url_for('static', filename='img/icono_cerebro_moradotarjeta.png') }}" alt="">
+
+                    </div>
+
+                    <div class="informacion">
+                        <div class="categoria">
+                            <p>Cognitiva</p>
+
+                        </div>
+
+                        <div class="nombre">
+                            <h1>Memorama</h1>
+
+                        </div>
+
+                        <div class="descripcion">
+                            <p>Encuentra las parejas iguales</p>
+                        </div>
+
+                        <div class="progreso">
+                            <div class="texto">
+                                <p>Jugado</p>
+                                <p>{{ vecesMemorama }} veces</p>
+
+                            </div>
+
+                            <div class="barraProgreso">
+                                <div class="relleno">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    
+                    </div>
+                    <div class="flecha">
+                        <a href="/memorama">Entra➜</a>
+                    </div>
+
+            </div>
+
+            <!-----------tarjeta de rompecabezas------------->
+            <div class="tarjetaActividad">
+
+            
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/icono_rompecabezas.png') }}" alt="">
+
+                </div>
+
+                <div class="informacion">
+                    <div class="categoria">
+                        <p>Cognitiva</p>
+
+                    </div>
+
+                    <div class="nombre">
+                        <h1>Rompecabezas</h1>
+
+                    </div>
+
+                    <div class="descripcion">
+                        <p>Arma la imagen</p>
+                    </div>
+
+                    <div class="progreso">
+                        <div class="texto">
+                            <p>Jugado</p>
+                            <p>{{ vecesRompecabezas }} veces</p>
+
+                        </div>
+
+                        <div class="barraProgreso">
+                            <div class="relleno">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                  
+                </div>
+                <div class="flecha">
+                    <a href="/rompecabezas">Entra➜</a>
+
+                </div>
+
+            </div>
+
+            <!-------Barra inferior de la pagina------------>
+            <div class="barraInferior">
+                <!------inicio---->
+                <div class="inicio">
+                    <a href="/inicio">
+                        <img src="{{ url_for('static', filename='img/icono_casita_nitido.png') }}" alt="">
+                        <p>Inicio</p>
+                    </a>
+                </div>
+
+                <!------Actividades---->
+                <div class="actividades">
+                    <a href="/actividades">
+                        <img src="{{ url_for('static', filename='img/icono_cerebro.png') }}" alt="">
+                        <p>Actividades</p>
+                    </a>
+
+                </div>
+                <!------Avisos---->
+                <div class="avisos">
+                    <a href="/avisos">
+                        <img src="{{ url_for('static', filename='img/icono_campanaa.png') }}" alt="">
+                        <p>Avisos</p>
+                    </a>
+                </div>
+                <!------perfil---->
+                <div class="perfilMenu">
+                    <a href="/perfil">
+                        <img src="{{ url_for('static', filename='img/icono_perfil.png') }}" alt="">
+                        <p>Perfil</p>
+                    </a>
+                    
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    
+    
+</body>
+</html>

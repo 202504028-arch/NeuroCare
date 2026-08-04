@@ -1,0 +1,133 @@
+/*_________________________________FUente poppins____________________________________________*/
+@font-face{
+    font-family: "Poppins";
+    src: url("Poppins/Poppins-Regular.ttf");
+}
+@font-face{
+    font-family: "Poppins";
+    src: url("Poppins/Poppins-Bold.ttf");
+    font-weight: 700;
+}
+
+body{
+    
+    margin: 0;
+    background: #eee7ff;
+    font-family: "Poppins";
+    }
+
+
+
+/*_________________________________boton de salir de iniciar sesion ____________________________________________*/
+
+
+.salir a{
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+    color:blueviolet;
+    margin: 20px;
+}
+/*_______________________________Nombre de la empresa______________________________________________*/
+.logocerebroo img{
+width:45px ;
+height: 0 auto;
+}
+
+.logocerebroo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.logocerebroo h2{
+    font-size: 40px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.logocerebroo span{
+    color: blueviolet;
+}
+/*_______________________________Presentacion de la empresa______________________________________________*/
+.texto{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+.texto h1{
+    margin: 0;
+}
+.texto span{
+    display: inline-flex;
+    background-color:blueviolet ;
+    color: white;
+    border-radius: 20px;
+}
+
+/*_______________________________Datos para crear cuenta______________________________________________*/
+form{
+    
+    display: flex;
+    flex-direction: column;
+
+    width: 400px;
+    margin: 0 auto;
+    
+    
+    
+    
+
+    
+}
+.fila{
+    
+    display: flex;
+
+    gap: 20px; ;
+    
+    
+}
+.campo{
+    display: flex;
+    flex-direction: column;
+
+    
+    font-weight: bold;
+
+}
+.campo input{
+    background-color: white;
+    border-radius: 10px;
+    height: 35px;
+    border:none;
+    margin: 5px 0 10px 0;
+    
+    
+}
+/*_______________________________BOTON PARA CREAR CUENTA_____________________________________________*/
+.boton{
+    display: flex;
+    justify-content: center;
+    
+    margin: 20px 0 50px 0;
+}
+
+.boton button{
+    
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+
+    background-color: blueviolet;
+    border-radius: 13px;
+
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    width: 300px;
+    height: 50px;
+}
+

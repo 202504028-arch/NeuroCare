@@ -1,0 +1,242 @@
+/*_________________________________Fuente Poppins (igual que el resto del proyecto)____________________________________________*/
+@font-face{
+    font-family: "Poppins";
+    src: url("Poppins/Poppins-Regular.ttf");
+}
+@font-face{
+    font-family: "Poppins";
+    src: url("Poppins/Poppins-Bold.ttf");
+    font-weight: 700;
+}
+
+body{
+    margin: 0;
+    background-color: #eee7ff;
+    font-family: "Poppins";
+}
+
+/*_________________________________Contenedor general____________________________________________*/
+.contenedor{
+    
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 90px;
+    max-width: 480px;      /* nuevo */
+    margin: 0 auto;        /* nuevo */
+
+}
+/*_________________________________Encabezado Avisos____________________________________________*/
+.encabezadoAvisos{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 20px 10px 20px;
+}
+.encabezadoAvisos .titulo h1{
+    margin: 0;
+    font-size: 28px;
+}
+.encabezadoAvisos .descripcion p{
+    margin: 6px 0 0 0;
+    color: gray;
+    font-size: 15px;
+}
+.botonAgregar{
+    width: 44px;
+    height: 44px;
+    background-color: #7b5ce5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+.botonAgregar p{
+    margin: 0;
+    color: white;
+    font-size: 24px;
+    line-height: 1;
+}
+
+/*_________________________________Lista de avisos____________________________________________*/
+.listaAvisos{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px 20px;
+}
+
+/*_________________________________Tarjeta de un aviso____________________________________________*/
+.tarjetaAviso{
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 14px 16px;
+}
+
+.tarjetaAviso .icono{
+    width: 42px;
+    height: 42px;
+    background-color: #e3ddfd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 14px;
+    flex-shrink: 0;
+}
+.tarjetaAviso .icono img{
+    width: 20px;
+    height: 20px;
+}
+
+.tarjetaAviso .informacion{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.informacion .titulo h2{
+    margin: 0;
+    font-size: 15px;
+}
+.informacion .horaTipo p{
+    margin: 3px 0 0 0;
+    font-size: 12px;
+    color: gray;
+}
+
+.tarjetaAviso .botonCompletado{
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid #d9d9d9;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+/*_________________________________Mensaje cuando no hay avisos____________________________________________*/
+.sinAvisos{
+    display: none;
+    text-align: center;
+    color: gray;
+    font-size: 14px;
+    margin-top: 30px;
+    padding: 0 30px;
+}
+.sinAvisos.activo{
+    display: block;
+}
+
+/*_________________________________Estado completado (se agrega por JS)____________________________________________*/
+.tarjetaAviso.completado{
+    opacity: 0.6;
+}
+.tarjetaAviso.completado .titulo h2{
+    text-decoration: line-through;
+}
+.tarjetaAviso .botonCompletado.marcado{
+    background-color: #2ecc71;
+    border-color: #2ecc71;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+}
+
+/*_________________________________Modal para agregar aviso____________________________________________*/
+.modalAviso{
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    padding: 20px;
+}
+.modalAviso.activo{
+    display: flex;
+}
+
+.cajaModal{
+    background-color: white;
+    border-radius: 18px;
+    padding: 24px;
+    width: 100%;
+    max-width: 340px;
+}
+.cajaModal h2{
+    margin: 0 0 16px 0;
+    font-size: 18px;
+}
+.cajaModal label{
+    display: block;
+    font-size: 12px;
+    color: gray;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+.cajaModal input{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-family: "Poppins";
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.botonesModal{
+    display: flex;
+    gap: 10px;
+}
+.botonesModal button{
+    flex: 1;
+    padding: 12px 0;
+    border-radius: 10px;
+    border: none;
+    font-family: "Poppins";
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+}
+.botonPrimario{
+    background-color: #7b5ce5;
+    color: white;
+}
+.botonSecundario{
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+/*_________________________________Barra inferior____________________________________________*/
+.barraInferior{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
+}
+.barraInferior a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: gray;
+}
+.barraInferior img{
+    width: 22px;
+    height: 22px;
+}
+.barraInferior p{
+    margin: 3px 0 0 0;
+    font-size: 11px;
+}
