@@ -1,0 +1,142 @@
+/*_________________________________FUente poppins____________________________________________*/
+@font-face{/*"Voy a registrar una fuente nueva."*/
+    font-family: "Poppins";/*Aquí tú le estás poniendo un nombre.*/
+    src: url("Poppins/Poppins-Regular.ttf");/*"La fuente está en esa carpeta."*/
+    
+}
+@font-face{
+    font-family: "Poppins";
+    src: url("Poppins/Poppins-Bold.ttf");
+    font-weight: 700;
+}
+body{
+    
+    margin: 0;
+    background: #eee7ff;
+    font-family: "Poppins";
+    }
+
+
+
+/*_________________________________boton de salir de iniciar sesion ____________________________________________*/
+
+
+.salir a{
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+    color:blueviolet;
+    margin: 20px;
+}
+
+/*_______________________________Nombre de la empresa______________________________________________*/
+.logocerebroo img{
+width:45px ;
+height: 0 auto;
+}
+
+.logocerebroo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.logocerebroo h2{
+    font-size: 40px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.logocerebroo span{
+    color: blueviolet;
+}
+/*_______________________________presentacion______________________________________________*/
+.presentacion h1{
+    
+    text-align: center;
+    font-size: 27px;
+    font-weight: bold;
+    margin: 10px 0 0;
+
+}
+.presentacion p{
+    
+    text-align: center;
+    font-size: 19x;
+    margin: 8px 0 0;
+}
+/*___________________INgresion de datos del usuario__________________*/
+.datos  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.datos {
+    font-weight:700 ;
+}
+
+.datos input{
+    background-color: white;
+    border-radius: 13px;
+    border: blueviolet;
+    width: 360px;
+    height: 40px;
+
+
+}
+.datos label{
+    width: 350px;
+    text-align: left;
+}
+
+
+/*__________________BOTON PARA ENTRAR A LA ENCUENTA__________________*/
+.boton{
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+button{
+    background-color: blueviolet;
+    border-radius: 15px;
+}
+.boton button {
+    width: 360px;
+    height: 50 px;
+}
+.boton button{/*letra*/
+    color:white;
+    font-size: 32px;
+    font-weight: bold;
+    text-decoration: none;/*quita el subrayado de los enlaces*/
+
+}
+.boton{
+    margin-top: 30px;
+}
+
+/*__________________Crear cuenta__________________*/
+.cuenta{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.cuenta a{
+    width: 360px;
+    height: 50px;
+
+    background-color: white;
+    border: 2px solid blueviolet;
+    border-radius: 13px;
+
+    font-size: 22px;
+    font-weight: bold;
+    color: blueviolet;
+    text-decoration: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;;
+}

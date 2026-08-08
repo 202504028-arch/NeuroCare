@@ -1,0 +1,54 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Sistema_bienvenidad.css') }}">
+</head>
+
+    <body>
+        <div class="contenedor">
+            <div class="logocerebro">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo de neuroCare">
+                <h2>Neuro<span>Care</span></h2>
+            </div>
+            
+            <div class="presentacion">
+                <h1> Bienvenido a <br><span>NeuroCare</span></h1>
+                <p>Tu guía para el cuidado cognitivo y el bienestar</p>
+
+            </div>
+            <div class="cerebromascota">
+                <img src="{{ url_for('static', filename='img/cerebrooo.png') }}" alt="">
+            </div>
+        
+            <div class="tarjetas">  
+                <div class="tarjetasmorada">
+                    <img src="{{ url_for('static', filename='img/download.png') }}" alt="">
+                </div>
+
+                <div class="tarjetasverde">
+                    <img src="{{ url_for('static', filename='img/siempre.png') }}" alt="">    
+                </div>
+
+                <div class="tarjetasnaranja">
+                    <img src="{{ url_for('static', filename='img/seguroFacil..png') }}" alt="">
+                    <h1></h1>
+            </div>
+            
+            <div class="boton">
+                <a href="/login">INICIAR</a>
+            </div>
+            <div>
+                <h1></h1>
+            </div>
+
+        </div>  
+    </body>
+
+        
+        
+
+
+</html>

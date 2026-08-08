@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/seleccionarRoll.css') }}">
+</head>
+<body>
+        <div class="roll">
+
+                <!----boton de salir-->
+                <div class="salir">
+                    <a href="{{ url_for('login') }}">SALIR</a>
+                </div>
+
+                <!---------prensetacion de que debes de hacer----------->
+                <div class="presentacion">
+                    <h1>Selecciona tu roll</h1>
+                    <p>Elige como vas a usar NeuroCare</p>
+                    
+                </div>
+
+                <!---------tarjetas para seleccionar tu roll-->
+                <div class="tarjetas">
+                    <div class="tarjetamorada">
+
+                        <div class="contenido">
+                            <div class="texto">
+                                <h1>Soy <span> paciente</span></h1>
+                                <p>Quiero cuidar mi mente y mi <br>bienestar</p>
+
+                            </div>
+
+                            <div class="imagen">
+                                <img src="{{ url_for('static', filename='img/soloo.png') }}" alt="">
+
+                            </div>
+
+                        </div>
+
+                        <div class="boton">
+                            <a href="/registroPaciente">Elegir➜</a>
+
+                        </div>
+
+                
+
+                    </div>
+
+                    <div class="tarjetaverde">
+
+                        <div class="contenidoo">
+                            <div class="textoo">
+                                <h1>Soy <span> Familar/Cuidador</span></h1>
+                                <p>Quiero ayudar y apoyar a mi ser<br> querido</p>
+
+                            </div>
+
+                            <div class="imagenn">
+                                <img src="{{ url_for('static', filename='img/junto.png') }}" alt="">
+
+                            </div>
+
+                        </div>
+
+                        <div class="botonn">
+                            <a href="/registroFamiliar">Elegir➜</a>
+
+                        </div>
+
+                
+
+                    </div>
+
+
+
+
+                </div>
+
+
+        </div>
+    
+</body>
+</html>

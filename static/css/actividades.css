@@ -1,0 +1,169 @@
+/*_________________________________Fuente Poppins (igual que el resto del proyecto)____________________________________________*/
+@font-face{
+    font-family: "Poppins";
+    src: url("Poppins/Poppins-Regular.ttf");
+}
+@font-face{
+    font-family: "Poppins";
+    src: url("Poppins/Poppins-Bold.ttf");
+    font-weight: 700;
+}
+
+body{
+    margin: 0;
+    background-color: #eee7ff;
+    font-family: "Poppins";
+}
+
+/*_________________________________Contenedor general____________________________________________*/
+.contenedor{
+    
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 90px;
+    max-width: 480px;      /* nuevo */
+    margin: 0 auto;        /* nuevo */
+
+}
+/*_________________________________Encabezado Actividades____________________________________________*/
+.encabezadoActividades{
+    padding: 24px 20px 10px 20px;
+}
+.encabezadoActividades .titulo h1{
+    margin: 0;
+    font-size: 28px;
+}
+.encabezadoActividades .descripcion p{
+    margin: 6px 0 0 0;
+    color: gray;
+    font-size: 15px;
+}
+
+/*_________________________________Tarjeta de actividad____________________________________________*/
+.tarjetaActividad{
+    display: flex;
+    align-items: flex-start;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin: 10px 20px;
+    padding: 20px;
+}
+
+.tarjetaActividad .icono{
+    width: 55px;
+    height: 55px;
+    background-color: #e3ddfd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+.tarjetaActividad .icono img{
+    display: flex;
+    width: 50px;
+    margin: auto 0;
+}
+
+.tarjetaActividad .informacion{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.informacion .categoria p{
+    display: inline-block;
+    background-color: #e3ddfd;
+    color: #7b4fe0;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin: 0 0 6px 0;
+}
+
+.informacion .nombre h1{
+    font-size: 19px;
+    margin: 0 0 4px 0;
+}
+
+.informacion .descripcion p{
+    font-size: 13px;
+    color: gray;
+    margin: 0 0 14px 0;
+}
+
+.informacion .progreso{
+    display: flex;
+    flex-direction: column;
+}
+
+.progreso .texto{
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+.progreso .texto p{
+    margin: 0;
+    color: gray;
+}
+
+.progreso .barraProgreso{
+    width: 100%;
+    height: 6px;
+    background-color: #e3ddfd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.progreso .barraProgreso .relleno{
+    height: 100%;
+    width: 0%;
+    background-color: #7b4fe0;
+    border-radius: 10px;
+}
+
+.tarjetaActividad .flecha{
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+.tarjetaActividad .flecha a{
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+
+/*_________________________________Barra inferior____________________________________________*/
+.barraInferior{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
+}
+.barraInferior a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: gray;
+}
+.barraInferior img{
+    width: 22px;
+    height: 22px;
+}
+.barraInferior p{
+    margin: 3px 0 0 0;
+    font-size: 11px;
+}

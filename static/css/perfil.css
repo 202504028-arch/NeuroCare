@@ -1,0 +1,192 @@
+/*_________________________________Fuente Poppins (igual que el resto del proyecto)____________________________________________*/
+@font-face{
+    font-family: "Poppins";
+    src: url("Poppins/Poppins-Regular.ttf");
+}
+@font-face{
+    font-family: "Poppins";
+    src: url("Poppins/Poppins-Bold.ttf");
+    font-weight: 700;
+}
+
+body{
+    margin: 0;
+    background-color: #eee7ff;
+    font-family: "Poppins";
+}
+
+/*_________________________________Contenedor general____________________________________________*/
+.contenedor{
+    
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 90px;
+    max-width: 480px;      /* nuevo */
+    margin: 0 auto;        /* nuevo */
+
+}
+/*_________________________________Encabezado Perfil____________________________________________*/
+.encabezadoPerfil{
+    padding: 24px 20px 10px 20px;
+}
+.encabezadoPerfil .titulo h1{
+    margin: 0;
+    font-size: 26px;
+}
+
+/*_________________________________Tarjeta del paciente____________________________________________*/
+.tarjetaPacinte{
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin: 10px 20px;
+    overflow: hidden;
+}
+
+.franjaMorada{
+    display: flex;
+    align-items: center;
+    background-color: #7b5ce5;
+    padding: 16px;
+}
+
+.franjaMorada .icono{
+    width: 42px;
+    height: 42px;
+    
+    border-radius: 60%;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+.franjaMorada img{
+    width: 40px;
+    margin: auto 0;
+}
+.franjaMorada .info{
+    display: flex;
+    flex-direction: column;
+}
+.franjaMorada .etiqueta p{
+    margin: 0;
+    color: #e3ddfd;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.franjaMorada .nombre h1{
+    margin: 2px 0 0 0;
+    color: white;
+    font-size: 19px;
+}
+
+.datosPaciente{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 16px;
+}
+.datosPaciente > div{
+    width: 50%;
+    margin-bottom: 14px;
+}
+.datosPaciente p:first-child{
+    margin: 0;
+    font-size: 11px;
+    color: gray;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.datosPaciente p:last-child{
+    margin: 3px 0 0 0;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/*_________________________________Resumen semanal____________________________________________*/
+.resumenSemanal{
+    margin: 20px 20px 10px 20px;
+}
+.resumenSemanal > .titulo h1{
+    margin: 0 0 10px 0;
+    font-size: 20px;
+}
+
+.tarjetaEjerciciosRealizados{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 18px;
+    max-width: 220px;
+}
+.tarjetaEjerciciosRealizados .icono{
+    width: 48px;
+    height: 48px;
+    background-color: #e3ddfd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.tarjetaEjerciciosRealizados .icono img{
+    width: 50px;
+    margin: auto 0;
+}
+.tarjetaEjerciciosRealizados .numero p{
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+}
+.tarjetaEjerciciosRealizados .etiqueta p{
+    margin: 4px 0 0 0;
+    font-size: 13px;
+    color: black;
+    text-align: center;
+}
+
+/*_________________________________Boton cerrar sesion____________________________________________*/
+.botonCerrarSesion{
+    margin: 20px;
+}
+.botonCerrarSesion a{
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #e34848;
+    background-color: white;
+    border: 1px solid #f3c6c6;
+    border-radius: 12px;
+    padding: 14px 0;
+    font-weight: 700;
+}
+
+
+/*_________________________________Barra inferior____________________________________________*/
+.barraInferior{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.08);
+}
+.barraInferior a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: gray;
+}
+.barraInferior img{
+    width: 22px;
+    height: 22px;
+}
+.barraInferior p{
+    margin: 3px 0 0 0;
+    font-size: 11px;
+}

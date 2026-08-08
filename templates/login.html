@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    
+        <!----contenedor de mi sistema-->
+        <div class="contenedor">
+
+                <!----boton de salir-->
+                <div class="salir">
+                    <a href="/">SALIR</a>
+                </div>
+
+                    
+                <!---------NOMBRE DE LA EMPRESA------->
+                <div class="logocerebroo">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo de neuroCare">
+                    <h2>Neuro<span>Care</span></h2>
+                </div>
+
+                <!------ La presentacion de login----------->
+                <div class="presentacion">
+                    <h1>INICIAR SESIÓN</h1>
+                    <p>Nos alegra verte de nuevo</p>
+
+                </div>
+
+                <div>
+                    <p></p>
+                </div>
+
+            <form action="/login" method="post">
+                <!------DATOS PARA INICIAR SECION---->
+                <div class="datos">
+                        <label for="telefono">Numero de telefono</label>
+                        <input type="tel" name="telefono" id="telefono" placeholder="Ejemplo 7202555256" required>
+                        <label for="contrasena">Contraseña</label>
+                        <input type="password" name="contrasena" id="contrasena" placeholder="Ingresa tu contraseña" required>
+                </div>
+
+
+
+                <!--------boton para entrar a la pagina----->
+                <div class="boton">
+                    <button type="submit">Entrar</button>
+                </div>
+
+                <!------para crear una cuenta--->
+                <div class="cuenta">
+                    <P>¿No tienes cuenta todavia?</P>
+                    <a href="/seleccionRoll">Crear una cuenta</a>
+
+                </div>
+            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+    
+    
+</body>
+</html>

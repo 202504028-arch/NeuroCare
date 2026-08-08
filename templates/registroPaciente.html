@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/registroPaciente.css') }}">
+</head>
+<body>
+
+        <!----contenedor de mi sistema-->
+        <div class="contenedor">
+
+                <!----boton de salir-->
+                <div class="salir">
+                    <a href="{{ url_for('seleccion_roll') }}">SALIR</a>
+                </div>
+                 <!---------NOMBRE DE LA EMPRESA------->
+                <div class="logocerebroo">
+                     <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo de neuroCare">
+                    <h2>Neuro<span>Care</span></h2>
+                </div>
+                <!---------Texto de la empresa------->
+                <div class="texto">
+                    <h1>Crear cuenta<br><span> PACIENTE</span></h1>
+                    <p>Completa tus datos para comenzar</p>
+                </div>
+
+
+
+                <!---------Datos para crear tu cuenta------->
+                <div class="datos">
+                    
+                    <form action="/registroPaciente" method="POST">
+
+                        <!---------compo nombre------->
+                        <div class="campo">
+                            <label for="nombre">Nombre completo:</label>
+                            <input type="text" name="nombreCompleto" id="nombre" placeholder="Ingresa tu nombre completo">
+                        </div>
+
+                        <!---------campo edad y fecha------->
+                        <div class="fila">
+
+                            <div class="campo">
+                                <label for="fecha">fecha de nacimiento</label>
+                                <input type="date" name="fechaNacimiento" id="fecha" >
+                            </div>
+                        </div>
+
+                        <!--------campo numero de telefono------>
+                        <div class="campo">
+                            <label for="telefono">Ingresa tu numero de telefono</label>
+                            <input type="tel" name="telefono" id="telefono" placeholder="Ejemplo. 7202555256" >
+                        </div>
+
+                        <!--------campo de correo electronico------>
+                        <div class="campo">
+                            <label for="correo">Ingresa tu correo electronico</label>
+                            <input type="email" name="correo" id="correo" placeholder="Ej. jgz8611@gmail.com">
+                        </div>
+
+                        <!--------Informacion medica------>
+                        <div class="informacion">
+                            <!-------sexo--------->
+                            <div class="fila">
+                                <div class="campo">
+                                    <label for="sexo">Sexo</label>
+                                    <select name="sexo" id="sexo">
+                                        <option value="">Selecciona tu sexo</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="femenino">Femenino</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="fila">
+                                <div class="campo">
+                                    <label for="peso">Ingresa tu peso</label>
+                                    <input type="number" name="peso" id="peso" placeholder="Ej. 70 kg">
+                                </div>
+
+                                <div class="campo">
+                                    <label for="altura">Ingresa tu altura</label>
+                                    <input type="number" name="altura" id="altura" placeholder="Ej. 1.75 m" step="0.01">
+                                </div>
+                            </div>
+
+                            <div class="fila">
+                                <div class="campo">
+                                    <label for="tipoSangre">Ingresa tu tipo de sangre</label>
+                                    <select name="tipoSangre" id="tipoSangre">
+                                        <option value="">Selecciona tu tipo de sangre</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="fila">
+                                <div class="campo">
+                                    <label for="alergias">¿Tienes algun tipo de alergia?</label>
+                                    <input type="text" name="alergias" id="alergias" placeholder="Ninguna/penicilina/etc">
+                                </div>
+                            </div>
+                            <div class="fila">
+                                <div class="campo">
+                                    <label for="enfermedadCronica">¿Tienes alguna enfermedad crónica?</label>
+                                    <input type="text" name="enfermedadCronica" id="enfermedadCronica" placeholder="Ninguna/diabetes/etc">
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <!--------COntraseña------>
+                        <div class="fila">
+                            <div class="campo">
+                                <label for="contrasena">Ingresa su contraseña</label>
+                                <input type="password" name="contrasena" id="contrasena" placeholder="Min.6">
+
+                            </div>
+                            
+                            <div class="campo">
+                                <label for="confirmar_contrasena">Confirmar</label>
+                                <input type="password" name="confirmar_contrasena" id="confirmar_contrasena" placeholder="Repite ">
+
+                            </div>
+                            
+
+                        </div>
+                        
+                        <!--------boton de crear cuenta------>
+                        <div class="boton">
+                            <button type="submit">Crear cuenta</button>
+
+                        </div>
+
+                    </form>
+                        
+
+
+
+
+                </div>
+
+
+
+        </div>
+
+    
+    
+</body>
+</html>

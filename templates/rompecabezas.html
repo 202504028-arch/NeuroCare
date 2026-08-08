@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rompecabezas - NeuroCare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/INICIO_PACIENTE.CSS') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rompecabezas.css') }}">
+</head>
+<body>
+
+    <div class="contenedorJuego">
+
+        <!-- Barra superior del juego -->
+        <div class="barraJuego">
+            <a href="/actividades" class="botonRedondo">
+                <span>&#8592;</span>
+            </a>
+
+            <div class="tituloJuego">
+                <p class="categoria">COGNITIVA</p>
+                <h1>Rompecabezas</h1>
+            </div>
+
+            <div class="botonRedondo" id="btnReiniciar">
+                <span>&#8635;</span>
+            </div>
+        </div>
+
+        <!-- Estadisticas -->
+        <div class="estadisticas">
+            <div class="tarjetaStat">
+                <p class="etiquetaStat">TIEMPO</p>
+                <p class="valorStat" id="tiempo">00:00</p>
+            </div>
+            <div class="tarjetaStat">
+                <p class="etiquetaStat">PIEZAS CORRECTAS</p>
+                <p class="valorStat" id="piezasCorrectas">0/9</p>
+            </div>
+        </div>
+
+        <!-- Selector de imagen -->
+        <div class="seleccionPaisaje" id="seleccionPaisaje">
+            <p class="tituloSeleccion">Elige una imagen para armar</p>
+            <div class="gridSeleccion">
+                <img src="{{ url_for('static', filename='img/paisaje1.jpg') }}" class="opcionPaisaje" data-src="{{ url_for('static', filename='img/paisaje1.jpg') }}">
+                <img src="{{ url_for('static', filename='img/paisaje2.jpg') }}" class="opcionPaisaje" data-src="{{ url_for('static', filename='img/paisaje2.jpg') }}">
+                <img src="{{ url_for('static', filename='img/paisaje3.jpg') }}" class="opcionPaisaje" data-src="{{ url_for('static', filename='img/paisaje3.jpg') }}">
+                <img src="{{ url_for('static', filename='img/paisaje4.jpg') }}" class="opcionPaisaje" data-src="{{ url_for('static', filename='img/paisaje4.jpg') }}">
+            </div>
+        </div>
+
+        <!-- Tablero del rompecabezas -->
+        <div class="tableroRompecabezas" id="tableroRompecabezas"></div>
+
+        <p class="instrucciones" id="instrucciones">Toca una pieza y luego toca otra para intercambiarlas.</p>
+
+        <!-- Mensaje de victoria -->
+        <div class="mensajeVictoria" id="mensajeVictoria">
+            <div class="cajaVictoria">
+                <h2>&#127881; ¡Felicidades!</h2>
+                <p>Completaste el Rompecabezas</p>
+                <p id="resumenVictoria"></p>
+                <button id="btnJugarOtraVez">Elegir otra imagen</button>
+                <a href="/actividades" class="botonVolver">Volver a Actividades</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/rompecabezas.js') }}"></script>
+</body>
+</html>
