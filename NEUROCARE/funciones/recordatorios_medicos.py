@@ -4,7 +4,7 @@ from conexion import conectarBd
 from tkinter import ttk
 #python NEUROCARE/funciones/recordatorios.py
 
-class recordatorios1:
+class recordatorios_medicoos:
 
     def __init__(self, root):
 
@@ -22,7 +22,7 @@ class recordatorios1:
         self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
 
         self.crear_interfaz()
-        
+
 
     def crear_interfaz(self):
         
@@ -53,6 +53,7 @@ class recordatorios1:
             self.canvas.configure(scrollregion=self.canvas.bbox("all")))
 
 
+
 #------------------------------------------------#
 #                  CABECERA                      #
 #------------------------------------------------#
@@ -60,12 +61,13 @@ class recordatorios1:
         marco_superior = tk.Frame(self.marco_principal,bg="lavender")
         marco_superior.pack(fill="x",padx=20,pady=(20,10))
 
+
 #------------------------------------------------#
 #                  TITULO                        #
 #------------------------------------------------#
 
         marco_titulo = tk.Frame(marco_superior,bg="lavender")
-        marco_titulo.pack(side="left",expand=True,padx=10)
+        marco_titulo.pack(side="left",expand=True)
 
         tk.Label(marco_titulo,text="Avisos",bg="lavender",fg="black",font=("Quicksand",26,"bold")).pack(anchor="w")
         tk.Label(marco_titulo,text="Recordatorios de hoy",bg="lavender",fg="dim gray",font=("Quicksand",13)).pack(anchor="w")
@@ -87,17 +89,17 @@ class recordatorios1:
         marco_filtros.pack(fill="x",padx=20,pady=(5,20))
 
         self.btn_todos = ctk.CTkButton(marco_filtros,text="Todos",width=120,height=42,corner_radius=20,
-                                       fg_color="#7C3AED",hover_color="#6D28D9",text_color="black",font=("Quicksand",15,"bold"))
+                                       fg_color="white",hover_color="#6D28D9",text_color="black",
+                                       font=("Quicksand",15,),command=self.recordatorios_todos)
         self.btn_todos.pack(side="left", padx=(40,30))
 
         self.btn_actividad = ctk.CTkButton(marco_filtros,text="Actividades",width=140,height=42,corner_radius=20,
                                            fg_color="white",hover_color="#6D28D9",text_color="black",border_width=2,border_color="#DDDDDD",
-                                           font=("Quicksand",15), command=self.recordatorios_actividades)
+                                           font=("Quicksand",15,), command=self.recordatorios_actividades)
         self.btn_actividad.pack(side="left", padx=(30,30))
         
         self.btn_medicos = ctk.CTkButton(marco_filtros,text="Medicos",width=140,height=42,corner_radius=20,
-                                           fg_color="white",hover_color="#6D28D9",text_color="black",border_width=2,border_color="#DDDDDD",
-                                           font=("Quicksand",15), command=self.recordatorios_medicos)
+                                           fg_color="#6D28D9",hover_color="#F2F2F2",text_color="black",border_width=2,border_color="#DDDDDD",font=("Quicksand",15,"bold"))
         self.btn_medicos.pack(side="left", padx=(20,40))
 
 #------------------------------------------------#
@@ -107,7 +109,6 @@ class recordatorios1:
         self.contenedor = tk.Frame(self.marco_principal,bg="red")
         self.contenedor.configure(height=350)
         self.contenedor.pack(fill="both",expand=True,padx=20,pady=10)
-
         
 #MENÚ INFERIOR 
 
@@ -140,9 +141,8 @@ class recordatorios1:
         boton_perfil.configure(bg="white", fg="dim gray", font=("Quicksand",12), relief="flat", bd=0, command=self.abrir_perfil)
         boton_perfil.pack(side="left", expand=True)
         
-
-        
-        
+ 
+#FUNCIONES
 
     def abrir_actividades(self):
         from actividades import juegos
@@ -165,16 +165,16 @@ class recordatorios1:
         self.ventana.withdraw()
         recordatorios_actividadees(self.ventana)
 
-    def recordatorios_medicos(self):
-        from recordatorios_medicos import recordatorios_medicoos
+    def recordatorios_todos(self):
+        from recordatorios import recordatorios1
         self.ventana.withdraw()
-        recordatorios_medicoos(self.ventana)
-    
+        recordatorios1(self.ventana)
+
 if __name__ == "__main__":
 
     ventana = tk.Tk()
     ventana.withdraw()
 
-    app = recordatorios1(ventana)
+    app = recordatorios_medicoos(ventana)
 
     ventana.mainloop()

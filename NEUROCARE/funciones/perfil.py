@@ -110,20 +110,117 @@ class usuario_perfil:
         
 
         marco_paciente1 = tk.Frame(self.marco_principal)
-        marco_paciente1.configure(width=600, height=250, bg="white")
+        marco_paciente1.configure(width=600, height=300, bg="white")
         marco_paciente1.pack(pady=(0,10))
         marco_paciente1.pack_propagate(False)
+                                                 #los que tienen fondo amariillo es donde vas a jalar lo que ponga el usuario en el registro, donde dice aqui
+# ==========================
+# FILA MÉDICA 1
+# ==========================
+
+        marco_fila1 = tk.Frame(marco_paciente1, bg="red")
+        marco_fila1.configure(width=560, height=120)
+        marco_fila1.pack(pady=(0, 10))
+        marco_fila1.pack_propagate(False)
+
+
+# --------------------------
+# Sangre
+# --------------------------
+
+        marco_tipo_sangre = tk.Frame(marco_fila1, bg="blue")
+        marco_tipo_sangre.configure(width=250, height=100)
+        marco_tipo_sangre.pack(side="left", padx=10, pady=(10,10))
+        marco_tipo_sangre.pack_propagate(False)
         
-        marco_edad = tk.Frame(marco_paciente1)
-        marco_edad.configure(width=250, height=100, bg="red")
-        marco_edad.pack(anchor="nw", padx=10, pady=10)
+        etiqueta_sangre = tk.Label(marco_tipo_sangre, text="Tipo de sangre")
+        etiqueta_sangre.configure(fg="black", bg="lavender", font=("Arial", 24,))
+        etiqueta_sangre.pack(side="top", anchor="w")
+        
+        etiqueta_sangre1 =tk.Label(marco_tipo_sangre, text="aqui")
+        etiqueta_sangre1.configure(fg="dim gray", bg="yellow", font=("Arial",18))
+        etiqueta_sangre1.pack(side="top", anchor="w", pady=10, padx=5)
+        etiqueta_sangre1.pack_propagate(True)
+        
+# --------------------------
+# Alergias
+# --------------------------
+
+        marco_alergias = tk.Frame(marco_fila1, bg="blue")
+        marco_alergias.configure(width=250, height=100)
+        marco_alergias.pack(side="right", padx=10, pady=(10,10))
+        marco_alergias.pack_propagate(False)
+
+        etiqueta_alergias = tk.Label(marco_alergias, text="Alergias")
+        etiqueta_alergias.configure(fg="black", bg="lavender", font=("Arial", 24,))
+        etiqueta_alergias.pack(side="top", anchor="w",)
+        
+        etiqueta_alergia1 =tk.Label(marco_alergias, text="aqui")
+        etiqueta_alergia1.configure(fg="dim gray", bg="yellow", font=("Arial",18))
+        etiqueta_alergia1.pack(side="top", anchor="w", pady=10, padx=5)
+        etiqueta_alergia1.pack_propagate(True)
+
+
+# ==========================
+# FILA MÉDICA 2
+# ==========================
+
+        marco_fila2 = tk.Frame(marco_paciente1, bg="red")
+        marco_fila2.configure(width=560, height=100)
+        marco_fila2.pack(pady=(0, 10))
+        marco_fila2.pack_propagate(False)
+
+
+# --------------------------
+# emergencia
+# --------------------------
+
+        marco_contacto_emergencia = tk.Frame(marco_fila2, bg="blue")
+        marco_contacto_emergencia.configure(width=250, height=100)
+        marco_contacto_emergencia.pack(side="left", padx=10, pady=(10,10))
+        marco_contacto_emergencia.pack_propagate(False)
+        
+        etiqueta_contacto_emergencia = tk.Label(marco_contacto_emergencia, text="Contacto de emergencia")
+        etiqueta_contacto_emergencia.configure(fg="black", bg="lavender", font=("Arial", 17,))
+        etiqueta_contacto_emergencia.pack(side="top", anchor="w")
+        
+        etiqueta_contacto1 =tk.Label(marco_contacto_emergencia, text="aqui")
+        etiqueta_contacto1.configure(fg="dim gray", bg="yellow", font=("Arial",16))
+        etiqueta_contacto1.pack(side="top", anchor="w", pady=10, padx=5)
+        etiqueta_contacto1.pack_propagate(True)
         
 
-    
+# --------------------------
+# enfermedad cronica
+# --------------------------
+
+        marco_enfermedad = tk.Frame(marco_fila2, bg="blue")
+        marco_enfermedad.configure(width=250, height=100)
+        marco_enfermedad.pack(side="right", padx=10, pady=(10,10))
+        marco_enfermedad.pack_propagate(False)
+
+        etiqueta_enfermedad = tk.Label(marco_enfermedad, text="Enfermedad cronica")
+        etiqueta_enfermedad.configure(fg="black", bg="lavender", font=("Arial", 20,))
+        etiqueta_enfermedad.pack(side="top", anchor="w",)
         
-        
-        
-        
+        etiqueta_enfermedad1 =tk.Label(marco_enfermedad, text="aqui")
+        etiqueta_enfermedad1.configure(fg="dim gray", bg="yellow", font=("Arial",16))
+        etiqueta_enfermedad1.pack(side="top", anchor="w", pady=10, padx=5)
+        etiqueta_enfermedad1.pack_propagate(True)
+
+
+        marco_boton = tk.Frame(marco_paciente1, bg="white")
+        marco_boton.configure(width=2000, height=60)
+        marco_boton.pack(pady=(0, 10), side="bottom", anchor="e")
+        marco_boton.pack_propagate(False)
+        #aqui vas a agregar la funcion de actualizar, eliminar y agregar informacion
+        #las funciones van hasta abajo y solo las jalas con   command=
+                
+        boton_informacion = ctk.CTkButton(marco_boton,text="editar informacion",fg_color="blue",corner_radius=25,border_width=3,
+                                    border_color="blue2", font=("Arial", 20, "bold")) 
+        boton_informacion.pack(pady=5, padx=5)
+
+        #resumen
         
         marco_resumen_semanal = tk.Frame(self.marco_principal)
         marco_resumen_semanal.configure(width=600, height=50, bg="lavender")
@@ -139,7 +236,7 @@ class usuario_perfil:
         marco_resumen.pack(pady=(5,20))
         marco_resumen.pack_propagate(False)
         
-        #ACTIVIDADES
+        #ACTIVIDADES                            #igual vas a jalar depenediendo las actividades y cosas pendiente donde esta el aqui
 
         marco_actividades = ctk.CTkFrame(marco_resumen,width=275, height=190, fg_color="#D1FAE5",corner_radius=30,
                                          border_width=1, border_color="#D1FAE5")
@@ -158,8 +255,8 @@ class usuario_perfil:
         etiqueta_imagen1.configure(bg="#D1FAE5")    
         etiqueta_imagen1.pack(expand=True)
 
-        etiqueta_numero1 = tk.Label(marco_actividades, text="0")
-        etiqueta_numero1.configure(bg="#D1FAE5", fg="medium purple", font=("Quicksand",22,"bold"))
+        etiqueta_numero1 = tk.Label(marco_actividades, text="aqui")
+        etiqueta_numero1.configure(bg="yellow", fg="medium purple", font=("Quicksand",22,"bold"))
         etiqueta_numero1.pack()
 
         etiqueta_texto1 = tk.Label(marco_actividades, text="Actividades completadas")
@@ -184,8 +281,8 @@ class usuario_perfil:
         etiqueta_imagen2.configure(bg="#E9D5FF")
         etiqueta_imagen2.pack(expand=True)
 
-        etiqueta_numero2 = tk.Label(marco_recordatorios, text="0")
-        etiqueta_numero2.configure(bg="#E9D5FF", fg="medium purple", font=("Quicksand",22,"bold"))
+        etiqueta_numero2 = tk.Label(marco_recordatorios, text="aqui")
+        etiqueta_numero2.configure(bg="yellow", fg="medium purple", font=("Quicksand",22,"bold"))
         etiqueta_numero2.pack()
 
         etiqueta_texto2 = tk.Label(marco_recordatorios, text="Ejercicios pendientes")
@@ -241,9 +338,9 @@ class usuario_perfil:
         principal(self.ventana)
         
     def abrir_avisos(self):
-        from recuerdos import avisos
+        from recordatorios import recordatorios1
         self.ventana.withdraw()
-        avisos(self.ventana)
+        recordatorios1(self.ventana)
         
     def volver_menu(self):
         respuesta= messagebox.askyesno(

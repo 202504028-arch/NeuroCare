@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 import customtkinter as ctk
+import webbrowser
 
                                 #python NEUROCARE/funciones/principal_paciente.py
 class principal:
@@ -84,8 +85,8 @@ class principal:
         etiqueta_bienvenida.configure(bg="lavender", fg="black", font=("Quicksand",18,"bold"))
         etiqueta_bienvenida.pack(anchor="w", pady=(10,0), padx=10)
 
-        etiqueta_nombre = tk.Label(marco_texto, text="Andriy 👋")
-        etiqueta_nombre.configure(bg="lavender", fg="medium purple", font=("Quicksand",24,"bold"))
+        etiqueta_nombre = tk.Label(marco_texto, text="usuario")  #👋
+        etiqueta_nombre.configure(bg="yellow", fg="medium purple", font=("Quicksand",24,"bold"))
         etiqueta_nombre.pack(anchor="w", pady=(5,5), padx=10)
 
         etiqueta_descripcion = tk.Label(marco_texto, text=  "Estamos contigo en cada paso.\n  Aquí está tu resumen de hoy.")
@@ -93,12 +94,12 @@ class principal:
         etiqueta_descripcion.pack(anchor="w", padx=11)
 
         marco_mascota = tk.Frame(marco_bienvenida)
-        marco_mascota.configure(width=180, height=170, bg="red")
+        marco_mascota.configure(width=180, height=170, bg="lavender")
         marco_mascota.pack(side="right")
         marco_mascota.pack_propagate(False)
 
-        self.imagen_mascota = tk.PhotoImage(file="NEUROCARE/funciones/recursos/masc.png")
-        self.imagen_mascota = self.imagen_mascota.zoom(3,3)
+        self.imagen_mascota = tk.PhotoImage(file="NEUROCARE/funciones/recursos/mascota.png")
+        self.imagen_mascota = self.imagen_mascota.subsample(7,7)
 
         etiqueta_mascota = tk.Label(marco_mascota, image=self.imagen_mascota)
         etiqueta_mascota.configure(bg="lavender")
@@ -130,8 +131,8 @@ class principal:
         etiqueta_imagen1.configure(bg="#E9D5FF")
         etiqueta_imagen1.pack(expand=True)
 
-        etiqueta_numero1 = tk.Label(marco_actividades, text="0")
-        etiqueta_numero1.configure(bg="#E9D5FF", fg="medium purple", font=("Quicksand",22,"bold"))
+        etiqueta_numero1 = tk.Label(marco_actividades, text="aqui")
+        etiqueta_numero1.configure(bg="yellow", fg="medium purple", font=("Quicksand",22,"bold"))
         etiqueta_numero1.pack()
 
         etiqueta_texto1 = tk.Label(marco_actividades, text="Actividades pendientes")
@@ -156,8 +157,8 @@ class principal:
         etiqueta_imagen2.configure(bg="#D1FAE5")
         etiqueta_imagen2.pack(expand=True)
 
-        etiqueta_numero2 = tk.Label(marco_recordatorios, text="0")
-        etiqueta_numero2.configure(bg="#D1FAE5", fg="medium purple", font=("Quicksand",22,"bold"))
+        etiqueta_numero2 = tk.Label(marco_recordatorios, text="aqui")
+        etiqueta_numero2.configure(bg="yellow", fg="medium purple", font=("Quicksand",22,"bold"))
         etiqueta_numero2.pack()
 
         etiqueta_texto2 = tk.Label(marco_recordatorios, text="Recordatorios pendientes")
@@ -169,12 +170,12 @@ class principal:
 #PROGRESO 
 
         marco_progreso = tk.Frame(self.marco_principal)
-        marco_progreso.configure(width=600, height=100, bg="lavender")
+        marco_progreso.configure(width=600, height=100, bg="red")
         marco_progreso.pack(pady=(5,20))
         marco_progreso.pack_propagate(False)
 
         etiqueta_progreso = tk.Label(marco_progreso, text="Progreso del día")
-        etiqueta_progreso.configure(bg="lavender", fg="black", font=("Quicksand",15,"bold"))
+        etiqueta_progreso.configure(bg="red", fg="black", font=("Quicksand",15,"bold"))
         etiqueta_progreso.pack(anchor="w")
 
         etiqueta_estado = tk.Label(marco_progreso, text="2 de 5 actividades completadas")
@@ -187,7 +188,18 @@ class principal:
         barra_progreso["value"] = 2
 
         barra_progreso.pack(anchor="w")
-
+        
+        #BOTON SOS
+        
+        marco_sos = ctk.CTkFrame(self.marco_principal, fg_color="lavender")
+        marco_sos.configure(width=550, height=70)
+        marco_sos.pack(pady=(0, 10))
+        marco_sos.pack_propagate(True)
+        
+        boton_sos = ctk.CTkButton(marco_sos,text="📞SOS📞\n    TOCA AQUI SI NECESITAS AYUDA    ",fg_color="red",corner_radius=25,border_width=3,
+                                    border_color="red4", hover_color="red2",font=("Arial", 26, "bold"), command=self.mensaje_boton)
+        boton_sos.pack(pady=5,padx=5)
+        
 #-------------------- TARJETA DE ACTIVIDADES --------------------#
 
         marco_tarjeta_actividades = ctk.CTkFrame(self.marco_principal)
@@ -348,6 +360,13 @@ class principal:
         boton_perfil.configure(bg="white", fg="dim gray", font=("Quicksand",12), relief="flat", bd=0, command=self.abrir_perfil)
         boton_perfil.pack(side="left", expand=True)
 
+   
+    
+    def mensaje_boton(self):
+        messagebox.showinfo(
+            "‼️SOS - Emergencia‼️",
+            "🛑📞Realizando llamada al \ncontacto de emergencia...📞🛑"
+        )
         
     def abrir_actividades(self):
         from actividades import juegos
@@ -355,9 +374,9 @@ class principal:
         juegos(self.ventana)
 
     def abrir_recuerdos(self):
-        from recuerdos import avisos
+        from recordatorios import recordatorios1
         self.ventana.withdraw()
-        avisos(self.ventana)
+        recordatorios1(self.ventana)
         
     def abrir_perfil(self):
         from perfil import usuario_perfil

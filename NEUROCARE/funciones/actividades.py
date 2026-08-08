@@ -35,9 +35,7 @@ class juegos:
 #-------------------- SCROLL --------------------#
 
         barra_scroll = ttk.Scrollbar(self.ventana)
-        barra_scroll.configure(orient="vertical",
-        command=self.canvas.yview)
-
+        barra_scroll.configure(orient="vertical",command=self.canvas.yview)
         barra_scroll.pack(side="right",fill="y")
 
         self.canvas.configure(yscrollcommand=barra_scroll.set)
@@ -69,31 +67,18 @@ class juegos:
 #-------------------- TITULO --------------------#
 
         marco_titulo = tk.Frame(marco_contenedor)
-        marco_titulo.configure(width=480,height=80,
-        bg="lavender")
-
+        marco_titulo.configure(width=480,height=80,bg="lavender")
         marco_titulo.pack(pady=(15,10))
         marco_titulo.pack_propagate(False)
 
-        etiqueta_titulo = tk.Label(marco_titulo,
-        text="Actividades")
+        etiqueta_titulo = tk.Label(marco_titulo,text="Actividades")
 
-        etiqueta_titulo.configure(
-        bg="lavender",
-        fg="black",
-        font=("Quicksand",26,"bold"))
-
+        etiqueta_titulo.configure(bg="lavender",fg="black",font=("Quicksand",26,"bold"))
         etiqueta_titulo.pack(anchor="w")
 
-        etiqueta_descripcion = tk.Label(
-        marco_titulo,
-        text="Elige una actividad para seguir avanzando.")
 
-        etiqueta_descripcion.configure(
-        bg="lavender",
-        fg="dim gray",
-        font=("Quicksand",13))
-
+        etiqueta_descripcion = tk.Label(marco_titulo,text="Elige una actividad para seguir avanzando.")
+        etiqueta_descripcion.configure(bg="lavender",fg="dim gray",font=("Quicksand",13))
         etiqueta_descripcion.pack(anchor="w")
         
 #-------------------- TARJETA MEMORAMA --------------------#
@@ -111,8 +96,7 @@ class juegos:
         contenedor_memorama = tk.Frame(marco_tarjeta_memorama)
         contenedor_memorama.configure(bg="white")
 
-        contenedor_memorama.pack(fill="both",
-        expand=True,padx=20,pady=20)
+        contenedor_memorama.pack(fill="both",expand=True,padx=20,pady=20)
 
 #-------------------- MARCO IZQUIERDO --------------------#
 
@@ -134,8 +118,7 @@ class juegos:
         self.imagen_memorama = self.imagen_memorama.subsample(3,3)
 
         etiqueta_imagen_memorama = tk.Label(
-        marco_icono_memorama,
-        image=self.imagen_memorama)
+        marco_icono_memorama,image=self.imagen_memorama)
 
         etiqueta_imagen_memorama.configure(bg="#E9D5FF")
         etiqueta_imagen_memorama.pack(expand=True)
@@ -145,93 +128,45 @@ class juegos:
         marco_centro_memorama = tk.Frame(contenedor_memorama)
         marco_centro_memorama.configure(bg="white")
 
-        marco_centro_memorama.pack(side="left",
-        fill="both",expand=True,padx=(20,10))
+        marco_centro_memorama.pack(side="left",fill="both",expand=True,padx=(20,10))
 
-        etiqueta_categoria_memorama = tk.Label(
-        marco_centro_memorama,
-        text="COGNITIVA")
-
-        etiqueta_categoria_memorama.configure(
-        bg="#E9D5FF",
-        fg="#7C3AED",
-        font=("Quicksand",10,"bold"))
-
+        etiqueta_categoria_memorama = tk.Label(marco_centro_memorama,text="COGNITIVA")
+        etiqueta_categoria_memorama.configure(bg="#E9D5FF",fg="#7C3AED",font=("Quicksand",10,"bold"))
         etiqueta_categoria_memorama.pack(anchor="w")
 
-        etiqueta_titulo_memorama = tk.Label(
-        marco_centro_memorama,
-        text="Memorama")
-
-        etiqueta_titulo_memorama.configure(
-        bg="white",
-        fg="#E9D5FF",
-        font=("Quicksand",22,"bold"))
-
+        etiqueta_titulo_memorama = tk.Label(marco_centro_memorama,text="Memorama")
+        etiqueta_titulo_memorama.configure(bg="white",fg="#E9D5FF",font=("Quicksand",22,"bold"))
         etiqueta_titulo_memorama.pack(anchor="w",pady=(8,5))
 
-        etiqueta_descripcion_memorama = tk.Label(
-        marco_centro_memorama,
+        etiqueta_descripcion_memorama = tk.Label(marco_centro_memorama,
         text="Encuentra las parejas iguales\ny ejercita tu memoria.")
-
-        etiqueta_descripcion_memorama.configure(
-        bg="white",
-        fg="dim gray",
-        font=("Quicksand",12),
-        justify="left")
-
+        etiqueta_descripcion_memorama.configure(bg="white",fg="dim gray",font=("Quicksand",12),justify="left")
         etiqueta_descripcion_memorama.pack(anchor="w",pady=(0,10))
 
-        etiqueta_progreso_memorama = tk.Label(
-        marco_centro_memorama,
-        text="Progreso: 0%")
-
-        etiqueta_progreso_memorama.configure(
-        bg="white",
-        fg="dim gray",
-        font=("Quicksand",11))
-
+        etiqueta_progreso_memorama = tk.Label(marco_centro_memorama,text="Progreso: 0%")
+        etiqueta_progreso_memorama.configure(bg="white",fg="dim gray",font=("Quicksand",11))
         etiqueta_progreso_memorama.pack(anchor="w")
 
-        barra_memorama = ctk.CTkProgressBar(
-        marco_centro_memorama,
-        width=180)
-
+        barra_memorama = ctk.CTkProgressBar(marco_centro_memorama,width=180)
         barra_memorama.pack(anchor="w",pady=(5,0))
         barra_memorama.set(0)
 
 #-------------------- MARCO DERECHO --------------------#
 
-        marco_derecho_memorama = tk.Frame(
-        contenedor_memorama)
-
-        marco_derecho_memorama.configure(
-        width=110,
-        height=130,
-        bg="white")
-
+        marco_derecho_memorama = tk.Frame(contenedor_memorama)
+        marco_derecho_memorama.configure(width=110,height=130,bg="white")
         marco_derecho_memorama.pack(side="right")
         marco_derecho_memorama.pack_propagate(False)
 
-        boton_memorama = ctk.CTkButton(
-        marco_derecho_memorama,
-        text="-->",
-        width=65,
-        height=65,
-        corner_radius=20,
-        fg_color="#E9D5FF",
-        hover_color="#E9D5FF",
-        text_color="white",
-        font=("Arial",20,"bold"),
-        command=self.abrir_memorama)
-
+        boton_memorama = ctk.CTkButton(marco_derecho_memorama,text="-->",width=65,height=65,
+            corner_radius=20,fg_color="#E9D5FF",hover_color="#E9D5FF",text_color="white",
+            font=("Arial",20,"bold"),command=self.abrir_memorama)
         boton_memorama.pack(expand=True)
         
 #-------------------- TARJETA ROMPECABEZAS --------------------#
 
         marco_tarjeta_rompecabezas = ctk.CTkFrame(marco_contenedor)
-        marco_tarjeta_rompecabezas.configure(width=480,height=180,
-        fg_color="white",corner_radius=25,
+        marco_tarjeta_rompecabezas.configure(width=480,height=180,fg_color="white",corner_radius=25,
         border_width=3,border_color="#3B82F6")
 
         marco_tarjeta_rompecabezas.pack(pady=(0,20))
@@ -279,54 +214,30 @@ class juegos:
         marco_centro_rompecabezas.pack(side="left",
         fill="both",expand=True,padx=(20,10))
 
-        etiqueta_categoria_rompecabezas = tk.Label(
-        marco_centro_rompecabezas,
-        text="COGNITIVA")
+        etiqueta_categoria_rompecabezas = tk.Label(marco_centro_rompecabezas,text="COGNITIVA")
 
-        etiqueta_categoria_rompecabezas.configure(
-        bg="#E9D5FF",
-        fg="#7C3AED",
-        font=("Quicksand",10,"bold"))
+        etiqueta_categoria_rompecabezas.configure(bg="#E9D5FF",fg="#7C3AED",font=("Quicksand",10,"bold"))
 
         etiqueta_categoria_rompecabezas.pack(anchor="w")
 
-        etiqueta_titulo_rompecabezas = tk.Label(
-        marco_centro_rompecabezas,
-        text="Rompecabezas")
-
-        etiqueta_titulo_rompecabezas.configure(
-        bg="white",
-        fg="#3B82F6",
-        font=("Quicksand",22,"bold"))
-
+        etiqueta_titulo_rompecabezas = tk.Label(marco_centro_rompecabezas,text="Rompecabezas")
+        etiqueta_titulo_rompecabezas.configure(bg="white",fg="#3B82F6",font=("Quicksand",22,"bold"))
         etiqueta_titulo_rompecabezas.pack(anchor="w",pady=(8,5))
 
         etiqueta_descripcion_rompecabezas = tk.Label(
         marco_centro_rompecabezas,
         text="Arma una imagen por piezas\ny mejora tu concentración.")
 
-        etiqueta_descripcion_rompecabezas.configure(
-        bg="white",
-        fg="dim gray",
-        font=("Quicksand",12),
-        justify="left")
-
+        etiqueta_descripcion_rompecabezas.configure(bg="white",fg="dim gray",font=("Quicksand",12),justify="left")
         etiqueta_descripcion_rompecabezas.pack(anchor="w",pady=(0,10))
 
-        etiqueta_progreso_rompecabezas = tk.Label(
-        marco_centro_rompecabezas,
-        text="Progreso: 0%")
+        etiqueta_progreso_rompecabezas = tk.Label(marco_centro_rompecabezas,text="Progreso: 0%")
 
-        etiqueta_progreso_rompecabezas.configure(
-        bg="white",
-        fg="dim gray",
-        font=("Quicksand",11))
-
+        etiqueta_progreso_rompecabezas.configure(bg="white",fg="dim gray",font=("Quicksand",11))
         etiqueta_progreso_rompecabezas.pack(anchor="w")
 
         barra_rompecabezas = ctk.CTkProgressBar(
-        marco_centro_rompecabezas,
-        width=180)
+        marco_centro_rompecabezas,width=180)
 
         barra_rompecabezas.pack(anchor="w",pady=(5,0))
         barra_rompecabezas.set(0)
@@ -336,35 +247,19 @@ class juegos:
         marco_derecho_rompecabezas = tk.Frame(
         contenedor_rompecabezas)
 
-        marco_derecho_rompecabezas.configure(
-        width=110,
-        height=130,
-        bg="white")
-
+        marco_derecho_rompecabezas.configure(width=110,height=130,bg="white")
         marco_derecho_rompecabezas.pack(side="right")
         marco_derecho_rompecabezas.pack_propagate(False)
 
         boton_rompecabezas = ctk.CTkButton(
-        marco_derecho_rompecabezas,
-        text="-->",
-        width=65,
-        height=65,
-        corner_radius=20,
-        fg_color="#3B82F6",
-        hover_color="#2563EB",
-        text_color="white",
-        font=("Arial",20,"bold"),
-        command=self.abrir_rompecabezas)
-
+        marco_derecho_rompecabezas,text="-->",width=65,height=65,corner_radius=20,fg_color="#3B82F6",
+        hover_color="#2563EB",text_color="white",font=("Arial",20,"bold"),command=self.abrir_rompecabezas)
         boton_rompecabezas.pack(expand=True)
         
 #-------------------- TARJETA EJERCICIOS FÍSICOS --------------------#
 
         marco_tarjeta_ejercicios = ctk.CTkFrame(marco_contenedor)
-        marco_tarjeta_ejercicios.configure(width=480,height=180,
-        fg_color="white",corner_radius=25,
-        border_width=3,border_color="#22C55E")
-
+        marco_tarjeta_ejercicios.configure(width=480,height=180,fg_color="white",corner_radius=25,border_width=3,border_color="#22C55E")
         marco_tarjeta_ejercicios.pack(pady=(0,20))
         marco_tarjeta_ejercicios.pack_propagate(False)
 
@@ -414,44 +309,27 @@ class juegos:
         marco_centro_ejercicios,
         text="FÍSICA")
 
-        etiqueta_categoria_ejercicios.configure(
-        bg="#DDF4E7",
-        fg="#4CAF7D",
-        font=("Quicksand",10,"bold"))
-
+        etiqueta_categoria_ejercicios.configure(bg="#DDF4E7",fg="#4CAF7D",font=("Quicksand",10,"bold"))
         etiqueta_categoria_ejercicios.pack(anchor="w")
 
         etiqueta_titulo_ejercicios = tk.Label(
         marco_centro_ejercicios,
         text="Ejercicios físicos")
 
-        etiqueta_titulo_ejercicios.configure(
-        bg="white",
-        fg="#4CAF7D",
-        font=("Quicksand",20,"bold"))
-
+        etiqueta_titulo_ejercicios.configure(bg="white",fg="#4CAF7D",font=("Quicksand",20,"bold"))
         etiqueta_titulo_ejercicios.pack(anchor="w",pady=(8,5))
-
+        
         etiqueta_descripcion_ejercicios = tk.Label(
-        marco_centro_ejercicios,
-        text="Realiza movimientos suaves\ny mejora tu movilidad.")
+        marco_centro_ejercicios,text="Realiza movimientos suaves\ny mejora tu movilidad.")
 
-        etiqueta_descripcion_ejercicios.configure(
-        bg="white",
-        fg="dim gray",
-        font=("Quicksand",12),
-        justify="left")
-
+        etiqueta_descripcion_ejercicios.configure(bg="white",fg="dim gray",font=("Quicksand",12),justify="left")
         etiqueta_descripcion_ejercicios.pack(anchor="w",pady=(0,10))
 
         etiqueta_progreso_ejercicios = tk.Label(
         marco_centro_ejercicios,
         text="Progreso: 0%")
 
-        etiqueta_progreso_ejercicios.configure(
-        bg="white",
-        fg="dim gray",
-        font=("Quicksand",11))
+        etiqueta_progreso_ejercicios.configure(bg="white",fg="dim gray",font=("Quicksand",11))
 
         etiqueta_progreso_ejercicios.pack(anchor="w")
 
@@ -467,26 +345,14 @@ class juegos:
         marco_derecho_ejercicios = tk.Frame(
         contenedor_ejercicios)
 
-        marco_derecho_ejercicios.configure(
-        width=110,
-        height=130,
-        bg="white")
+        marco_derecho_ejercicios.configure(width=110,height=130,bg="white")
 
         marco_derecho_ejercicios.pack(side="right")
         marco_derecho_ejercicios.pack_propagate(False)
 
         boton_ejercicios = ctk.CTkButton(
-        marco_derecho_ejercicios,
-        text="-->",
-        width=65,
-        height=65,
-        corner_radius=20,
-        fg_color="#4CAF7D",
-        hover_color="#4CAF7D",
-        text_color="white",
-        font=("Arial",20,"bold"),
-        command=self.abrir_ejercicios)
-
+        marco_derecho_ejercicios,text="-->",width=65,height=65,corner_radius=20,
+        fg_color="#4CAF7D",hover_color="#4CAF7D",text_color="white",font=("Arial",20,"bold"),command=self.abrir_ejercicios)
         boton_ejercicios.pack(expand=True)
         
 #-------------------- MENÚ INFERIOR --------------------#
@@ -501,48 +367,27 @@ class juegos:
 #-------------------- BOTÓN INICIO --------------------#
 
         boton_inicio = tk.Button(marco_menu,text="🏠\nInicio")
-        boton_inicio.configure(bg="white",
-        fg="dim gray",
-        font=("Quicksand",12,"bold"),
-        relief="flat",
-        bd=0,
-        command=self.abrir_inicio)
-
+        boton_inicio.configure(bg="white",fg="dim gray",font=("Quicksand",12,"bold"),relief="flat",bd=0,command=self.abrir_inicio)
         boton_inicio.pack(side="left",expand=True)
 
 #-------------------- BOTÓN ACTIVIDADES --------------------#
 
         boton_actividades = tk.Button(marco_menu,text="🧠\nActividades")
-        boton_actividades.configure(bg="white",
-        fg="medium purple",
-        font=("Quicksand",12,"bold"),
-        relief="flat",
-        bd=0)
-
+        boton_actividades.configure(bg="white",fg="medium purple",font=("Quicksand",12,"bold"),relief="flat",bd=0)
         boton_actividades.pack(side="left",expand=True)
 
 #-------------------- BOTÓN AVISOS --------------------#
 
         boton_avisos = tk.Button(marco_menu,text="🔔\nAvisos")
-        boton_avisos.configure(bg="white",
-        fg="dim gray",
-        font=("Quicksand",12,"bold"),
-        relief="flat",
-        bd=0,
-        command=self.abrir_avisos)
-
+        boton_avisos.configure(bg="white",fg="dim gray",font=("Quicksand",12,"bold"),
+        relief="flat",bd=0,command=self.abrir_avisos)
         boton_avisos.pack(side="left",expand=True)
 
 #-------------------- BOTÓN PERFIL --------------------#
 
         boton_perfil = tk.Button(marco_menu,text="👤\nPerfil")
-        boton_perfil.configure(bg="white",
-        fg="dim gray",
-        font=("Quicksand",12,"bold"),
-        relief="flat",
-        bd=0,
+        boton_perfil.configure(bg="white",fg="dim gray",font=("Quicksand",12,"bold"),relief="flat",bd=0,
         command=self.abrir_perfil)
-
         boton_perfil.pack(side="left",expand=True)
 
 #======================================================#
@@ -575,9 +420,9 @@ class juegos:
         principal(self.ventana)
 
     def abrir_avisos(self):
-        from recuerdos import avisos
+        from recordatorios import recordatorios1
         self.ventana.withdraw()
-        avisos(self.ventana)
+        recordatorios1(self.ventana)
 
 
 if __name__ =="__main__":
