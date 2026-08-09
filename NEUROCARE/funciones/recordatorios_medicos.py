@@ -147,28 +147,28 @@ class recordatorios_medicoos:
     def abrir_actividades(self):
         from actividades import juegos
         self.ventana.withdraw()
-        juegos(self.ventana)
+        juegos(self.ventana , self.id_paciente)
 
     def abrir_inicio(self):
         from principal_paciente import principal
         self.ventana.withdraw()
-        principal(self.ventana)
+        principal(self.ventana , self.id_paciente)
         
     def abrir_perfil(self):
         from perfil import usuario_perfil
         self.ventana.withdraw()
-        usuario_perfil(self.ventana)
+        usuario_perfil(self.ventana , self.id_paciente)
 
 
     def recordatorios_actividades(self):
         from recordatorios_actividades import recordatorios_actividadees
         self.ventana.withdraw()
-        recordatorios_actividadees(self.ventana)
+        recordatorios_actividadees(self.ventana , self.id_paciente)
 
     def recordatorios_todos(self):
         from recordatorios import recordatorios1
         self.ventana.withdraw()
-        recordatorios1(self.ventana)
+        recordatorios1(self.ventana , self.id_paciente)
 
 if __name__ == "__main__":
 

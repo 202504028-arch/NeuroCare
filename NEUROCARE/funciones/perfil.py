@@ -8,8 +8,9 @@ from tkinter import ttk
                                     #python NEUROCARE/funciones/perfil.py
 class usuario_perfil:
     
-    def __init__ (self,root):
+    def __init__ (self,root,id_paciente):
             self.root = root
+            self.id_paciente = id_paciente
             self.ventana = tk.Toplevel(root)
         
 
@@ -103,7 +104,14 @@ class usuario_perfil:
         etiqueta_titulo.configure(bg="purple",fg="white",font=("Quicksand",18,))
         etiqueta_titulo.pack(anchor="w",pady=(10,0))
 
-        etiqueta_descripcion = tk.Label(marco_centro,text="nombre del paciente")
+        conexion = conectarBd()
+        cursor = conexion.cursor()
+        cursor.execute("SELECT nombrecompleto FROM paciente WHERE idPaciente = %s", (self.id_paciente,))
+        resultado_nombre = cursor.fetchone()
+        
+
+
+        etiqueta_descripcion = tk.Label(marco_centro,text=resultado_nombre[0] if resultado_nombre else "No disponible")
         etiqueta_descripcion.configure(bg="red",fg="white",font=("Quicksand",25, "bold"),justify="left")
         etiqueta_descripcion.pack(anchor="w",pady=(0,4))
         
@@ -128,6 +136,12 @@ class usuario_perfil:
 # Sangre
 # --------------------------
 
+
+
+        
+        cursor.execute("SELECT tipoSangre, alergias, enfermedadCronica FROM caracteristicaspaciente WHERE idPaciente = %s", (self.id_paciente,))
+        resultado_caracteristicas = cursor.fetchone()
+
         marco_tipo_sangre = tk.Frame(marco_fila1, bg="blue")
         marco_tipo_sangre.configure(width=250, height=100)
         marco_tipo_sangre.pack(side="left", padx=10, pady=(10,10))
@@ -137,7 +151,7 @@ class usuario_perfil:
         etiqueta_sangre.configure(fg="black", bg="lavender", font=("Arial", 24,))
         etiqueta_sangre.pack(side="top", anchor="w")
         
-        etiqueta_sangre1 =tk.Label(marco_tipo_sangre, text="aqui")
+        etiqueta_sangre1 =tk.Label(marco_tipo_sangre, text=resultado_caracteristicas[0] if resultado_caracteristicas else "No disponible")
         etiqueta_sangre1.configure(fg="dim gray", bg="yellow", font=("Arial",18))
         etiqueta_sangre1.pack(side="top", anchor="w", pady=10, padx=5)
         etiqueta_sangre1.pack_propagate(True)
@@ -155,7 +169,7 @@ class usuario_perfil:
         etiqueta_alergias.configure(fg="black", bg="lavender", font=("Arial", 24,))
         etiqueta_alergias.pack(side="top", anchor="w",)
         
-        etiqueta_alergia1 =tk.Label(marco_alergias, text="aqui")
+        etiqueta_alergia1 =tk.Label(marco_alergias, text=resultado_caracteristicas[1] if resultado_caracteristicas else "No disponible")
         etiqueta_alergia1.configure(fg="dim gray", bg="yellow", font=("Arial",18))
         etiqueta_alergia1.pack(side="top", anchor="w", pady=10, padx=5)
         etiqueta_alergia1.pack_propagate(True)
@@ -174,7 +188,10 @@ class usuario_perfil:
 # --------------------------
 # emergencia
 # --------------------------
-
+       
+        cursor.execute("SELECT numeroEmergencia FROM paciente WHERE idPaciente = %s", (self.id_paciente,))
+        resultado_paciente = cursor.fetchone()
+        
         marco_contacto_emergencia = tk.Frame(marco_fila2, bg="blue")
         marco_contacto_emergencia.configure(width=250, height=100)
         marco_contacto_emergencia.pack(side="left", padx=10, pady=(10,10))
@@ -184,7 +201,7 @@ class usuario_perfil:
         etiqueta_contacto_emergencia.configure(fg="black", bg="lavender", font=("Arial", 17,))
         etiqueta_contacto_emergencia.pack(side="top", anchor="w")
         
-        etiqueta_contacto1 =tk.Label(marco_contacto_emergencia, text="aqui")
+        etiqueta_contacto1 =tk.Label(marco_contacto_emergencia, text=resultado_paciente[0] if resultado_paciente else "No disponible")
         etiqueta_contacto1.configure(fg="dim gray", bg="yellow", font=("Arial",16))
         etiqueta_contacto1.pack(side="top", anchor="w", pady=10, padx=5)
         etiqueta_contacto1.pack_propagate(True)
@@ -193,6 +210,9 @@ class usuario_perfil:
 # --------------------------
 # enfermedad cronica
 # --------------------------
+
+
+       
 
         marco_enfermedad = tk.Frame(marco_fila2, bg="blue")
         marco_enfermedad.configure(width=250, height=100)
@@ -203,11 +223,13 @@ class usuario_perfil:
         etiqueta_enfermedad.configure(fg="black", bg="lavender", font=("Arial", 20,))
         etiqueta_enfermedad.pack(side="top", anchor="w",)
         
-        etiqueta_enfermedad1 =tk.Label(marco_enfermedad, text="aqui")
+        etiqueta_enfermedad1 =tk.Label(marco_enfermedad, text=resultado_caracteristicas[2] if resultado_caracteristicas else "No disponible")
         etiqueta_enfermedad1.configure(fg="dim gray", bg="yellow", font=("Arial",16))
         etiqueta_enfermedad1.pack(side="top", anchor="w", pady=10, padx=5)
         etiqueta_enfermedad1.pack_propagate(True)
 
+        cursor.close()
+        conexion.close()
 
         marco_boton = tk.Frame(marco_paciente1, bg="white")
         marco_boton.configure(width=2000, height=60)
@@ -330,17 +352,17 @@ class usuario_perfil:
     def abrir_actividades(self):
         from actividades import juegos
         self.ventana.withdraw()
-        juegos(self.ventana)
+        juegos(self.ventana , self.id_paciente)
 
     def abrir_inicio(self):
         from principal_paciente import principal
         self.ventana.withdraw()
-        principal(self.ventana)
+        principal(self.ventana, self.id_paciente)
         
     def abrir_avisos(self):
         from recordatorios import recordatorios1
         self.ventana.withdraw()
-        recordatorios1(self.ventana)
+        recordatorios1(self.ventana, self.id_paciente)
         
     def volver_menu(self):
         respuesta= messagebox.askyesno(

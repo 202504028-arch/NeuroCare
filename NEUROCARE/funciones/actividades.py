@@ -8,10 +8,11 @@ import tkinter as tk
 
 class juegos:
 
-    def __init__(self,root):
+    def __init__(self,root , id_paciente):
 
         self.root = root
         self.ventana = tk.Toplevel(root)
+        self.id_paciente = id_paciente
 
         self.ventana.title("NEUROCARE -- ACTIVIDADES")
         self.ventana.geometry("520x700+520+60")
@@ -410,17 +411,17 @@ class juegos:
     def abrir_perfil(self):
         from perfil import usuario_perfil
         self.ventana.withdraw()
-        usuario_perfil(self.ventana)
+        usuario_perfil(self.ventana, self.id_paciente)
 
     def abrir_inicio(self):
         from principal_paciente import principal
         self.ventana.withdraw()
-        principal(self.ventana)
+        principal(self.ventana, self.id_paciente)
 
     def abrir_avisos(self):
         from recordatorios import recordatorios1
         self.ventana.withdraw()
-        recordatorios1(self.ventana)
+        recordatorios1(self.ventana , self.id_paciente)
 
 
 if __name__ =="__main__":

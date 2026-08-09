@@ -379,17 +379,17 @@ class principal:
     def abrir_actividades(self):
         from actividades import juegos
         self.ventana.withdraw()
-        juegos(self.ventana)
+        juegos(self.ventana , self.id_paciente)
 
     def abrir_recuerdos(self):
         from recordatorios import recordatorios1
         self.ventana.withdraw()
-        recordatorios1(self.ventana)
+        recordatorios1(self.ventana , self.id_paciente)
         
     def abrir_perfil(self):
         from perfil import usuario_perfil
         self.ventana.withdraw()
-        usuario_perfil(self.ventana)
+        usuario_perfil(self.ventana , self.id_paciente)
 
 if __name__ =="__main__":
     ventana = tk.Tk()

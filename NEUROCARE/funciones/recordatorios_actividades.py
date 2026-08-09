@@ -150,22 +150,22 @@ class recordatorios_actividadees:
     def abrir_inicio(self):
         from principal_paciente import principal
         self.ventana.withdraw()
-        principal(self.ventana)
+        principal(self.ventana, self.id_paciente)
         
     def abrir_perfil(self):
         from perfil import usuario_perfil
         self.ventana.withdraw()
-        usuario_perfil(self.ventana)
+        usuario_perfil(self.ventana, self.id_paciente)
     
     def recordatorios_medicos(self):
             from recordatorios_medicos import recordatorios_medicoos
             self.ventana.withdraw()
-            recordatorios_medicoos(self.ventana)
+            recordatorios_medicoos(self.ventana, self.id_paciente)
     
     def recordatorios_todos(self):
         from recordatorios import recordatorios1
         self.ventana.withdraw()
-        recordatorios1(self.ventana)
+        recordatorios1(self.ventana , self.id_paciente)
  
 #FUNCIONES
 
