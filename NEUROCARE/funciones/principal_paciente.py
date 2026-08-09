@@ -18,8 +18,8 @@ class principal:
         self.ventana.geometry("650x700+500+10")
         self.ventana.configure(bg="lavender")
 
-        self.ventana.minsize(620,700)
-        self.ventana.maxsize(800,900)
+        self.ventana.minsize(False,False)
+        self.ventana.maxsize(False,False)
         self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
       
 

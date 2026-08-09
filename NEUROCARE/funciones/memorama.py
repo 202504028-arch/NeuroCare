@@ -16,8 +16,8 @@ class memoramaj:
         self.ventana.geometry("500x700+520+60")
         self.ventana.config(bg="lavender")
 
-        self.ventana.minsize(500,700)
-        self.ventana.maxsize(700,800)
+        self.ventana.minsize(False,False)
+        self.ventana.maxsize(False,False)
 
         self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
         self.ventana.protocol("WM_DELETE_WINDOW", self.regresar)
@@ -45,18 +45,8 @@ class memoramaj:
 
         #-------------------- BOTON REGRESAR --------------------#
 
-        boton_regresar = ctk.CTkButton(
-            marco_superior,
-            text="←",
-            width=50,
-            height=50,
-            corner_radius=25,
-            fg_color="white",
-            hover_color="#E5E7EB",
-            text_color="black",
-            font=("Arial",24,"bold"),
-            command=self.regresar
-        )
+        boton_regresar = ctk.CTkButton(marco_superior,text="←",width=50,height=50,corner_radius=25,fg_color="white",
+                                        hover_color="#E5E7EB",text_color="black",font=("Arial",24,"bold"),command=self.regresar)
         boton_regresar.pack(side="left")
 
         #-------------------- TITULO --------------------#
@@ -65,42 +55,18 @@ class memoramaj:
         marco_titulo.configure(bg="lavender")
         marco_titulo.pack(side="left", expand=True)
 
-        etiqueta_categoria = tk.Label(
-            marco_titulo,
-            text="COGNITIVA"
-        )
-        etiqueta_categoria.configure(
-            bg="lavender",
-            fg="dim gray",
-            font=("Quicksand",12,"bold")
-        )
+        etiqueta_categoria = tk.Label(marco_titulo,text="COGNITIVA")
+        etiqueta_categoria.configure(bg="lavender",fg="dim gray",font=("Quicksand",12,"bold"))
         etiqueta_categoria.pack()
 
-        etiqueta_titulo = tk.Label(
-            marco_titulo,
-            text="Memorama"
-        )
-        etiqueta_titulo.configure(
-            bg="lavender",
-            fg="black",
-            font=("Quicksand",22,"bold")
-        )
+        etiqueta_titulo = tk.Label(marco_titulo,text="Memorama")
+        etiqueta_titulo.configure(bg="lavender",fg="black",font=("Quicksand",22,"bold"))
         etiqueta_titulo.pack()
 
         #-------------------- BOTON REINICIAR --------------------#
 
-        boton_reiniciar = ctk.CTkButton(
-            marco_superior,
-            text="↻",
-            width=50,
-            height=50,
-            corner_radius=25,
-            fg_color="white",
-            hover_color="#E5E7EB",
-            text_color="black",
-            font=("Arial",24,"bold"),
-            command=self.reiniciar
-        )
+        boton_reiniciar = ctk.CTkButton(marco_superior,text="↻",width=50,height=50,corner_radius=25,
+                                        fg_color="white",hover_color="#E5E7EB",text_color="black",font=("Arial",24,"bold"),command=self.reiniciar)
         boton_reiniciar.pack(side="right")
 
         #-------------------- INFORMACION --------------------#
