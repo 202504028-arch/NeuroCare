@@ -207,7 +207,7 @@ class iniciar_sesion:
                 )
                 self.ventana.destroy()
                 from principal_paciente import principal
-                principal(self.root)
+                principal(self.root,id_paciente=usuario[0])
                 
             else:
                 messagebox.showwarning(
