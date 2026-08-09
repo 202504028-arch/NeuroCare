@@ -16,8 +16,8 @@ class recordatorios_medicoos:
         self.ventana.geometry("640x700+500+10")
         self.ventana.config(bg="lavender")
 
-        self.ventana.minsize(500,700)
-        self.ventana.maxsize(700,800)
+        self.ventana.minsize(False,False)
+        self.ventana.maxsize(False,False)
 
         self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
 

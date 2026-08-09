@@ -14,8 +14,8 @@ class registrar_familiar:
         self.ventana.geometry("650x780+400+10")
         self.ventana.configure(bg="#EAFBF0")
 
-        self.ventana.minsize(620,700)
-        self.ventana.maxsize(800,900)
+        self.ventana.minsize(False,False)
+        self.ventana.maxsize(False,False)
         self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
 
         self.crear_interfaz()

@@ -17,8 +17,8 @@ class usuario_perfil:
             self.ventana.geometry("650x700+500+10")
             self.ventana.config(bg="lavender")
 
-            self.ventana.minsize(600,600)
-            self.ventana.maxsize(900,700)
+            self.ventana.minsize(False,False)
+            self.ventana.maxsize(False,False)
             self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
             
             self.crear_interfaz()

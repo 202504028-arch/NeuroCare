@@ -17,8 +17,8 @@ class juegos:
         self.ventana.geometry("520x700+520+60")
         self.ventana.config(bg="lavender")
 
-        self.ventana.minsize(500,580)
-        self.ventana.maxsize(900,700)
+        self.ventana.minsize(False,False)
+        self.ventana.maxsize(False,False)
 
         self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
 
@@ -215,9 +215,7 @@ class juegos:
         fill="both",expand=True,padx=(20,10))
 
         etiqueta_categoria_rompecabezas = tk.Label(marco_centro_rompecabezas,text="COGNITIVA")
-
-        etiqueta_categoria_rompecabezas.configure(bg="#E9D5FF",fg="#7C3AED",font=("Quicksand",10,"bold"))
-
+        etiqueta_categoria_rompecabezas.configure(bg="#DBEAFE",fg="#7C3AED",font=("Quicksand",10,"bold"))
         etiqueta_categoria_rompecabezas.pack(anchor="w")
 
         etiqueta_titulo_rompecabezas = tk.Label(marco_centro_rompecabezas,text="Rompecabezas")
