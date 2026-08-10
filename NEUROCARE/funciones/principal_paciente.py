@@ -86,8 +86,16 @@ class principal:
         etiqueta_bienvenida.configure(bg="lavender", fg="black", font=("Quicksand",18,"bold"))
         etiqueta_bienvenida.pack(anchor="w", pady=(10,0), padx=10)
 
-        etiqueta_nombre = tk.Label(marco_texto, text="usuario")  #👋
-        etiqueta_nombre.configure(bg="yellow", fg="medium purple", font=("Quicksand",24,"bold"))
+        conexion = conectarBd()
+        cursor = conexion.cursor()
+        cursor.execute("SELECT nombreCompleto FROM paciente WHERE idPaciente = %s", (self.idPaciente,))
+        resultado = cursor.fetchone()
+        cursor.close()
+        conexion.close()
+
+
+        etiqueta_nombre = tk.Label(marco_texto, text=resultado[0] if resultado else "usuario")  #👋
+        etiqueta_nombre.configure(bg="lavender", fg="medium purple", font=("Quicksand",24,"bold"))
         etiqueta_nombre.pack(anchor="w", pady=(5,5), padx=10)
 
         etiqueta_descripcion = tk.Label(marco_texto, text=  "Estamos contigo en cada paso.\n  Aquí está tu resumen de hoy.")
