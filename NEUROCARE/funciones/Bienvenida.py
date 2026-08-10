@@ -109,8 +109,8 @@ class bienvenida:
     def abrir_inicio_sesion(self):
             self.ventana.withdraw()
             iniciar_sesion(self.ventana)
-            
-            
+
+
     
     
 if __name__ =="__main__":

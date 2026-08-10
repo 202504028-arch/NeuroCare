@@ -6,10 +6,10 @@ from tkinter import ttk
 
 class recordatorios_actividadees:
 
-    def __init__(self, root):
+    def __init__(self, root, id_paciente):
 
         self.root = root
-
+        self.id_paciente = id_paciente
         self.ventana = tk.Toplevel(root)
 
         self.ventana.title("NEUROCARE -- RECORDATORIOS")
@@ -145,7 +145,7 @@ class recordatorios_actividadees:
     def abrir_actividades(self):
         from actividades import juegos
         self.ventana.withdraw()
-        juegos(self.ventana)
+        juegos(self.ventana , self.id_paciente)
 
     def abrir_inicio(self):
         from principal_paciente import principal

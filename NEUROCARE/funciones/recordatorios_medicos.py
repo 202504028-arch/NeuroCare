@@ -6,9 +6,10 @@ from tkinter import ttk
 
 class recordatorios_medicoos:
 
-    def __init__(self, root):
+    def __init__(self, root, id_paciente):
 
         self.root = root
+        self.id_paciente = id_paciente
 
         self.ventana = tk.Toplevel(root)
 
