@@ -127,7 +127,7 @@ class usuario_perfil:
 # ==========================
 
         marco_fila1 = tk.Frame(marco_paciente1)
-        marco_fila1.configure(width=560, height=120)
+        marco_fila1.configure(width=560, height=120, bg="white")
         marco_fila1.pack(pady=(0, 10))
         marco_fila1.pack_propagate(False)
 
@@ -143,16 +143,16 @@ class usuario_perfil:
         resultado_caracteristicas = cursor.fetchone()
 
         marco_tipo_sangre = tk.Frame(marco_fila1)
-        marco_tipo_sangre.configure(width=250, height=100)
+        marco_tipo_sangre.configure(width=250, height=100, bg="white")
         marco_tipo_sangre.pack(side="left", padx=10, pady=(10,10))
         marco_tipo_sangre.pack_propagate(False)
         
         etiqueta_sangre = tk.Label(marco_tipo_sangre, text="Tipo de sangre")
-        etiqueta_sangre.configure(fg="black", bg="lavender", font=("Arial", 24,))
+        etiqueta_sangre.configure(fg="black", bg="white", font=("Arial", 24,))
         etiqueta_sangre.pack(side="top", anchor="w")
         
         etiqueta_sangre1 =tk.Label(marco_tipo_sangre, text=resultado_caracteristicas[0] if resultado_caracteristicas else "No disponible")
-        etiqueta_sangre1.configure(fg="dim gray", font=("Arial",18))
+        etiqueta_sangre1.configure(bg="white", font=("Arial",18))
         etiqueta_sangre1.pack(side="top", anchor="w", pady=10, padx=5)
         etiqueta_sangre1.pack_propagate(True)
         
@@ -161,16 +161,16 @@ class usuario_perfil:
 # --------------------------
 
         marco_alergias = tk.Frame(marco_fila1)
-        marco_alergias.configure(width=250, height=100)
+        marco_alergias.configure(width=250, height=100, bg="white")
         marco_alergias.pack(side="right", padx=10, pady=(10,10))
         marco_alergias.pack_propagate(False)
 
         etiqueta_alergias = tk.Label(marco_alergias, text="Alergias")
-        etiqueta_alergias.configure(fg="black", bg="lavender", font=("Arial", 24,))
+        etiqueta_alergias.configure(fg="black", bg="white", font=("Arial", 24,))
         etiqueta_alergias.pack(side="top", anchor="w",)
         
         etiqueta_alergia1 =tk.Label(marco_alergias, text=resultado_caracteristicas[1] if resultado_caracteristicas else "No disponible")
-        etiqueta_alergia1.configure(fg="dim gray", font=("Arial",18))
+        etiqueta_alergia1.configure(bg="white", font=("Arial",18))
         etiqueta_alergia1.pack(side="top", anchor="w", pady=10, padx=5)
         etiqueta_alergia1.pack_propagate(True)
 
@@ -180,7 +180,7 @@ class usuario_perfil:
 # ==========================
 
         marco_fila2 = tk.Frame(marco_paciente1)
-        marco_fila2.configure(width=560, height=100)
+        marco_fila2.configure(width=560, height=100, bg="white")
         marco_fila2.pack(pady=(0, 10))
         marco_fila2.pack_propagate(False)
 
@@ -193,16 +193,16 @@ class usuario_perfil:
         resultado_paciente = cursor.fetchone()
         
         marco_contacto_emergencia = tk.Frame(marco_fila2)
-        marco_contacto_emergencia.configure(width=250, height=100)
+        marco_contacto_emergencia.configure(width=250, height=100, bg="white")
         marco_contacto_emergencia.pack(side="left", padx=10, pady=(10,10))
         marco_contacto_emergencia.pack_propagate(False)
         
         etiqueta_contacto_emergencia = tk.Label(marco_contacto_emergencia, text="Contacto de emergencia")
-        etiqueta_contacto_emergencia.configure(fg="black", bg="lavender", font=("Arial", 17,))
+        etiqueta_contacto_emergencia.configure(fg="black", bg="white", font=("Arial", 17,))
         etiqueta_contacto_emergencia.pack(side="top", anchor="w")
         
         etiqueta_contacto1 =tk.Label(marco_contacto_emergencia, text=resultado_paciente[0] if resultado_paciente else "No disponible")
-        etiqueta_contacto1.configure(fg="dim gray", font=("Arial",16))
+        etiqueta_contacto1.configure(bg="white", font=("Arial",16))
         etiqueta_contacto1.pack(side="top", anchor="w", pady=10, padx=5)
         etiqueta_contacto1.pack_propagate(True)
         
@@ -215,16 +215,16 @@ class usuario_perfil:
        
 
         marco_enfermedad = tk.Frame(marco_fila2,)
-        marco_enfermedad.configure(width=250, height=100)
+        marco_enfermedad.configure(width=250, height=100, bg="white")
         marco_enfermedad.pack(side="right", padx=10, pady=(10,10))
         marco_enfermedad.pack_propagate(False)
 
         etiqueta_enfermedad = tk.Label(marco_enfermedad, text="Enfermedad cronica")
-        etiqueta_enfermedad.configure(fg="black", bg="lavender", font=("Arial", 20,))
-        etiqueta_enfermedad.pack(side="top", anchor="w",)
+        etiqueta_enfermedad.configure(fg="black", bg="white", font=("Arial", 20,))
+        etiqueta_enfermedad.pack(side="top", anchor="w",)   
         
         etiqueta_enfermedad1 =tk.Label(marco_enfermedad, text=resultado_caracteristicas[2] if resultado_caracteristicas else "No disponible")
-        etiqueta_enfermedad1.configure(fg="dim gray", font=("Arial",16))
+        etiqueta_enfermedad1.configure( bg="white", font=("Arial",16))
         etiqueta_enfermedad1.pack(side="top", anchor="w", pady=10, padx=5)
         etiqueta_enfermedad1.pack_propagate(True)
 
