@@ -2,16 +2,15 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 import customtkinter as ctk
-import webbrowser
 from conexion import conectarBd
 
                                 #python NEUROCARE/funciones/principal_paciente.py
 class principal:
 
-    def __init__(self, root,id_paciente):
+    def __init__(self, root,idPaciente):
 
         self.root = root
-        self.id_paciente = id_paciente
+        self.idPaciente=idPaciente
         self.ventana = tk.Toplevel(root)
 
         self.ventana.title("NEUROCARE -- MENU PRINCIPAL")
@@ -84,17 +83,11 @@ class principal:
         marco_texto.pack_propagate(False)
 
         etiqueta_bienvenida = tk.Label(marco_texto, text="Bienvenido,")
-        conexion = conectarBd()
-        cursor = conexion.cursor()
-        cursor.execute("SELECT nombreCompleto FROM paciente WHERE idPaciente = %s", (self.id_paciente,))
-        resultado = cursor.fetchone()
-        cursor.close()
-        conexion.close()
         etiqueta_bienvenida.configure(bg="lavender", fg="black", font=("Quicksand",18,"bold"))
         etiqueta_bienvenida.pack(anchor="w", pady=(10,0), padx=10)
 
-        etiqueta_nombre = tk.Label(marco_texto, text=resultado[0] if resultado else "Usuario")  #👋
-        etiqueta_nombre.configure(bg="lavender", fg="medium purple", font=("Quicksand",24,"bold"))
+        etiqueta_nombre = tk.Label(marco_texto, text="usuario")  #👋
+        etiqueta_nombre.configure(bg="yellow", fg="medium purple", font=("Quicksand",24,"bold"))
         etiqueta_nombre.pack(anchor="w", pady=(5,5), padx=10)
 
         etiqueta_descripcion = tk.Label(marco_texto, text=  "Estamos contigo en cada paso.\n  Aquí está tu resumen de hoy.")
@@ -378,21 +371,43 @@ class principal:
         
     def abrir_actividades(self):
         from actividades import juegos
+
         self.ventana.withdraw()
-        juegos(self.ventana , self.id_paciente)
+
+        juegos(
+                self.ventana,
+                self.idPaciente
+        )
 
     def abrir_recuerdos(self):
         from recordatorios import recordatorios1
+
         self.ventana.withdraw()
-        recordatorios1(self.ventana , self.id_paciente)
+
+        recordatorios1(
+                self.ventana,
+                self.idPaciente
+        )
         
     def abrir_perfil(self):
         from perfil import usuario_perfil
+
         self.ventana.withdraw()
-        usuario_perfil(self.ventana , self.id_paciente)
+
+        usuario_perfil(
+                self.ventana,
+                self.idPaciente
+        )
 
 if __name__ =="__main__":
     ventana = tk.Tk()
-    app = principal(ventana)
+
+    idPaciente = 1
+
+    app = principal(
+        ventana,
+        idPaciente
+    )
+
     ventana.mainloop()
     

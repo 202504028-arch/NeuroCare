@@ -1,5 +1,4 @@
 from conexion import conectarBd
-from principal_paciente import principal
 from datetime import datetime
 from tkinter import messagebox
 import tkinter as tk
@@ -330,17 +329,17 @@ class registrar_paciente:
         
         self.entry_altura = tk.Entry(marco_altura, bd=1)
         self.entry_altura.configure( bg="white", font=("Arial",18), width=17, relief="solid", fg="gray")
-        self.entry_altura.insert(0,"172")
+        self.entry_altura.insert(0,"ej.172")
         self.entry_altura.pack(side="top", anchor="w", pady=5, padx=2)
         
         def quitar_transfondo_altura(event):
-            if self.entry_altura.get() =="172":
+            if self.entry_altura.get() =="ej.172":
                 self.entry_altura.delete(0, tk.END)
                 self.entry_altura.configure(fg="black")
         
         def poner_transfondo_altura(event):
             if self.entry_altura.get()=="":
-                self.entry_altura.insert(0,"172")
+                self.entry_altura.insert(0,"ej.172")
                 self.entry_altura.configure(fg="gray")
             else:
                 self.entry_altura.configure(fg="black")
@@ -603,6 +602,7 @@ class registrar_paciente:
         enfermedad = self.entry_enfermedad.get()
         contraseña = self.entry_contrasena.get()
         confirmar = self.entry_confirmar.get()
+        emergencia =self.entry_emergencia.get()
         
         if (nombre =="ej.panfilo pancracio de la cruz" or edad =="ej.72" or 
             fecha_nacimiento =="ej.2000-03-25" or
@@ -665,21 +665,55 @@ class registrar_paciente:
             return
         
         #altura
-        try:
-            float(altura)
-        except ValueError:
-            messagebox.showwarning(
-                "Altura",
-                "La altura debe ser un numero"
-            )
-            return
+
+        if altura == "ej.172" or altura.strip() == "":
+            altura = None
+
+        else:
+            try:
+                altura = float(altura)
+            except ValueError:
+                messagebox.showwarning(
+                    "Altura",
+                    "La altura debe ser un numero"
+                )
+                return
+
+            if altura < 50 or altura > 300:
+                messagebox.showwarning(
+                    "Altura",
+                    "La altura debe estar entre 50 a 300 cm."
+                )
+                return
         
-        if float(altura)<50 or float(altura)> 300:
-            messagebox.showwarning(
-                "Altura",
-                "La altura debe estar entre 50 a 300 cm."
+        if emergencia == "" or emergencia == "ej.744123467":
+            continuar = messagebox.askyesno(
+                "Contacto de emergencia",
+                "¿Estás seguro de que quieres continuar el registro "
+                "sin el contacto de emergencia?\n\n"
+                "No podrás utilizar el botón SOS."
             )
-            return
+
+            if not continuar:
+                self.entry_emergencia.focus_set()
+                return
+
+            emergencia = None
+
+        else:
+            if not emergencia.isdigit():
+                messagebox.showwarning(
+                    "Telefono",
+                    "El numero de emergencia solo debe de contener numeros."
+                )
+                return
+            if len(emergencia) != 10:
+                    messagebox.showwarning(
+                        "Telefono",
+                        "El numero debe tener exactamente 10 digitos."
+                    ) 
+                    return
+            
          #opcionales
         if sexo=="selecciona":
             sexo = None
@@ -693,8 +727,9 @@ class registrar_paciente:
         if enfermedad =="ej.Diabetes, Hipertension,Etc" or enfermedad =="":
             enfermedad = None
             
-        if altura =="172" or altura =="":
-            altura = None
+        if emergencia=="ej.744123467" or emergencia =="":
+            emergencia = None
+        
         
         #fecha
         try:
@@ -730,65 +765,101 @@ class registrar_paciente:
         
         conexion = conectarBd()
         cursor = conexion.cursor()
-        
+
         try:
+
             sql = "SELECT * FROM paciente WHERE contacto=%s"
-            valores =(contacto,)
+            valores = (contacto,)
+
             cursor.execute(sql, valores)
             usuario = cursor.fetchone()
-        
+
             if usuario:
                 messagebox.showwarning(
-                    "contacto registrado",
-                    "este contacto ya se encuentra registrado"
+                    "Contacto registrado",
+                    "Este contacto ya se encuentra registrado"
                 )
                 return
-        
-            sql ="""
-            INSERT INTO paciente (nombreCompleto,
-                    edad,fechaNacimiento,contacto,contrasena)
-                    VALUES (%s,%s,%s,%s,%s)"""
-        
-            valores =(nombre, edad,fecha_nacimiento,contacto,contraseña)
-            cursor.execute(sql, valores)
-            conexion.commit()
-        
-            id_paciente = cursor.lastrowid
-        
+
             sql = """
-            INSERT INTO caracteristicasPaciente (idpaciente,sexo,
-            altura,tipoSangre,alergias,enfermedadCronica)
-            VALUES (%s,%s,%s,%s,%s,%s)"""
-        
-            valores =(id_paciente,sexo,altura,sangre,alergias,enfermedad)
+            INSERT INTO paciente (
+                nombreCompleto,
+                edad,
+                fechaNacimiento,
+                contacto,
+                contrasena,
+                numeroEmergencia
+            )
+            VALUES (%s,%s,%s,%s,%s,%s)
+            """
+
+            valores = (
+                nombre,
+                edad,
+                fecha_nacimiento,
+                contacto,
+                contraseña,
+                emergencia
+            )
+
             cursor.execute(sql, valores)
+
+            id_paciente = cursor.lastrowid
+
+            sql = """
+            INSERT INTO caracteristicasPaciente (
+                idpaciente,
+                sexo,
+                altura,
+                tipoSangre,
+                alergias,
+                enfermedadCronica
+            )
+            VALUES (%s,%s,%s,%s,%s,%s)
+            """
+
+            valores = (
+                id_paciente,
+                sexo,
+                altura,
+                sangre,
+                alergias,
+                enfermedad
+            )
+
+            cursor.execute(sql, valores)
+
             conexion.commit()
-            
+
             messagebox.showinfo(
-            "Registro exitoso",
-            "El paciente se registro correctamente :)"
-        )
-        
+                "Registro exitoso",
+                "El paciente se registro correctamente :)"
+            )
+
             self.ventana.destroy()
+
             from principal_paciente import principal
-            principal(self.root)
-        
-            
+
+            principal(
+                self.root,
+                id_paciente
+            )
+
         except Exception as e:
+
+            conexion.rollback()
+
             messagebox.showerror(
                 "Error",
-                f"ocurrio un error: \n{e}"
+                f"Ocurrio un error:\n{e}"
             )
-        
+
         finally:
+
             cursor.close()
             conexion.close()
-        
 
-
-        
-        
-if __name__ =="__main__":
+if __name__ == "__main__":
     ventana = tk.Tk()
     app = registrar_paciente(ventana)
     ventana.mainloop()

@@ -8,15 +8,16 @@ import tkinter as tk
 
 class juegos:
 
-    def __init__(self,root , id_paciente):
+    def __init__(self, root, idPaciente):
 
         self.root = root
+        self.idPaciente = idPaciente
         self.ventana = tk.Toplevel(root)
-        self.id_paciente = id_paciente
 
         self.ventana.title("NEUROCARE -- ACTIVIDADES")
         self.ventana.geometry("520x700+520+60")
         self.ventana.config(bg="lavender")
+        self.ventana.attributes("-alpha")
 
         self.ventana.minsize(False,False)
         self.ventana.maxsize(False,False)
@@ -46,9 +47,14 @@ class juegos:
         self.marco_principal = tk.Frame(self.canvas)
         self.marco_principal.configure(bg="lavender")
 
-        self.canvas.create_window((0,0),
-        window=self.marco_principal,
-        anchor="nw")
+        self.ventana.update_idletasks()
+
+        self.canvas.create_window(
+            (0,0),
+            window=self.marco_principal,
+            anchor="nw",
+            width=500
+        )
 
         self.marco_principal.bind(
             "<Configure>",
@@ -394,34 +400,69 @@ class juegos:
 #======================================================#
 
     def abrir_memorama(self):
-        from memorama import memoramaj
+        from memorama import memoramaa
+
         self.ventana.withdraw()
-        memoramaj(self.ventana)
+
+        memoramaa(
+            self.ventana,
+            self.idPaciente
+        )
 
     def abrir_rompecabezas(self):
-        messagebox.showinfo(
-                            "PROXIMAMENTE",
-                            "⚒️EN DESARROLO⚒️")
+
+        from rompecabezas import rompecabezas
+
+        self.ventana.withdraw()
+
+        rompecabezas(
+            self.ventana,
+            self.idPaciente
+        )
         
     def abrir_ejercicios(self):
-        messagebox.showinfo(
-                            "PROXIMAMENTE",
-                            "⚒️EN DESARROLO⚒️")
+
+        from fisica import ejercicios_fisicos
+
+        self.ventana.withdraw()
+
+        ejercicios_fisicos(
+            self.ventana,
+            self.idPaciente
+        )
 
     def abrir_perfil(self):
+
         from perfil import usuario_perfil
+
         self.ventana.withdraw()
-        usuario_perfil(self.ventana, self.id_paciente)
+
+        usuario_perfil(
+            self.ventana,
+            self.idPaciente
+        )
 
     def abrir_inicio(self):
+
         from principal_paciente import principal
+
         self.ventana.withdraw()
-        principal(self.ventana, self.id_paciente)
+
+        principal(
+            self.ventana,
+            self.idPaciente
+        )   
 
     def abrir_avisos(self):
+
         from recordatorios import recordatorios1
+
         self.ventana.withdraw()
-        recordatorios1(self.ventana , self.id_paciente)
+
+        recordatorios1(
+            self.ventana,
+            self.idPaciente
+        )
 
 
 if __name__ =="__main__":
@@ -429,6 +470,11 @@ if __name__ =="__main__":
     ventana = tk.Tk()
     ventana.withdraw()
 
-    app = juegos(ventana)
+    idPaciente = 1
+
+    app = juegos(
+        ventana,
+        idPaciente
+    )
 
     ventana.mainloop()

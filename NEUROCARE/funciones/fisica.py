@@ -7,8 +7,8 @@ import customtkinter as ctk
                                 #python NEUROCARE/funciones/fisica.py
 class ejercicios_fisicos:
 
-    def __init__(self, root):
-
+    def __init__(self, root, idPaciente):
+        self.idPaciente = idPaciente
         self.root = root
         self.ventana = tk.Toplevel(root)
 
@@ -391,12 +391,11 @@ class ejercicios_fisicos:
 
         self.ventana.destroy()
 
-        try:
-            from actividades import juegos
-            juegos(self.root)
-        except Exception:
-            pass
-        
+        if self.root.winfo_exists():
+            self.root.deiconify()
+            self.root.update_idletasks()
+            self.root.lift()
+            self.root.focus_force()
 
 if __name__ =="__main__":
     ventana = tk.Tk()

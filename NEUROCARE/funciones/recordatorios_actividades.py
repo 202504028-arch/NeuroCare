@@ -6,10 +6,10 @@ from tkinter import ttk
 
 class recordatorios_actividadees:
 
-    def __init__(self, root, id_paciente):
-
+    def __init__(self, root,idPaciente):
+        self.idPaciente = idPaciente
         self.root = root
-        self.id_paciente = id_paciente
+
         self.ventana = tk.Toplevel(root)
 
         self.ventana.title("NEUROCARE -- RECORDATORIOS")
@@ -144,28 +144,52 @@ class recordatorios_actividadees:
 
     def abrir_actividades(self):
         from actividades import juegos
+
         self.ventana.withdraw()
-        juegos(self.ventana , self.id_paciente)
+        juegos(
+            self.ventana,
+            self.idPaciente
+        )
 
     def abrir_inicio(self):
         from principal_paciente import principal
+
         self.ventana.withdraw()
-        principal(self.ventana, self.id_paciente)
+
+        principal(
+            self.ventana,
+            self.idPaciente
+        )
         
     def abrir_perfil(self):
         from perfil import usuario_perfil
+
         self.ventana.withdraw()
-        usuario_perfil(self.ventana, self.id_paciente)
+
+        usuario_perfil(
+            self.ventana,
+            self.idPaciente
+        )
     
     def recordatorios_medicos(self):
-            from recordatorios_medicos import recordatorios_medicoos
-            self.ventana.withdraw()
-            recordatorios_medicoos(self.ventana, self.id_paciente)
+        from recordatorios_medicos import recordatorios_medicoos
+
+        self.ventana.withdraw()
+
+        recordatorios_medicoos(
+            self.ventana,
+            self.idPaciente
+        )
     
     def recordatorios_todos(self):
         from recordatorios import recordatorios1
+
         self.ventana.withdraw()
-        recordatorios1(self.ventana , self.id_paciente)
+
+        recordatorios1(
+            self.ventana,
+            self.idPaciente
+        )
  
 #FUNCIONES
 
@@ -175,6 +199,11 @@ if __name__ == "__main__":
     ventana = tk.Tk()
     ventana.withdraw()
 
-    app = recordatorios_actividadees(ventana)
+    idPaciente = 1
+
+    app = recordatorios_actividadees(
+        ventana,
+        idPaciente
+    )
 
     ventana.mainloop()

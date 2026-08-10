@@ -201,13 +201,14 @@ class iniciar_sesion:
             print("resultado", usuario)
             
             if usuario:
+                idPaciente = usuario[0]
                 messagebox.showinfo(
                     "BIENVENIDO",
                     "Inicio de sesion exitoso"
                 )
                 self.ventana.destroy()
                 from principal_paciente import principal
-                principal(self.root,id_paciente=usuario[0])
+                principal(self.root,idPaciente)
                 
             else:
                 messagebox.showwarning(
@@ -229,6 +230,7 @@ class iniciar_sesion:
         
 if __name__ =="__main__":
     ventana = tk.Tk()
+    ventana.withdraw()
     app = iniciar_sesion(ventana)
     ventana.mainloop()
     

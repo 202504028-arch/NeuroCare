@@ -3,7 +3,8 @@ import tkinter as tk
                                     #python NEUROCARE/funciones/Bienvenida.py
 class bienvenida:
     def __init__(self,root):
-        self.ventana = root
+        self.root = root
+        self.ventana = tk.Toplevel(root)
         
 
         self.ventana.title(" NEUROCARE -- BIENVENIDA")
@@ -109,12 +110,13 @@ class bienvenida:
     def abrir_inicio_sesion(self):
             self.ventana.withdraw()
             iniciar_sesion(self.ventana)
-
-
+            
+            
     
     
 if __name__ =="__main__":
     ventana = tk.Tk()
+    ventana.withdraw()
     app = bienvenida(ventana)
     ventana.mainloop()
     
