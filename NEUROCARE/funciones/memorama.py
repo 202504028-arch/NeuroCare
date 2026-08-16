@@ -1,7 +1,8 @@
-import customtkinter as ctk
+import tkinter as tk
 from tkinter import messagebox
 from datetime import date
 import random
+import customtkinter as ctk
 
 from conexion import conectarBd
 
@@ -13,24 +14,27 @@ class memoramaa:
         self.root = root
         self.idPaciente = idPaciente
 
-        # ------------------------------------------------------
-        # VENTANA
-        # ------------------------------------------------------
+        # ======================================================
+        # VENTANA PRINCIPAL DEL JUEGO
+        # ======================================================
 
-        self.ventana = ctk.CTkToplevel(root)
+        # IMPORTANTE:
+        # Usamos Tkinter normal para la ventana principal.
+        self.ventana = tk.Toplevel(root)
+
         self.ventana.title("NEUROCARE - MEMORAMA")
         self.ventana.geometry("760x700+250+40")
         self.ventana.resizable(False, False)
-        self.ventana.configure(fg_color="lavender")
+        self.ventana.configure(bg="lavender")
 
         self.ventana.protocol(
             "WM_DELETE_WINDOW",
             self.cerrar
         )
 
-        # ------------------------------------------------------
+        # ======================================================
         # DATOS DEL JUEGO
-        # ------------------------------------------------------
+        # ======================================================
 
         self.pares = [
             "🧠", "🧠",
@@ -59,12 +63,20 @@ class memoramaa:
         self.jugando = False
         self.juego_iniciado = False
 
+        # ======================================================
+        # ACTIVIDAD EN BASE DE DATOS
+        # ======================================================
+
         self.idActividad = self.obtener_actividad()
+
+        # ======================================================
+        # CREAR INTERFAZ
+        # ======================================================
 
         self.crear_interfaz()
 
     # ==========================================================
-    # ACTIVIDAD EN BASE DE DATOS
+    # OBTENER ACTIVIDAD
     # ==========================================================
 
     def obtener_actividad(self):
@@ -111,6 +123,7 @@ class memoramaa:
             )
 
             cursor.execute(sql, valores)
+
             conexion.commit()
 
             return cursor.lastrowid
@@ -138,14 +151,13 @@ class memoramaa:
 
     def crear_interfaz(self):
 
-        # ------------------------------------------------------
+        # ======================================================
         # BARRA SUPERIOR
-        # ------------------------------------------------------
+        # ======================================================
 
-        marco_superior = ctk.CTkFrame(
+        marco_superior = tk.Frame(
             self.ventana,
-            fg_color="lavender",
-            corner_radius=0
+            bg="lavender"
         )
 
         marco_superior.pack(
@@ -154,6 +166,7 @@ class memoramaa:
             pady=(15, 0)
         )
 
+        # Botón usando CustomTkinter
         boton_regresar = ctk.CTkButton(
             marco_superior,
             text="← REGRESAR",
@@ -173,9 +186,9 @@ class memoramaa:
             side="left"
         )
 
-        # ------------------------------------------------------
+        # ======================================================
         # TITULO
-        # ------------------------------------------------------
+        # ======================================================
 
         titulo = ctk.CTkLabel(
             self.ventana,
@@ -199,13 +212,13 @@ class memoramaa:
             pady=(0, 5)
         )
 
-        # ------------------------------------------------------
+        # ======================================================
         # INFORMACION
-        # ------------------------------------------------------
+        # ======================================================
 
-        marco_informacion = ctk.CTkFrame(
+        marco_informacion = tk.Frame(
             self.ventana,
-            fg_color="transparent"
+            bg="lavender"
         )
 
         marco_informacion.pack(
@@ -250,16 +263,15 @@ class memoramaa:
             padx=20
         )
 
-        # ------------------------------------------------------
+        # ======================================================
         # TABLERO
-        # ------------------------------------------------------
+        # ======================================================
 
-        self.marco_tablero = ctk.CTkFrame(
+        self.marco_tablero = tk.Frame(
             self.ventana,
             width=680,
             height=440,
-            fg_color="lavender",
-            corner_radius=15
+            bg="lavender"
         )
 
         self.marco_tablero.pack(
@@ -268,13 +280,13 @@ class memoramaa:
 
         self.marco_tablero.pack_propagate(False)
 
-        # ------------------------------------------------------
+        # ======================================================
         # MENSAJE INICIAL
-        # ------------------------------------------------------
+        # ======================================================
 
         self.mensaje_inicio = ctk.CTkLabel(
             self.marco_tablero,
-            text="Presiona \"EMPEZAR JUEGO\" para comenzar",
+            text='Presiona "EMPEZAR JUEGO" para comenzar',
             font=("Quicksand", 20, "bold"),
             text_color="#6C4AB6"
         )
@@ -285,9 +297,9 @@ class memoramaa:
             anchor="center"
         )
 
-        # ------------------------------------------------------
+        # ======================================================
         # BOTON EMPEZAR
-        # ------------------------------------------------------
+        # ======================================================
 
         self.boton_empezar = ctk.CTkButton(
             self.ventana,
@@ -333,11 +345,16 @@ class memoramaa:
 
         random.shuffle(self.pares)
 
-        for widget in self.marco_tablero.winfo_children():
+        # Limpiar tablero
 
+        for widget in self.marco_tablero.winfo_children():
             widget.destroy()
 
         self.cartas = []
+
+        # ======================================================
+        # CREAR CARTAS
+        # ======================================================
 
         for fila in range(4):
 
@@ -443,6 +460,12 @@ class memoramaa:
 
     def comprobar_pareja(self):
 
+        if self.primera_carta is None:
+            return
+
+        if self.segunda_carta is None:
+            return
+
         primera = self.cartas[
             self.primera_carta
         ]
@@ -536,7 +559,7 @@ class memoramaa:
         self.bloqueado = False
 
     # ==========================================================
-    # INFORMACION
+    # ACTUALIZAR INFORMACION
     # ==========================================================
 
     def actualizar_informacion(self):
@@ -646,7 +669,7 @@ class memoramaa:
 
     def mostrar_victoria(self):
 
-        ventana = ctk.CTkToplevel(
+        ventana = tk.Toplevel(
             self.ventana
         )
 
@@ -664,7 +687,7 @@ class memoramaa:
         )
 
         ventana.configure(
-            fg_color="lavender"
+            bg="lavender"
         )
 
         ventana.transient(
@@ -752,6 +775,44 @@ class memoramaa:
     # REGRESAR
     # ==========================================================
 
+    def regresar(self):
+
+        self.jugando = False
+
+        # Cancelar cualquier ventana secundaria de victoria
+        # que todavía pudiera existir.
+        for ventana in self.ventana.winfo_children():
+
+            if isinstance(ventana, tk.Toplevel):
+                try:
+                    ventana.destroy()
+                except:
+                    pass
+
+        # Destruir el juego
+        if self.ventana.winfo_exists():
+            self.ventana.destroy()
+
+        # ======================================================
+        # RESTAURAR ACTIVIDADES
+        # ======================================================
+
+        if self.root.winfo_exists():
+
+            self.root.deiconify()
+
+            # Restaurar tamaño y posición
+            self.root.geometry(
+                "520x700+520+60"
+            )
+
+            self.root.update_idletasks()
+
+
+    # ==========================================================
+    # CERRAR
+    # ==========================================================
+
     def cerrar(self):
 
         self.jugando = False
@@ -760,40 +821,17 @@ class memoramaa:
             self.ventana.destroy()
 
         if self.root.winfo_exists():
+
             self.root.deiconify()
 
-            # Quitar cualquier transparencia
-            self.root.attributes("-alpha", 1.0)
+            self.root.geometry(
+                "520x700+520+60"
+            )
 
             self.root.update_idletasks()
 
-            # Restaurar tamaño
-            self.root.geometry("520x700+520+60")
 
-            # Traer ventana al frente
-            self.root.lift()
-            self.root.focus_force()
-            
-    def regresar(self):
-
-        self.jugando = False
-
-        self.ventana.destroy()
-
-        if self.root.winfo_exists():
-            self.root.deiconify()
-
-            # Restaurar completamente la ventana
-            self.root.attributes("-alpha", 1.0)
-            self.root.update_idletasks()
-
-        # Recuperar tamaño de Actividades
-            self.root.geometry("520x700+520+60")
-
-        # Traerla al frente
-            self.root.lift()
-            self.root.focus_force()
-    #==================
+# ==============================================================
 # PRUEBA DIRECTA
 # ==============================================================
 
@@ -803,7 +841,8 @@ if __name__ == "__main__":
 
     ctk.set_default_color_theme("blue")
 
-    root = ctk.CTk()
+    # Ventana raíz normal
+    root = tk.Tk()
 
     root.withdraw()
 

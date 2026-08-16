@@ -47,7 +47,6 @@ class bienvenida:
         labelframe.config(width=500, height=400, padx= 20,)
         labelframe.pack()
 
-
         marco_cuida = tk.Frame(labelframe, bg="plum1")
         marco_cuida.pack(pady=(5,2))
 

@@ -1,57 +1,87 @@
-import customtkinter as ctk
+import tkinter as tk
 from tkinter import messagebox
-from datetime import date
+from PIL import Image, ImageTk
+import customtkinter as ctk
 import random
+import time
 
 from conexion import conectarBd
 
 
-class rompecabezas:
+class Rompecabezas:
 
     def __init__(self, root, idPaciente):
 
         self.root = root
         self.idPaciente = idPaciente
 
-        # ------------------------------------------------------
+        # =====================================================
         # VENTANA
-        # ------------------------------------------------------
+        # =====================================================
 
-        self.ventana = ctk.CTkToplevel(root)
+        self.ventana = tk.Toplevel(root)
+
         self.ventana.title("NEUROCARE - ROMPECABEZAS")
-        self.ventana.geometry("850x720+250+40")
+        self.ventana.geometry("760x850+350+1")
         self.ventana.resizable(False, False)
-        self.ventana.configure(fg_color="lavender")
+        self.ventana.configure(bg="lavender")
 
         self.ventana.protocol(
             "WM_DELETE_WINDOW",
-            self.cerrar
+            self.regresar
         )
 
-        # ------------------------------------------------------
-        # DATOS DEL JUEGO
-        # ------------------------------------------------------
+        # =====================================================
+        # IMAGEN DEL ROMPECABEZAS
+        # =====================================================
 
-        self.tamano = 4
-        self.total_piezas = 16
+        self.ruta_imagen = (
+            "NEUROCARE/funciones/recursos/"
+            "montaña.jpg"
+        )
 
-        self.tablero = []
-        self.botones = []
+        self.imagen_original = None
+
+        # =====================================================
+        # CONFIGURACIÓN
+        # =====================================================
+
+        self.filas = 3
+        self.columnas = 3
+
+        # Tamaño de cada pieza
+        self.tamano = 140
+
+        self.piezas = []
+        self.posiciones = []
 
         self.movimientos = 0
-        self.tiempo = 0
+
+        self.tiempo_inicio = None
+        self.tiempo_final = 0
 
         self.jugando = False
-        self.juego_iniciado = False
-        self.bloqueado = False
+
+        self.seleccion = None
+
+        # =====================================================
+        # BASE DE DATOS
+        # =====================================================
 
         self.idActividad = self.obtener_actividad()
 
+        # =====================================================
+        # INTERFAZ
+        # =====================================================
+
         self.crear_interfaz()
 
-    # ==========================================================
-    # ACTIVIDAD EN BASE DE DATOS
-    # ==========================================================
+        # Cargar automáticamente la imagen
+        self.cargar_imagen()
+
+    # =========================================================
+    # BASE DE DATOS
+    # =========================================================
 
     def obtener_actividad(self):
 
@@ -92,7 +122,7 @@ class rompecabezas:
 
             valores = (
                 "Rompecabezas",
-                "Actividad de memoria y razonamiento para ordenar las piezas.",
+                "Actividad para armar una imagen por piezas.",
                 300
             )
 
@@ -122,30 +152,18 @@ class rompecabezas:
             if conexion:
                 conexion.close()
 
-    # ==========================================================
+    # =========================================================
     # INTERFAZ
-    # ==========================================================
+    # =========================================================
 
     def crear_interfaz(self):
 
-        # ------------------------------------------------------
-        # BARRA SUPERIOR
-        # ------------------------------------------------------
-
-        marco_superior = ctk.CTkFrame(
-            self.ventana,
-            fg_color="lavender",
-            corner_radius=0
-        )
-
-        marco_superior.pack(
-            fill="x",
-            padx=20,
-            pady=(15, 0)
-        )
+        # =====================================================
+        # BOTÓN REGRESAR
+        # =====================================================
 
         boton_regresar = ctk.CTkButton(
-            marco_superior,
+            self.ventana,
             text="← REGRESAR",
             width=130,
             height=40,
@@ -156,20 +174,22 @@ class rompecabezas:
             border_width=2,
             border_color="#6C4AB6",
             font=("Quicksand", 14, "bold"),
-            command=self.cerrar
+            command=self.regresar
         )
 
         boton_regresar.pack(
-            side="left"
+            anchor="w",
+            padx=20,
+            pady=(15, 5)
         )
 
-        # ------------------------------------------------------
-        # TITULO
-        # ------------------------------------------------------
+        # =====================================================
+        # TÍTULO
+        # =====================================================
 
         titulo = ctk.CTkLabel(
             self.ventana,
-            text="🧩  ROMPECABEZAS",
+            text="🧩 ROMPECABEZAS",
             font=("Quicksand", 30, "bold"),
             text_color="#6C4AB6"
         )
@@ -180,433 +200,396 @@ class rompecabezas:
 
         subtitulo = ctk.CTkLabel(
             self.ventana,
-            text="Ordena todas las piezas para completar el rompecabezas",
+            text="Acomoda las piezas para completar la imagen",
             font=("Quicksand", 15),
             text_color="#555555"
         )
 
         subtitulo.pack(
-            pady=(0, 5)
+            pady=(0, 10)
         )
 
-        # ------------------------------------------------------
-        # INFORMACION
-        # ------------------------------------------------------
+        # =====================================================
+        # INFORMACIÓN
+        # =====================================================
 
-        marco_informacion = ctk.CTkFrame(
+        marco_info = tk.Frame(
             self.ventana,
-            fg_color="transparent"
+            bg="lavender"
         )
 
-        marco_informacion.pack(
+        marco_info.pack(
             fill="x",
-            padx=50,
-            pady=(5, 5)
+            padx=80
         )
 
         self.etiqueta_movimientos = ctk.CTkLabel(
-            marco_informacion,
+            marco_info,
             text="Movimientos: 0",
             font=("Quicksand", 15, "bold"),
             text_color="#6C4AB6"
         )
 
         self.etiqueta_movimientos.pack(
-            side="left",
-            padx=20
+            side="left"
         )
 
         self.etiqueta_tiempo = ctk.CTkLabel(
-            marco_informacion,
+            marco_info,
             text="Tiempo: 00:00",
             font=("Quicksand", 15, "bold"),
             text_color="#6C4AB6"
         )
 
         self.etiqueta_tiempo.pack(
-            side="right",
-            padx=20
+            side="right"
         )
 
-        # ------------------------------------------------------
-        # TABLERO
-        # ------------------------------------------------------
+        # =====================================================
+        # ETIQUETA / ESPACIO PARA LA IMAGEN
+        # =====================================================
 
-        self.marco_tablero = ctk.CTkFrame(
+        self.etiqueta_imagen = tk.Label(
             self.ventana,
-            width=500,
-            height=440,
-            fg_color="lavender",
-            corner_radius=15
+            text="Aquí aparecerá la imagen",
+            bg="white",
+            fg="#6C4AB6",
+            font=("Quicksand", 14, "bold")
         )
 
-        self.marco_tablero.pack(
+        self.etiqueta_imagen.pack(
+            pady=(5, 8)
+        )
+
+        # =====================================================
+        # TABLERO
+        # =====================================================
+
+        self.tablero = tk.Frame(
+            self.ventana,
+            width=420,
+            height=420,
+            bg="lavender"
+        )
+
+        self.tablero.pack(
+            pady=2
+        )
+
+        self.tablero.pack_propagate(False)
+
+        # =====================================================
+        # BOTÓN MEZCLAR
+        # =====================================================
+
+        boton_mezclar = ctk.CTkButton(
+            self.ventana,
+            text="🔀 MEZCLAR",
+            width=180,
+            height=45,
+            corner_radius=12,
+            fg_color="#22C55E",
+            hover_color="#16A34A",
+            font=("Quicksand", 14, "bold"),
+            command=self.mezclar
+        )
+
+        boton_mezclar.pack(
             pady=5
         )
 
-        self.marco_tablero.pack_propagate(False)
+    # =========================================================
+    # CARGAR IMAGEN
+    # =========================================================
 
-        # ------------------------------------------------------
-        # MENSAJE INICIAL
-        # ------------------------------------------------------
+    def cargar_imagen(self):
 
-        self.mensaje_inicio = ctk.CTkLabel(
-            self.marco_tablero,
-            text="Presiona \"EMPEZAR JUEGO\" para comenzar",
-            font=("Quicksand", 19, "bold"),
-            text_color="#6C4AB6"
-        )
+        try:
 
-        self.mensaje_inicio.place(
-            relx=0.5,
-            rely=0.5,
-            anchor="center"
-        )
-
-        # ------------------------------------------------------
-        # BOTON EMPEZAR
-        # ------------------------------------------------------
-
-        self.boton_empezar = ctk.CTkButton(
-            self.ventana,
-            text="▶  EMPEZAR JUEGO",
-            width=260,
-            height=55,
-            corner_radius=12,
-            fg_color="#6C4AB6",
-            hover_color="#573A99",
-            font=("Quicksand", 17, "bold"),
-            command=self.iniciar_juego
-        )
-
-        self.boton_empezar.pack(
-            pady=(10, 20)
-        )
-
-    # ==========================================================
-    # INICIAR JUEGO
-    # ==========================================================
-
-    def iniciar_juego(self):
-
-        self.movimientos = 0
-        self.tiempo = 0
-
-        self.jugando = True
-        self.juego_iniciado = True
-        self.bloqueado = False
-
-        self.boton_empezar.configure(
-            state="disabled",
-            text="JUEGO EN CURSO"
-        )
-
-        self.mensaje_inicio.place_forget()
-
-        # ------------------------------------------------------
-        # CREAR TABLERO
-        # ------------------------------------------------------
-
-        self.tablero = list(
-            range(1, self.total_piezas)
-        )
-
-        self.tablero.append(0)
-
-        # Mezclar hasta que sea resoluble
-        while True:
-
-            random.shuffle(
-                self.tablero
+            self.imagen_original = Image.open(
+                self.ruta_imagen
             )
 
-            if self.es_resoluble(
-                self.tablero
-            ) and not self.esta_resuelto():
+            # Mostrar una pequeña vista de la imagen original
+            vista = self.imagen_original.copy()
 
-                break
+            vista.thumbnail(
+                (160, 90)
+            )
 
-        # ------------------------------------------------------
-        # LIMPIAR TABLERO
-        # ------------------------------------------------------
+            self.imagen_vista = ImageTk.PhotoImage(
+                vista
+            )
 
-        for widget in self.marco_tablero.winfo_children():
+            self.etiqueta_imagen.configure(
+                image=self.imagen_vista,
+                text=""
+            )
 
+            self.crear_piezas()
+
+            self.mezclar()
+
+        except Exception as e:
+
+            self.etiqueta_imagen.configure(
+                text="No se pudo cargar la imagen"
+            )
+
+            messagebox.showerror(
+                "Imagen",
+                f"No se pudo cargar la imagen:\n\n{e}"
+            )
+
+    # =========================================================
+    # CREAR PIEZAS
+    # =========================================================
+
+    def crear_piezas(self):
+
+        for widget in self.tablero.winfo_children():
             widget.destroy()
 
-        self.botones = []
+        ancho = self.columnas * self.tamano
+        alto = self.filas * self.tamano
 
-        # ------------------------------------------------------
-        # CREAR PIEZAS
-        # ------------------------------------------------------
+        imagen = self.imagen_original.copy()
 
-        for fila in range(self.tamano):
+        imagen = imagen.resize(
+            (ancho, alto)
+        )
 
-            self.marco_tablero.grid_rowconfigure(
-                fila,
-                weight=1
+        self.piezas = []
+
+        for fila in range(self.filas):
+
+            for columna in range(self.columnas):
+
+                izquierda = columna * self.tamano
+                arriba = fila * self.tamano
+
+                derecha = izquierda + self.tamano
+                abajo = arriba + self.tamano
+
+                pieza = imagen.crop(
+                    (
+                        izquierda,
+                        arriba,
+                        derecha,
+                        abajo
+                    )
+                )
+
+                self.piezas.append(
+                    pieza
+                )
+
+        self.posiciones = list(
+            range(
+                len(self.piezas)
+            )
+        )
+
+    # =========================================================
+    # MOSTRAR PIEZAS
+    # =========================================================
+
+    def mostrar_piezas(self):
+
+        for widget in self.tablero.winfo_children():
+            widget.destroy()
+
+        for posicion, indice_pieza in enumerate(
+            self.posiciones
+        ):
+
+            fila = posicion // self.columnas
+            columna = posicion % self.columnas
+
+            imagen = self.piezas[
+                indice_pieza
+            ]
+
+            imagen_tk = ImageTk.PhotoImage(
+                imagen
             )
 
-            for columna in range(self.tamano):
+            boton = tk.Button(
+                self.tablero,
+                image=imagen_tk,
+                width=self.tamano,
+                height=self.tamano,
+                bd=2,
+                relief="solid",
+                command=lambda p=posicion:
+                self.seleccionar(p)
+            )
 
-                self.marco_tablero.grid_columnconfigure(
-                    columna,
-                    weight=1
-                )
+            boton.image = imagen_tk
 
-                indice = (
-                    fila * self.tamano
-                ) + columna
+            boton.grid(
+                row=fila,
+                column=columna
+            )
 
-                valor = self.tablero[indice]
+    # =========================================================
+    # MEZCLAR
+    # =========================================================
 
-                if valor == 0:
+    def mezclar(self):
 
-                    boton = ctk.CTkButton(
-                        self.marco_tablero,
-                        text="",
-                        width=105,
-                        height=90,
-                        corner_radius=12,
-                        fg_color="#DCD5ED",
-                        hover_color="#DCD5ED",
-                        state="disabled"
-                    )
+        if not self.piezas:
+            return
 
-                else:
+        random.shuffle(
+            self.posiciones
+        )
 
-                    boton = ctk.CTkButton(
-                        self.marco_tablero,
-                        text=str(valor),
-                        width=105,
-                        height=90,
-                        corner_radius=12,
-                        fg_color="white",
-                        hover_color="#E9DFFF",
-                        text_color="#6C4AB6",
-                        border_width=3,
-                        border_color="#B99AEF",
-                        font=("Quicksand", 25, "bold"),
-                        command=lambda i=indice:
-                        self.mover_pieza(i)
-                    )
+        # Evitar que por casualidad salga armado
+        if self.posiciones == list(
+            range(len(self.piezas))
+        ):
 
-                boton.grid(
-                    row=fila,
-                    column=columna,
-                    padx=7,
-                    pady=7
-                )
+            random.shuffle(
+                self.posiciones
+            )
 
-                self.botones.append(
-                    boton
-                )
+        self.movimientos = 0
+        self.seleccion = None
 
-        self.actualizar_informacion()
+        self.etiqueta_movimientos.configure(
+            text="Movimientos: 0"
+        )
+
+        self.tiempo_inicio = time.time()
+
+        self.tiempo_final = 0
+
+        self.jugando = True
+
+        self.mostrar_piezas()
 
         self.actualizar_tiempo()
 
-    # ==========================================================
-    # MOVER PIEZA
-    # ==========================================================
+    # =========================================================
+    # SELECCIONAR PIEZA
+    # =========================================================
 
-    def mover_pieza(self, indice):
+    def seleccionar(self, posicion):
 
         if not self.jugando:
             return
 
-        if self.bloqueado:
+        # Primera pieza
+        if self.seleccion is None:
+
+            self.seleccion = posicion
+
             return
 
-        indice_vacio = self.tablero.index(0)
+        # Segunda pieza
+        segunda = posicion
 
-        fila_pieza = indice // self.tamano
-        columna_pieza = indice % self.tamano
-
-        fila_vacia = (
-            indice_vacio // self.tamano
-        )
-
-        columna_vacia = (
-            indice_vacio % self.tamano
-        )
-
-        distancia = (
-            abs(fila_pieza - fila_vacia)
-            +
-            abs(columna_pieza - columna_vacia)
-        )
-
-        # Solo puede moverse una pieza
-        # que esté junto al espacio vacío
-
-        if distancia != 1:
+        if self.seleccion == segunda:
             return
 
-        # ------------------------------------------------------
-        # INTERCAMBIAR PIEZAS
-        # ------------------------------------------------------
-
-        self.tablero[indice], self.tablero[indice_vacio] = (
-            self.tablero[indice_vacio],
-            self.tablero[indice]
-        )
-
-        self.movimientos += 1
-
-        self.actualizar_tablero()
-
-        self.actualizar_informacion()
-
-        # ------------------------------------------------------
-        # COMPROBAR VICTORIA
-        # ------------------------------------------------------
-
-        if self.esta_resuelto():
-
-            self.jugando = False
-
-            self.guardar_resultado()
-
-            self.mostrar_victoria()
-
-    # ==========================================================
-    # ACTUALIZAR TABLERO
-    # ==========================================================
-
-    def actualizar_tablero(self):
-
-        for indice in range(
-            self.total_piezas
-        ):
-
-            valor = self.tablero[indice]
-
-            if valor == 0:
-
-                self.botones[indice].configure(
-                    text="",
-                    fg_color="#DCD5ED",
-                    hover_color="#DCD5ED",
-                    state="disabled"
-                )
-
-            else:
-
-                self.botones[indice].configure(
-                    text=str(valor),
-                    fg_color="white",
-                    hover_color="#E9DFFF",
-                    text_color="#6C4AB6",
-                    state="normal"
-                )
-
-    # ==========================================================
-    # COMPROBAR SI ESTÁ RESUELTO
-    # ==========================================================
-
-    def esta_resuelto(self):
-
-        return self.tablero == list(
-            range(
-                1,
-                self.total_piezas
-            )
-        ) + [0]
-
-    # ==========================================================
-    # COMPROBAR SI EL TABLERO ES RESOLUBLE
-    # ==========================================================
-
-    def es_resoluble(self, tablero):
-
-        inversiones = 0
-
-        lista = [
-            numero
-            for numero in tablero
-            if numero != 0
+        # Intercambiar piezas
+        self.posiciones[
+            self.seleccion
+        ], self.posiciones[
+            segunda
+        ] = self.posiciones[
+            segunda
+        ], self.posiciones[
+            self.seleccion
         ]
 
-        for i in range(
-            len(lista)
-        ):
-
-            for j in range(
-                i + 1,
-                len(lista)
-            ):
-
-                if lista[i] > lista[j]:
-
-                    inversiones += 1
-
-        fila_vacia = (
-            tablero.index(0)
-            // self.tamano
-        )
-
-        fila_desde_abajo = (
-            self.tamano - fila_vacia
-        )
-
-        if self.tamano % 2 == 1:
-
-            return inversiones % 2 == 0
-
-        else:
-
-            if fila_desde_abajo % 2 == 0:
-
-                return inversiones % 2 == 1
-
-            else:
-
-                return inversiones % 2 == 0
-
-    # ==========================================================
-    # INFORMACION
-    # ==========================================================
-
-    def actualizar_informacion(self):
+        self.movimientos += 1
 
         self.etiqueta_movimientos.configure(
             text=f"Movimientos: {self.movimientos}"
         )
 
-    # ==========================================================
-    # CRONOMETRO
-    # ==========================================================
+        self.seleccion = None
+
+        self.mostrar_piezas()
+
+        self.comprobar_victoria()
+
+    # =========================================================
+    # COMPROBAR VICTORIA
+    # =========================================================
+
+    def comprobar_victoria(self):
+
+        if self.posiciones == list(
+            range(
+                len(self.piezas)
+            )
+        ):
+
+            self.jugando = False
+
+            self.tiempo_final = int(
+                time.time() -
+                self.tiempo_inicio
+            )
+
+            self.guardar_resultado()
+
+            minutos = self.tiempo_final // 60
+            segundos = self.tiempo_final % 60
+
+            puntuacion = max(
+                0,
+                100 - (
+                    self.movimientos * 2
+                )
+            )
+
+            messagebox.showinfo(
+                "🎉 ¡Felicidades!",
+                (
+                    "¡Completaste el rompecabezas!\n\n"
+                    f"Movimientos: {self.movimientos}\n"
+                    f"Puntuación: {puntuacion}\n"
+                    f"Tiempo: "
+                    f"{minutos:02d}:{segundos:02d}"
+                )
+            )
+
+    # =========================================================
+    # TIEMPO
+    # =========================================================
 
     def actualizar_tiempo(self):
+
+        if not self.jugando:
+            return
 
         if not self.ventana.winfo_exists():
             return
 
-        if self.jugando:
+        segundos = int(
+            time.time() -
+            self.tiempo_inicio
+        )
 
-            minutos = (
-                self.tiempo // 60
-            )
+        minutos = segundos // 60
+        segundos = segundos % 60
 
-            segundos = (
-                self.tiempo % 60
-            )
+        self.etiqueta_tiempo.configure(
+            text=f"Tiempo: {minutos:02d}:{segundos:02d}"
+        )
 
-            self.etiqueta_tiempo.configure(
-                text=f"Tiempo: {minutos:02d}:{segundos:02d}"
-            )
+        self.ventana.after(
+            1000,
+            self.actualizar_tiempo
+        )
 
-            self.tiempo += 1
-
-            self.ventana.after(
-                1000,
-                self.actualizar_tiempo
-            )
-
-    # ==========================================================
-    # GUARDAR RESULTADO
-    # ==========================================================
+    # =========================================================
+    # GUARDAR RESULTADO EN BD
+    # =========================================================
 
     def guardar_resultado(self):
 
@@ -619,12 +602,13 @@ class rompecabezas:
         try:
 
             conexion = conectarBd()
+
             cursor = conexion.cursor()
 
             puntuacion = max(
                 0,
                 100 - (
-                    self.movimientos // 5
+                    self.movimientos * 2
                 )
             )
 
@@ -644,9 +628,9 @@ class rompecabezas:
             valores = (
                 self.idPaciente,
                 self.idActividad,
-                date.today(),
+                __import__("datetime").date.today(),
                 puntuacion,
-                self.tiempo,
+                self.tiempo_final,
                 True
             )
 
@@ -660,7 +644,7 @@ class rompecabezas:
         except Exception as e:
 
             messagebox.showerror(
-                "Error",
+                "Base de datos",
                 f"No se pudo guardar el resultado:\n\n{e}"
             )
 
@@ -672,124 +656,11 @@ class rompecabezas:
             if conexion:
                 conexion.close()
 
-    # ==========================================================
-    # VICTORIA
-    # ==========================================================
-
-    def mostrar_victoria(self):
-
-        ventana = ctk.CTkToplevel(
-            self.ventana
-        )
-
-        ventana.title(
-            "Rompecabezas completado"
-        )
-
-        ventana.geometry(
-            "430x430"
-        )
-
-        ventana.resizable(
-            False,
-            False
-        )
-
-        ventana.configure(
-            fg_color="lavender"
-        )
-
-        ventana.transient(
-            self.ventana
-        )
-
-        ventana.grab_set()
-
-        titulo = ctk.CTkLabel(
-            ventana,
-            text="🎉 ¡Felicidades!",
-            font=("Quicksand", 28, "bold"),
-            text_color="#6C4AB6"
-        )
-
-        titulo.pack(
-            pady=(30, 10)
-        )
-
-        mensaje = ctk.CTkLabel(
-            ventana,
-            text="¡Completaste el rompecabezas!",
-            font=("Quicksand", 18, "bold"),
-            text_color="#333333"
-        )
-
-        mensaje.pack(
-            pady=8
-        )
-
-        minutos = (
-            self.tiempo // 60
-        )
-
-        segundos = (
-            self.tiempo % 60
-        )
-
-        puntuacion = max(
-            0,
-            100 - (
-                self.movimientos // 5
-            )
-        )
-
-        resultado = ctk.CTkLabel(
-            ventana,
-            text=(
-                f"Movimientos: {self.movimientos}\n\n"
-                f"Puntuación: {puntuacion}\n\n"
-                f"Tiempo: {minutos:02d}:{segundos:02d}"
-            ),
-            font=("Quicksand", 16),
-            text_color="#555555",
-            justify="center"
-        )
-
-        resultado.pack(
-            pady=10
-        )
-
-        boton = ctk.CTkButton(
-            ventana,
-            text="JUGAR DE NUEVO",
-            width=220,
-            height=45,
-            corner_radius=12,
-            fg_color="#6C4AB6",
-            hover_color="#573A99",
-            font=("Quicksand", 15, "bold"),
-            command=lambda:
-            self.nuevo_juego(ventana)
-        )
-
-        boton.pack(
-            pady=15
-        )
-
-    # ==========================================================
-    # NUEVO JUEGO
-    # ==========================================================
-
-    def nuevo_juego(self, ventana):
-
-        ventana.destroy()
-
-        self.iniciar_juego()
-
-    # ==========================================================
+    # =========================================================
     # REGRESAR
-    # ==========================================================
+    # =========================================================
 
-    def cerrar(self):
+    def regresar(self):
 
         self.jugando = False
 
@@ -797,31 +668,34 @@ class rompecabezas:
 
             self.ventana.destroy()
 
-            from actividades import juegos
+        if self.root.winfo_exists():
 
-            juegos(
-                self.root,
-                self.idPaciente
+            self.root.deiconify()
+
+            # Restauramos Actividades
+            self.root.geometry(
+                "520x700+520+60"
             )
 
+            self.root.update_idletasks()
 
-# ==============================================================
+
+# =============================================================
 # PRUEBA DIRECTA
-# ==============================================================
+# =============================================================
 
 if __name__ == "__main__":
 
     ctk.set_appearance_mode("light")
-
     ctk.set_default_color_theme("blue")
 
-    root = ctk.CTk()
+    root = tk.Tk()
 
     root.withdraw()
 
-    idPaciente = 1
+    idPaciente = 22
 
-    juego = rompecabezas(
+    app = Rompecabezas(
         root,
         idPaciente
     )

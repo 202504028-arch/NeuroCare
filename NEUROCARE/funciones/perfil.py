@@ -1,4 +1,3 @@
-
 from tkinter import messagebox
 from conexion import conectarBd
 import customtkinter as ctk
@@ -407,20 +406,27 @@ class editar_perfil:
                 cursor.execute("SELECT alergias, enfermedadCronica FROM caracteristicaspaciente WHERE idPaciente = %s", (self.idPaciente,))
                 resultado = cursor.fetchone()
 
-                etiqueta_alergias = tk.Label(self.ventana, text="Alergias:")
-                etiqueta_alergias.pack()
+                marco_principal =tk.Frame(self.ventana, bg="red")
+                marco_principal.config(width=400, height=400)
+                marco_principal.pack_propagate(False)
 
+                etiqueta_alergias = tk.Label(self.ventana, text="Alergias:")
+                etiqueta_alergias.pack(pady=10)
+
+                etiqueta_alergias = tk.Label(self.ventana, text="Alergias:")
+                etiqueta_alergias.pack(pady=10)
+                
                 self.campo_alergias = tk.Entry(self.ventana)
-                self.campo_alergias.pack()
+                self.campo_alergias.pack(pady=10)
                 self.campo_alergias.insert(0, resultado[0] if resultado else "no disponible")
 
                 
                 #ENFERMEDAD CRONICA#
                 etiqueta_enfermedad = tk.Label(self.ventana, text="Enfermedad crónica:")
-                etiqueta_enfermedad.pack()
+                etiqueta_enfermedad.pack(pady=10)
 
                 self.campo_enfermedad = tk.Entry(self.ventana)
-                self.campo_enfermedad.pack()
+                self.campo_enfermedad.pack(pady=10)
                 self.campo_enfermedad.insert(0, resultado[1] if resultado else "no disponible")
 
                         #NUMERO DEE EMERGENCIA#
@@ -428,10 +434,10 @@ class editar_perfil:
                 resultado_emergencia = cursor.fetchone()
 
                 etiqueta_contacto = tk.Label(self.ventana, text="Contacto de emergencia:")
-                etiqueta_contacto.pack()
+                etiqueta_contacto.pack(pady=10)
 
                 self.campo_contacto = tk.Entry(self.ventana)
-                self.campo_contacto.pack()
+                self.campo_contacto.pack(pady=10)
                 self.campo_contacto.insert(0, resultado_emergencia[0] if resultado_emergencia else "")\
 
                 #tipo de sangre#
@@ -440,7 +446,7 @@ class editar_perfil:
                 opciones_sangre = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
 
                 self.campo_sangre = ttk.Combobox(self.ventana, values=opciones_sangre)
-                self.campo_sangre.pack()
+                self.campo_sangre.pack(pady=10)
                 self.campo_sangre.set(resultado_sangre[0] if resultado_sangre else "")
 
                 cursor.close()
@@ -492,8 +498,17 @@ class editar_perfil:
 
 
 
-if __name__ =="__main__":
+
+if __name__ == "__main__":
+
     ventana = tk.Tk()
-    app = usuario_perfil(ventana)
+    ventana.withdraw()
+
+    idPaciente = 1
+
+    app = editar_perfil(
+        ventana,
+        idPaciente
+    )
+
     ventana.mainloop()
-    

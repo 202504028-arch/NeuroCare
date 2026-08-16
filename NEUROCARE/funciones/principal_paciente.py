@@ -93,8 +93,7 @@ class principal:
         cursor.close()
         conexion.close()
 
-
-        etiqueta_nombre = tk.Label(marco_texto, text=resultado[0] if resultado else "usuario")  #👋
+        etiqueta_nombre = tk.Label(marco_texto, text=resultado[0] if resultado else "Usuario")  #👋
         etiqueta_nombre.configure(bg="lavender", fg="medium purple", font=("Quicksand",24,"bold"))
         etiqueta_nombre.pack(anchor="w", pady=(5,5), padx=10)
 
@@ -418,4 +417,3 @@ if __name__ =="__main__":
     )
 
     ventana.mainloop()
-    

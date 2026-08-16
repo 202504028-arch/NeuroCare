@@ -411,11 +411,11 @@ class juegos:
 
     def abrir_rompecabezas(self):
 
-        from rompecabezas import rompecabezas
+        from rompecabezas import Rompecabezas
 
         self.ventana.withdraw()
 
-        rompecabezas(
+        Rompecabezas(
             self.ventana,
             self.idPaciente
         )
