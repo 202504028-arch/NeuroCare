@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 import customtkinter as ctk
 from conexion import conectarBd
+import winsound
 
                                 #python NEUROCARE/funciones/principal_paciente.py
 class principal:
@@ -139,8 +140,8 @@ class principal:
         etiqueta_imagen1.configure(bg="#E9D5FF")
         etiqueta_imagen1.pack(expand=True)
 
-        etiqueta_numero1 = tk.Label(marco_actividades, text="aqui")
-        etiqueta_numero1.configure(bg="yellow", fg="medium purple", font=("Quicksand",22,"bold"))
+        etiqueta_numero1 = tk.Label(marco_actividades, text="1")
+        etiqueta_numero1.configure(bg="#E9D5FF", fg="medium purple", font=("Quicksand",22,"bold"))
         etiqueta_numero1.pack()
 
         etiqueta_texto1 = tk.Label(marco_actividades, text="Actividades pendientes")
@@ -165,8 +166,8 @@ class principal:
         etiqueta_imagen2.configure(bg="#D1FAE5")
         etiqueta_imagen2.pack(expand=True)
 
-        etiqueta_numero2 = tk.Label(marco_recordatorios, text="aqui")
-        etiqueta_numero2.configure(bg="yellow", fg="medium purple", font=("Quicksand",22,"bold"))
+        etiqueta_numero2 = tk.Label(marco_recordatorios, text="2")
+        etiqueta_numero2.configure(bg="#D1FAE5", fg="medium purple", font=("Quicksand",22,"bold"))
         etiqueta_numero2.pack()
 
         etiqueta_texto2 = tk.Label(marco_recordatorios, text="Recordatorios pendientes")
@@ -178,12 +179,12 @@ class principal:
 #PROGRESO 
 
         marco_progreso = tk.Frame(self.marco_principal)
-        marco_progreso.configure(width=600, height=100, bg="red")
+        marco_progreso.configure(width=600, height=100, bg="lavender")
         marco_progreso.pack(pady=(5,20))
         marco_progreso.pack_propagate(False)
 
         etiqueta_progreso = tk.Label(marco_progreso, text="Progreso del día")
-        etiqueta_progreso.configure(bg="red", fg="black", font=("Quicksand",15,"bold"))
+        etiqueta_progreso.configure(bg="lavender", fg="black", font=("Quicksand",15,"bold"))
         etiqueta_progreso.pack(anchor="w")
 
         etiqueta_estado = tk.Label(marco_progreso, text="2 de 5 actividades completadas")
@@ -204,8 +205,10 @@ class principal:
         marco_sos.pack(pady=(0, 10))
         marco_sos.pack_propagate(True)
         
-        boton_sos = ctk.CTkButton(marco_sos,text="📞SOS📞\n    TOCA AQUI SI NECESITAS AYUDA    ",fg_color="red",corner_radius=25,border_width=3,
-                                    border_color="red4", hover_color="red2",font=("Arial", 26, "bold"), command=self.mensaje_boton)
+        boton_sos = ctk.CTkButton(marco_sos,text="📞SOS📞\n    TOCA AQUI SI NECESITAS AYUDA    ",
+                                  fg_color="red",corner_radius=25,border_width=3,
+                                    border_color="red4", hover_color="red2",font=("Arial", 26, "bold"), 
+                                    command=self.abrir_llamada)
         boton_sos.pack(pady=5,padx=5)
         
 #-------------------- TARJETA DE ACTIVIDADES --------------------#
@@ -376,6 +379,9 @@ class principal:
             "🛑📞Realizando llamada al \ncontacto de emergencia...📞🛑"
         )
         
+            
+            
+        
     def abrir_actividades(self):
         from actividades import juegos
 
@@ -405,6 +411,250 @@ class principal:
                 self.ventana,
                 self.idPaciente
         )
+        
+    def abrir_llamada(self):
+        boton_sos(self.ventana,self.idPaciente)
+        
+import tkinter as tk
+from tkinter import ttk
+from tkinter import messagebox
+import customtkinter as ctk
+import winsound
+
+
+class boton_sos:
+
+    def __init__(self,root,idPaciente):
+
+        self.root = root
+        self.idPaciente = idPaciente
+
+        self.ventana = tk.Toplevel(root)
+
+        self.ventana.title("NEUROCARE -- Llamada")
+        self.ventana.geometry("500x680+575+35")
+        self.ventana.configure(bg="white")
+
+        self.ventana.minsize(False,False)
+        self.ventana.maxsize(False,False)
+        self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
+
+        self.crear_interfaz()
+
+        self.iniciar_sonido()
+
+
+    def crear_interfaz(self):
+
+        # MARCO PRINCIPAL
+
+        marco_principal = tk.Frame(self.ventana)
+        marco_principal.configure(bg="white",width=500,height=600)
+        marco_principal.pack(fill="both",expand=True)
+        marco_principal.pack_propagate(False)
+
+
+        # LOGOTIPO
+
+        self.imagen_logo = tk.PhotoImage(
+            file="NEUROCARE/funciones/recursos/cerebro.png"
+        )
+
+        self.imagen_logo = self.imagen_logo.subsample(4,4)
+
+        etiqueta_logo = tk.Label(
+            marco_principal,
+            image=self.imagen_logo
+        )
+
+        etiqueta_logo.configure(bg="white")
+        etiqueta_logo.pack(pady=(30,5))
+
+
+        # TITULO
+
+        etiqueta_titulo = tk.Label(
+            marco_principal,
+            text="NEUROCARE"
+        )
+
+        etiqueta_titulo.configure(
+            bg="white",
+            fg="medium purple",
+            font=("Quicksand",20,"bold")
+        )
+
+        etiqueta_titulo.pack()
+
+
+        # ESTADO DE LA LLAMADA
+
+        etiqueta_llamando = tk.Label(
+            marco_principal,
+            text="Llamando..."
+        )
+
+        etiqueta_llamando.configure(
+            bg="white",
+            fg="medium purple",
+            font=("Quicksand",28,"bold")
+        )
+
+        etiqueta_llamando.pack(pady=(35,5))
+
+
+        # DESCRIPCION
+
+        etiqueta_descripcion = tk.Label(
+            marco_principal,
+            text="Por favor espera mientras se conecta la llamada"
+        )
+
+        etiqueta_descripcion.configure(
+            bg="white",
+            fg="dim gray",
+            font=("Quicksand",12)
+        )
+
+        etiqueta_descripcion.pack()
+
+
+        # ICONO DE TELEFONO
+
+        marco_telefono = ctk.CTkFrame(
+            marco_principal,
+            width=150,
+            height=150,
+            corner_radius=75,
+            fg_color="#E9D5FF",
+            border_width=3,
+            border_color="medium purple"
+        )
+
+        marco_telefono.pack(pady=30)
+        marco_telefono.pack_propagate(False)
+
+
+        etiqueta_telefono = tk.Label(
+            marco_telefono,
+            text="📞"
+        )
+
+        etiqueta_telefono.configure(
+            bg="#E9D5FF",
+            fg="purple",
+            font=("Arial",55)
+        )
+
+        etiqueta_telefono.pack(expand=True)
+
+
+        # NOMBRE DEL CONTACTO
+
+        etiqueta_nombre = tk.Label(
+            marco_principal,
+            text="Contacto de emergencia"
+        )
+
+        etiqueta_nombre.configure(
+            bg="white",
+            fg="black",
+            font=("Quicksand",20,"bold")
+        )
+
+        etiqueta_nombre.pack(pady=(0,5))
+
+
+        # NUMERO
+
+        etiqueta_numero = tk.Label(
+            marco_principal,
+            text="Llamada de emergencia"
+        )
+
+        etiqueta_numero.configure(
+            bg="white",
+            fg="dim gray",
+            font=("Quicksand",12)
+        )
+
+        etiqueta_numero.pack()
+
+
+        # ESTADO
+
+        etiqueta_estado = tk.Label(
+            marco_principal,
+            text="●  Llamando"
+        )
+
+        etiqueta_estado.configure(
+            bg="#D1FAE5",
+            fg="#16A34A",
+            font=("Quicksand",12,"bold")
+        )
+
+        etiqueta_estado.pack(pady=15)
+
+
+        # BOTON CANCELAR
+
+        boton_cancelar = ctk.CTkButton(
+            marco_principal,
+            text="📞  Cancelar llamada",
+            width=250,
+            height=55,
+            corner_radius=27,
+            fg_color="#EF4444",
+            hover_color="#DC2626",
+            text_color="white",
+            font=("Arial",16,"bold"),
+            command=self.cancelar_llamada
+        )
+
+        boton_cancelar.pack(pady=15)
+
+
+    #-------------------- SONIDO DE LLAMADA --------------------#
+    # Reproduce el sonido de llamada.
+    # SND_ASYNC permite que la ventana siga funcionando.
+    # SND_LOOP repite el sonido continuamente.
+
+    def iniciar_sonido(self):
+
+        winsound.PlaySound(
+            "NEUROCARE/funciones/recursos/llamada.wav",
+            winsound.SND_FILENAME |
+            winsound.SND_ASYNC |
+            winsound.SND_LOOP
+        )
+
+
+    #-------------------- CANCELAR LLAMADA --------------------#
+    # Detiene el sonido y regresa al menú principal.
+
+    def cancelar_llamada(self):
+
+        winsound.PlaySound(
+            None,
+            winsound.SND_PURGE
+        )
+
+        self.ventana.destroy()
+
+        if self.root.winfo_exists():
+
+            self.root.deiconify()
+
+            self.root.update_idletasks()
+
+            self.root.lift()
+
+            self.root.focus_force()
+            
+    
+            
+            
 
 if __name__ =="__main__":
     ventana = tk.Tk()

@@ -44,7 +44,7 @@ class memoramaa:
             "🍎", "🍎",
             "🌈", "🌈",
             "🦋", "🦋",
-            "❤️", "❤️"
+            "🐣", "🐣"
         ]
 
         self.cartas = []
@@ -678,7 +678,7 @@ class memoramaa:
         )
 
         ventana.geometry(
-            "430x430"
+            "430x430+300+100"
         )
 
         ventana.resizable(

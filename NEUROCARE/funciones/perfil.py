@@ -4,7 +4,7 @@ import customtkinter as ctk
 import tkinter as tk
 from tkinter import ttk
 
-                                    #python NEUROCARE/funciones/perfil.py
+                                    #           python NEUROCARE/funciones/perfil.py
 class usuario_perfil:
     
     def __init__ (self,root,idPaciente):
@@ -387,114 +387,464 @@ class usuario_perfil:
 #Ventana de editar perfil#
 
 class editar_perfil:
-        def __init__(self,root, idPaciente):
-            self.root = root
-            self.idPaciente = idPaciente
-            self.ventana = tk.Toplevel(root)
 
-            self.ventana.title("NEUROCARE -- EDITAR PERFIL")
-            self.ventana.geometry("600x650+300+60")
-            self.ventana.config(bg="lavender")
-        
-            self.crear_interfaz()
+    def __init__(self,root,idPaciente):
+        self.root = root
+        self.idPaciente = idPaciente
+        self.ventana = tk.Toplevel(root)
 
+        self.ventana.title("NEUROCARE -- EDITAR PERFIL")
+        self.ventana.geometry("600x680+300+40")
+        self.ventana.configure(bg="#E9E0F5")
+        self.ventana.minsize(False,False)
+        self.ventana.maxsize(False,False)
+        self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
 
-        def crear_interfaz(self):
-                ##
-                conexion = conectarBd()
-                cursor = conexion.cursor()
-                cursor.execute("SELECT alergias, enfermedadCronica FROM caracteristicaspaciente WHERE idPaciente = %s", (self.idPaciente,))
-                resultado = cursor.fetchone()
-
-                marco_principal =tk.Frame(self.ventana, bg="red")
-                marco_principal.config(width=400, height=400)
-                marco_principal.pack_propagate(False)
-
-                etiqueta_alergias = tk.Label(self.ventana, text="Alergias:")
-                etiqueta_alergias.pack(pady=10)
-
-                etiqueta_alergias = tk.Label(self.ventana, text="Alergias:")
-                etiqueta_alergias.pack(pady=10)
-                
-                self.campo_alergias = tk.Entry(self.ventana)
-                self.campo_alergias.pack(pady=10)
-                self.campo_alergias.insert(0, resultado[0] if resultado else "no disponible")
-
-                
-                #ENFERMEDAD CRONICA#
-                etiqueta_enfermedad = tk.Label(self.ventana, text="Enfermedad crónica:")
-                etiqueta_enfermedad.pack(pady=10)
-
-                self.campo_enfermedad = tk.Entry(self.ventana)
-                self.campo_enfermedad.pack(pady=10)
-                self.campo_enfermedad.insert(0, resultado[1] if resultado else "no disponible")
-
-                        #NUMERO DEE EMERGENCIA#
-                cursor.execute("SELECT numeroEmergencia FROM paciente WHERE idPaciente = %s", (self.idPaciente,))
-                resultado_emergencia = cursor.fetchone()
-
-                etiqueta_contacto = tk.Label(self.ventana, text="Contacto de emergencia:")
-                etiqueta_contacto.pack(pady=10)
-
-                self.campo_contacto = tk.Entry(self.ventana)
-                self.campo_contacto.pack(pady=10)
-                self.campo_contacto.insert(0, resultado_emergencia[0] if resultado_emergencia else "")\
-
-                #tipo de sangre#
-                cursor.execute("SELECT tipoSangre FROM caracteristicaspaciente WHERE idPaciente = %s", (self.idPaciente,))
-                resultado_sangre = cursor.fetchone()
-                opciones_sangre = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
-
-                self.campo_sangre = ttk.Combobox(self.ventana, values=opciones_sangre)
-                self.campo_sangre.pack(pady=10)
-                self.campo_sangre.set(resultado_sangre[0] if resultado_sangre else "")
-
-                cursor.close()
-                conexion.close()
+        self.crear_interfaz()
 
 
-                marco_botones = tk.Frame(self.ventana)
-                marco_botones.pack(pady=20)
+    def crear_interfaz(self):
 
-                boton_cancelar = tk.Button(marco_botones, text="Cancelar", command=self.cancelar)
-                boton_cancelar.pack(side="left", padx=10)
+        #-------------------- CONEXION A LA BASE DE DATOS --------------------#
 
-                boton_confirmar = tk.Button(marco_botones, text="Confirmar", command=self.guardar_cambios)
-                boton_confirmar.pack(side="left", padx=10)
+        conexion = conectarBd()
+        cursor = conexion.cursor()
 
-        def cancelar(self):
-                self.ventana.destroy()
-                from perfil import usuario_perfil
-                usuario_perfil(self.root, self.idPaciente)
+        cursor.execute("""
+        SELECT c.tipoSangre,c.alergias,c.enfermedadCronica,p.numeroEmergencia
+        FROM caracteristicasPaciente c
+        INNER JOIN paciente p ON c.idPaciente = p.idPaciente
+        WHERE c.idPaciente = %s
+        """,(self.idPaciente,))
 
-        def guardar_cambios(self):
-                conexion = conectarBd()
-                cursor = conexion.cursor()
+        resultado = cursor.fetchone()
 
-                sql = """
-                UPDATE caracteristicaspaciente
-                SET tipoSangre = %s, alergias = %s, enfermedadCronica = %s
-                WHERE idPaciente = %s
-                """
-                valores = (self.campo_sangre.get(), self.campo_alergias.get(), self.campo_enfermedad.get(), self.idPaciente)
-                cursor.execute(sql, valores)
-                conexion.commit()
+        cursor.close()
+        conexion.close()
 
-                sql = """
-                UPDATE paciente
-                SET numeroEmergencia = %s
-                WHERE idPaciente = %s
-                """
-                valores = (self.campo_contacto.get(), self.idPaciente)
-                cursor.execute(sql, valores)
-                conexion.commit()
 
-                cursor.close()
-                conexion.close()
+        #-------------------- MARCO PRINCIPAL --------------------#
 
-                self.ventana.destroy()
-                from perfil import usuario_perfil
-                usuario_perfil(self.root, self.idPaciente)
+        marco_principal = tk.Frame(self.ventana)
+        marco_principal.configure(bg="#E9E0F5",width=560,height=640)
+        marco_principal.pack(fill="both",expand=True,padx=20,pady=20)
+        marco_principal.pack_propagate(False)
+
+
+        #-------------------- ENCABEZADO --------------------#
+
+        marco_encabezado = tk.Frame(marco_principal)
+        marco_encabezado.configure(bg="#E9E0F5",width=520,height=80)
+        marco_encabezado.pack(pady=(5,10))
+        marco_encabezado.pack_propagate(False)
+
+        self.imagen_logo = tk.PhotoImage(
+            file="NEUROCARE/funciones/recursos/cerebro.png"
+        )
+
+        self.imagen_logo = self.imagen_logo.subsample(5,5)
+
+        etiqueta_logo = tk.Label(
+            marco_encabezado,
+            image=self.imagen_logo
+        )
+
+        etiqueta_logo.configure(bg="#E9E0F5")
+        etiqueta_logo.pack(side="left",padx=(15,10))
+
+
+        marco_titulo = tk.Frame(marco_encabezado)
+        marco_titulo.configure(bg="#E9E0F5")
+        marco_titulo.pack(side="left",pady=5)
+
+        etiqueta_neurocare = tk.Label(
+            marco_titulo,
+            text="NEUROCARE"
+        )
+
+        etiqueta_neurocare.configure(
+            bg="#E9E0F5",
+            fg="medium purple",
+            font=("Quicksand",20,"bold")
+        )
+
+        etiqueta_neurocare.pack(anchor="w")
+
+
+        etiqueta_subtitulo = tk.Label(
+            marco_titulo,
+            text="Editar información personal"
+        )
+
+        etiqueta_subtitulo.configure(
+            bg="#E9E0F5",
+            fg="dim gray",
+            font=("Quicksand",11)
+        )
+
+        etiqueta_subtitulo.pack(anchor="w")
+
+
+        #-------------------- TARJETA --------------------#
+
+        tarjeta = ctk.CTkFrame(
+            marco_principal,
+            width=520,
+            height=490,
+            fg_color="white",
+            corner_radius=25,
+            border_width=2,
+            border_color="#D8C8EF"
+        )
+
+        tarjeta.pack(padx=10,pady=5)
+        tarjeta.pack_propagate(False)
+
+
+        #-------------------- TITULO DE LA TARJETA --------------------#
+
+        etiqueta_informacion = tk.Label(
+            tarjeta,
+            text="Información del perfil"
+        )
+
+        etiqueta_informacion.configure(
+            bg="white",
+            fg="medium purple",
+            font=("Quicksand",18,"bold")
+        )
+
+        etiqueta_informacion.pack(
+            anchor="w",
+            padx=30,
+            pady=(20,10)
+        )
+
+
+        #-------------------- ALERGIAS --------------------#
+
+        etiqueta_alergias = tk.Label(
+            tarjeta,
+            text="Alergias"
+        )
+
+        etiqueta_alergias.configure(
+            bg="white",
+            fg="#4B5563",
+            font=("Quicksand",11,"bold")
+        )
+
+        etiqueta_alergias.pack(
+            anchor="w",
+            padx=35,
+            pady=(5,3)
+        )
+
+
+        self.campo_alergias = ctk.CTkEntry(
+            tarjeta,
+            width=450,
+            height=40,
+            corner_radius=12,
+            border_width=1,
+            border_color="#D8C8EF",
+            fg_color="#F9F7FC",
+            text_color="black",
+            font=("Quicksand",11)
+        )
+
+        self.campo_alergias.pack(
+            padx=35,
+            pady=(0,8)
+        )
+
+        self.campo_alergias.insert(
+            0,
+            resultado[1] if resultado and resultado[1] else ""
+        )
+
+
+        #-------------------- ENFERMEDAD CRONICA --------------------#
+
+        etiqueta_enfermedad = tk.Label(
+            tarjeta,
+            text="Enfermedad crónica"
+        )
+
+        etiqueta_enfermedad.configure(
+            bg="white",
+            fg="#4B5563",
+            font=("Quicksand",11,"bold")
+        )
+
+        etiqueta_enfermedad.pack(
+            anchor="w",
+            padx=35,
+            pady=(5,3)
+        )
+
+
+        self.campo_enfermedad = ctk.CTkEntry(
+            tarjeta,
+            width=450,
+            height=40,
+            corner_radius=12,
+            border_width=1,
+            border_color="#D8C8EF",
+            fg_color="#F9F7FC",
+            text_color="black",
+            font=("Quicksand",11)
+        )
+
+        self.campo_enfermedad.pack(
+            padx=35,
+            pady=(0,8)
+        )
+
+        self.campo_enfermedad.insert(
+            0,
+            resultado[2] if resultado and resultado[2] else ""
+        )
+
+
+        #-------------------- CONTACTO DE EMERGENCIA --------------------#
+
+        etiqueta_contacto = tk.Label(
+            tarjeta,
+            text="Contacto de emergencia"
+        )
+
+        etiqueta_contacto.configure(
+            bg="white",
+            fg="#4B5563",
+            font=("Quicksand",11,"bold")
+        )
+
+        etiqueta_contacto.pack(
+            anchor="w",
+            padx=35,
+            pady=(5,3)
+        )
+
+
+        self.campo_contacto = ctk.CTkEntry(
+            tarjeta,
+            width=450,
+            height=40,
+            corner_radius=12,
+            border_width=1,
+            border_color="#D8C8EF",
+            fg_color="#F9F7FC",
+            text_color="black",
+            font=("Quicksand",11)
+        )
+
+        self.campo_contacto.pack(
+            padx=35,
+            pady=(0,8)
+        )
+
+        self.campo_contacto.insert(
+            0,
+            resultado[3] if resultado and resultado[3] else ""
+        )
+
+
+        #-------------------- TIPO DE SANGRE --------------------#
+
+        etiqueta_sangre = tk.Label(
+            tarjeta,
+            text="Tipo de sangre"
+        )
+
+        etiqueta_sangre.configure(
+            bg="white",
+            fg="#4B5563",
+            font=("Quicksand",11,"bold")
+        )
+
+        etiqueta_sangre.pack(
+            anchor="w",
+            padx=35,
+            pady=(5,3)
+        )
+
+
+        opciones_sangre = [
+            "A+",
+            "A-",
+            "B+",
+            "B-",
+            "AB+",
+            "AB-",
+            "O+",
+            "O-"
+        ]
+
+
+        self.campo_sangre = ctk.CTkComboBox(
+            tarjeta,
+            width=450,
+            height=40,
+            corner_radius=12,
+            border_width=1,
+            border_color="#D8C8EF",
+            fg_color="#F9F7FC",
+            button_color="#9370DB",
+            button_hover_color="#7B3FE4",
+            dropdown_fg_color="white",
+            dropdown_hover_color="#E9D5FF",
+            dropdown_text_color="black",
+            text_color="black",
+            values=opciones_sangre,
+            font=("Quicksand",11)
+        )
+
+        self.campo_sangre.pack(
+            padx=35,
+            pady=(0,15)
+        )
+
+        self.campo_sangre.set(
+            resultado[0] if resultado and resultado[0] else "Selecciona"
+        )
+
+
+        #-------------------- BOTONES --------------------#
+
+        marco_botones = tk.Frame(
+            tarjeta
+        )
+
+        marco_botones.configure(
+            bg="white",
+            width=450,
+            height=60
+        )
+
+        marco_botones.pack(
+            pady=(0,15)
+        )
+
+        marco_botones.pack_propagate(False)
+
+
+        #-------------------- BOTON CANCELAR --------------------#
+
+        boton_cancelar = ctk.CTkButton(
+            marco_botones,
+            text="Cancelar",
+            width=150,
+            height=45,
+            corner_radius=20,
+            fg_color="#E5E7EB",
+            hover_color="#D1D5DB",
+            text_color="#374151",
+            font=("Quicksand",12,"bold"),
+            command=self.cancelar
+        )
+
+        boton_cancelar.pack(
+            side="left",
+            padx=(40,10),
+            pady=5
+        )
+
+
+        #-------------------- BOTON CONFIRMAR --------------------#
+
+        boton_confirmar = ctk.CTkButton(
+            marco_botones,
+            text="✓  Confirmar",
+            width=180,
+            height=45,
+            corner_radius=20,
+            fg_color="#9370DB",
+            hover_color="#7B3FE4",
+            text_color="white",
+            font=("Quicksand",12,"bold"),
+            command=self.guardar_cambios
+        )
+
+        boton_confirmar.pack(
+            side="right",
+            padx=(10,40),
+            pady=5
+        )
+
+
+    #-------------------- CANCELAR --------------------#
+
+    def cancelar(self):
+
+        self.ventana.destroy()
+
+        from perfil import usuario_perfil
+
+        usuario_perfil(
+            self.root,
+            self.idPaciente
+        )
+
+
+    #-------------------- GUARDAR CAMBIOS --------------------#
+
+    def guardar_cambios(self):
+
+        conexion = conectarBd()
+        cursor = conexion.cursor()
+
+
+        #-------------------- ACTUALIZAR CARACTERISTICAS --------------------#
+
+        sql = """
+        UPDATE caracteristicasPaciente
+        SET tipoSangre = %s,
+        alergias = %s,
+        enfermedadCronica = %s
+        WHERE idPaciente = %s
+        """
+
+        valores = (
+            self.campo_sangre.get(),
+            self.campo_alergias.get(),
+            self.campo_enfermedad.get(),
+            self.idPaciente
+        )
+
+        cursor.execute(sql,valores)
+
+
+        #-------------------- ACTUALIZAR CONTACTO --------------------#
+
+        sql = """
+        UPDATE paciente
+        SET numeroEmergencia = %s
+        WHERE idPaciente = %s
+        """
+
+        valores = (
+            self.campo_contacto.get(),
+            self.idPaciente
+        )
+
+        cursor.execute(sql,valores)
+
+
+        conexion.commit()
+
+        cursor.close()
+        conexion.close()
+
+
+        self.ventana.destroy()
+
+        from perfil import usuario_perfil
+
+        usuario_perfil(
+            self.root,
+            self.idPaciente
+        )
 
 
 
