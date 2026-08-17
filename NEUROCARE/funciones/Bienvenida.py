@@ -1,6 +1,6 @@
 from inicio_sesion import iniciar_sesion 
 import tkinter as tk
-                                    #python NEUROCARE/funciones/Bienvenida.py
+                                    #   python NEUROCARE/funciones/Bienvenida.py
 class bienvenida:
     def __init__(self,root):
         self.root = root
