@@ -16,6 +16,7 @@ class registrar_familiar:
 
         self.ventana.minsize(False,False)
         self.ventana.maxsize(False,False)
+        self.ventana.resizable(False, False)
         self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
 
         self.crear_interfaz()
@@ -35,6 +36,13 @@ class registrar_familiar:
         barra_scroll.pack(side="right", fill="y")
 
         self.canvas.configure(yscrollcommand=barra_scroll.set)
+
+#RUEDA DEL MOUSE (SCROLL)
+
+        self.canvas.bind("<Enter>", lambda evento: self.canvas.bind_all(
+            "<MouseWheel>",
+            lambda e: self.canvas.yview_scroll(int(-1*(e.delta/120)), "units")))
+        self.canvas.bind("<Leave>", lambda evento: self.canvas.unbind_all("<MouseWheel>"))
 
         #-------------------- MARCO PRINCIPAL --------------------#
 
@@ -248,4 +256,3 @@ if __name__ =="__main__":
     ventana = tk.Tk()
     app = registrar_familiar(ventana)
     ventana.mainloop()
-    

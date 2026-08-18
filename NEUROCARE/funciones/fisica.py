@@ -16,6 +16,7 @@ class ejercicios_fisicos:
         self.ventana.configure(bg="#DDF4E7")
         self.ventana.minsize(False,False)
         self.ventana.maxsize(False,False)
+        self.ventana.resizable(False, False)
         self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
         self.ejercicio_activo = None
         self.tiempo_restante = 0
@@ -34,6 +35,13 @@ class ejercicios_fisicos:
         barra_scroll.configure(orient="vertical",command=self.canvas.yview)
         barra_scroll.pack(side="right",fill="y")
         self.canvas.configure(yscrollcommand=barra_scroll.set)
+
+#RUEDA DEL MOUSE (SCROLL)
+
+        self.canvas.bind("<Enter>", lambda evento: self.canvas.bind_all(
+            "<MouseWheel>",
+            lambda e: self.canvas.yview_scroll(int(-1*(e.delta/120)), "units")))
+        self.canvas.bind("<Leave>", lambda evento: self.canvas.unbind_all("<MouseWheel>"))
 
         # MARCO PRINCIPAL
         self.marco_principal = tk.Frame(self.canvas)

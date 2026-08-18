@@ -16,6 +16,7 @@ class registrar_paciente:
 
         self.ventana.minsize(False,False)
         self.ventana.maxsize(False,False)
+        self.ventana.resizable(False, False)
         self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
         
         self.crear_interfaz()
@@ -43,6 +44,13 @@ class registrar_paciente:
         self.scrollbar.configure(command=self.canvas.yview)
         
         self.canvas.configure(yscrollcommand=self.scrollbar.set)
+
+#RUEDA DEL MOUSE (SCROLL)
+
+        self.canvas.bind("<Enter>", lambda evento: self.canvas.bind_all(
+            "<MouseWheel>",
+            lambda e: self.canvas.yview_scroll(int(-1*(e.delta/120)), "units")))
+        self.canvas.bind("<Leave>", lambda evento: self.canvas.unbind_all("<MouseWheel>"))
         
         #kness hace que el tkinter no dibuje un borde negro en el canvas
         #fill "both" ocupar todo el espacio y expand crece cuando la ventana se expande 

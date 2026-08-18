@@ -20,12 +20,44 @@ class principal:
 
         self.ventana.minsize(False,False)
         self.ventana.maxsize(False,False)
+        self.ventana.resizable(False, False)
         self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
       
 
         self.crear_interfaz()
 
     def crear_interfaz(self):
+
+#MENÚ INFERIOR (fijo, fuera del área con scroll)
+
+        marco_menu = tk.Frame(self.ventana)
+        marco_menu.configure(width=600, height=80, bg="white", relief="solid", bd=1)
+        marco_menu.pack(side="bottom", pady=(0,10), padx=10)
+        marco_menu.pack_propagate(False)
+
+#BOTÓN INICIO 
+
+        boton_inicio = tk.Button(marco_menu, text="🏠\nInicio")
+        boton_inicio.configure(bg="white", fg="medium purple", font=("Quicksand",12,"bold"), relief="flat", bd=0)
+        boton_inicio.pack(side="left", expand=True)
+
+# BOTÓN ACTIVIDADES 
+
+        boton_actividades = tk.Button(marco_menu, text="🧠\nActividades")
+        boton_actividades.configure(bg="white", fg="dim gray", font=("Quicksand",12), relief="flat", bd=0, command=self.abrir_actividades)
+        boton_actividades.pack(side="left", expand=True)
+
+#BOTÓN AVISOS 
+
+        boton_avisos = tk.Button(marco_menu, text="🔔\nAvisos")
+        boton_avisos.configure(bg="white", fg="dim gray", font=("Quicksand",12), relief="flat", bd=0, command=self.abrir_recuerdos)
+        boton_avisos.pack(side="left", expand=True)
+
+#BOTÓN PERFIL
+
+        boton_perfil = tk.Button(marco_menu, text="👤\nPerfil")
+        boton_perfil.configure(bg="white", fg="dim gray", font=("Quicksand",12), relief="flat", bd=0, command=self.abrir_perfil)
+        boton_perfil.pack(side="left", expand=True)
 
 #CANVAS 
 
@@ -40,6 +72,13 @@ class principal:
         barra_scroll.pack(side="right", fill="y")
 
         self.canvas.configure(yscrollcommand=barra_scroll.set)
+
+#RUEDA DEL MOUSE (SCROLL)
+
+        self.canvas.bind("<Enter>", lambda evento: self.canvas.bind_all(
+            "<MouseWheel>",
+            lambda e: self.canvas.yview_scroll(int(-1*(e.delta/120)), "units")))
+        self.canvas.bind("<Leave>", lambda evento: self.canvas.unbind_all("<MouseWheel>"))
 
 # MARCO PRINCIPAL 
 
@@ -91,6 +130,13 @@ class principal:
         cursor = conexion.cursor()
         cursor.execute("SELECT nombreCompleto FROM paciente WHERE idPaciente = %s", (self.idPaciente,))
         resultado = cursor.fetchone()
+
+        cursor.execute(
+            "SELECT COUNT(*) FROM recordatorio WHERE idPaciente = %s AND estado = 'Pendiente'",
+            (self.idPaciente,)
+        )
+        total_pendientes = cursor.fetchone()[0]
+
         cursor.close()
         conexion.close()
 
@@ -166,7 +212,7 @@ class principal:
         etiqueta_imagen2.configure(bg="#D1FAE5")
         etiqueta_imagen2.pack(expand=True)
 
-        etiqueta_numero2 = tk.Label(marco_recordatorios, text="2")
+        etiqueta_numero2 = tk.Label(marco_recordatorios, text=str(total_pendientes))
         etiqueta_numero2.configure(bg="#D1FAE5", fg="medium purple", font=("Quicksand",22,"bold"))
         etiqueta_numero2.pack()
 
@@ -340,39 +386,6 @@ class principal:
         boton_recordatorios.pack(expand=True)
 
 
-#MENÚ INFERIOR 
-
-        marco_menu = tk.Frame(self.marco_principal)
-        marco_menu.configure(width=600, height=80, bg="white", relief="solid", bd=1)
-        marco_menu.pack(pady=(10,20), padx=10)
-        marco_menu.pack_propagate(False)
-
-#BOTÓN INICIO 
-
-        boton_inicio = tk.Button(marco_menu, text="🏠\nInicio")
-        boton_inicio.configure(bg="white", fg="medium purple", font=("Quicksand",12,"bold"), relief="flat", bd=0)
-        boton_inicio.pack(side="left", expand=True)
-
-# BOTÓN ACTIVIDADES 
-
-        boton_actividades = tk.Button(marco_menu, text="🧠\nActividades")
-        boton_actividades.configure(bg="white", fg="dim gray", font=("Quicksand",12), relief="flat", bd=0, command=self.abrir_actividades)
-        boton_actividades.pack(side="left", expand=True)
-
-#BOTÓN AVISOS 
-
-        boton_avisos = tk.Button(marco_menu, text="🔔\nAvisos")
-        boton_avisos.configure(bg="white", fg="dim gray", font=("Quicksand",12), relief="flat", bd=0, command=self.abrir_recuerdos)
-        boton_avisos.pack(side="left", expand=True)
-
-#BOTÓN PERFIL
-
-        boton_perfil = tk.Button(marco_menu, text="👤\nPerfil")
-        boton_perfil.configure(bg="white", fg="dim gray", font=("Quicksand",12), relief="flat", bd=0, command=self.abrir_perfil)
-        boton_perfil.pack(side="left", expand=True)
-
-   
-    
     def mensaje_boton(self):
         messagebox.showinfo(
             "‼️SOS - Emergencia‼️",
@@ -437,6 +450,7 @@ class boton_sos:
 
         self.ventana.minsize(False,False)
         self.ventana.maxsize(False,False)
+        self.ventana.resizable(False, False)
         self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
 
         self.crear_interfaz()

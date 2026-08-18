@@ -19,11 +19,43 @@ class usuario_perfil:
 
             self.ventana.minsize(False,False)
             self.ventana.maxsize(False,False)
+            self.ventana.resizable(False, False)
             self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
             
             self.crear_interfaz()
 
     def crear_interfaz(self):
+
+#MENÚ INFERIOR (fijo, fuera del área con scroll)
+
+        marco_menu = tk.Frame(self.ventana)
+        marco_menu.configure(width=600, height=80, bg="white", relief="solid", bd=1)
+        marco_menu.pack(side="bottom", pady=(0,10), padx=10)
+        marco_menu.pack_propagate(False)
+
+#BOTÓN INICIO 
+
+        boton_inicio = tk.Button(marco_menu, text="🏠\nInicio")
+        boton_inicio.configure(bg="white", fg="dim gray", font=("Quicksand",12,"bold"), relief="flat", bd=0, command=self.abrir_inicio)
+        boton_inicio.pack(side="left", expand=True)
+        
+# BOTÓN ACTIVIDADES 
+
+        boton_actividades = tk.Button(marco_menu, text="🧠\nActividades")
+        boton_actividades.configure(bg="white", fg="dim gray", font=("Quicksand",12), relief="flat", bd=0, command=self.abrir_actividades)
+        boton_actividades.pack(side="left", expand=True)
+
+#BOTÓN AVISOS 
+
+        boton_avisos = tk.Button(marco_menu, text="🔔\nAvisos")
+        boton_avisos.configure(bg="white", fg="dim gray", font=("Quicksand",12), relief="flat", bd=0, command=self.abrir_avisos)
+        boton_avisos.pack(side="left", expand=True)
+
+#BOTÓN PERFIL
+
+        boton_perfil = tk.Button(marco_menu, text="👤\nPerfil")
+        boton_perfil.configure(bg="white", fg="medium purple", font=("Quicksand",12), relief="flat", bd=0)
+        boton_perfil.pack(side="left", expand=True)
 
         self.canvas = tk.Canvas(self.ventana)
         self.canvas.configure(bg="lavender", highlightthickness=0)
@@ -36,6 +68,13 @@ class usuario_perfil:
         barra_scroll.pack(side="right", fill="y")
 
         self.canvas.configure(yscrollcommand=barra_scroll.set)
+
+#RUEDA DEL MOUSE (SCROLL)
+
+        self.canvas.bind("<Enter>", lambda evento: self.canvas.bind_all(
+            "<MouseWheel>",
+            lambda e: self.canvas.yview_scroll(int(-1*(e.delta/120)), "units")))
+        self.canvas.bind("<Leave>", lambda evento: self.canvas.unbind_all("<MouseWheel>"))
 
 # MARCO PRINCIPAL 
 
@@ -312,41 +351,9 @@ class usuario_perfil:
 
         
         
-#MENÚ INFERIOR 
-        
-
-        marco_menu = tk.Frame(self.marco_principal)
-        marco_menu.configure(width=600, height=80, bg="white", relief="solid", bd=1)
-        marco_menu.pack(pady=(10,20))
-        marco_menu.pack_propagate(False)
-
-#BOTÓN INICIO 
-
-        boton_inicio = tk.Button(marco_menu, text="🏠\nInicio")
-        boton_inicio.configure(bg="white", fg="dim gray", font=("Quicksand",12,"bold"), relief="flat", bd=0, command=self.abrir_inicio)
-        boton_inicio.pack(side="left", expand=True)
-        
-# BOTÓN ACTIVIDADES 
-
-        boton_actividades = tk.Button(marco_menu, text="🧠\nActividades")
-        boton_actividades.configure(bg="white", fg="dim gray", font=("Quicksand",12), relief="flat", bd=0, command=self.abrir_actividades)
-        boton_actividades.pack(side="left", expand=True)
-
-#BOTÓN AVISOS 
-
-        boton_avisos = tk.Button(marco_menu, text="🔔\nAvisos")
-        boton_avisos.configure(bg="white", fg="dim gray", font=("Quicksand",12), relief="flat", bd=0, command=self.abrir_avisos)
-        boton_avisos.pack(side="left", expand=True)
-
-#BOTÓN PERFIL
-
-        boton_perfil = tk.Button(marco_menu, text="👤\nPerfil")
-        boton_perfil.configure(bg="white", fg="medium purple", font=("Quicksand",12), relief="flat", bd=0)
-        boton_perfil.pack(side="left", expand=True)
-        
         boton_salir = ctk.CTkButton(self.marco_principal, text="👤 Cerrar sesion",fg_color="red",corner_radius=25,border_width=3,
                                     border_color="red2", command=self.volver_menu)
-        boton_salir.pack()
+        boton_salir.pack(pady=(10,20))
 
     def abrir_actividades(self):
         from actividades import juegos
@@ -398,6 +405,7 @@ class editar_perfil:
         self.ventana.configure(bg="#E9E0F5")
         self.ventana.minsize(False,False)
         self.ventana.maxsize(False,False)
+        self.ventana.resizable(False, False)
         self.ventana.iconbitmap("NEUROCARE/funciones/recursos/logotipo.ico")
 
         self.crear_interfaz()
