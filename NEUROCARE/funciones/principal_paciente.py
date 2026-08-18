@@ -137,6 +137,12 @@ class principal:
         )
         total_pendientes = cursor.fetchone()[0]
 
+        cursor.execute(
+            "SELECT COUNT(*) FROM recordatorio WHERE idPaciente = %s AND tipoRecordatorio = 'Actividad' AND estado = 'Pendiente'",
+            (self.idPaciente,)
+        )
+        total_actividades_pendientes = cursor.fetchone()[0]
+
         cursor.close()
         conexion.close()
 
@@ -186,7 +192,7 @@ class principal:
         etiqueta_imagen1.configure(bg="#E9D5FF")
         etiqueta_imagen1.pack(expand=True)
 
-        etiqueta_numero1 = tk.Label(marco_actividades, text="1")
+        etiqueta_numero1 = tk.Label(marco_actividades, text=str(total_actividades_pendientes))
         etiqueta_numero1.configure(bg="#E9D5FF", fg="medium purple", font=("Quicksand",22,"bold"))
         etiqueta_numero1.pack()
 

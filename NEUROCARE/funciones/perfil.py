@@ -315,8 +315,20 @@ class usuario_perfil:
         etiqueta_imagen1.configure(bg="#D1FAE5")    
         etiqueta_imagen1.pack(expand=True)
 
-        etiqueta_numero1 = tk.Label(marco_actividades, text="aqui")
-        etiqueta_numero1.configure(bg="yellow", fg="medium purple", font=("Quicksand",22,"bold"))
+        try:
+            _con = conectarBd()
+            _cur = _con.cursor()
+            _cur.execute(
+                "SELECT COUNT(*) FROM recordatorio WHERE idPaciente=%s AND tipoRecordatorio='Actividad' AND estado='Completado'",
+                (self.idPaciente,))
+            _count1 = _cur.fetchone()[0]
+            _cur.close()
+            _con.close()
+        except:
+            _count1 = 0
+
+        etiqueta_numero1 = tk.Label(marco_actividades, text=str(_count1))
+        etiqueta_numero1.configure(bg="#D1FAE5", fg="#065F46", font=("Quicksand",28,"bold"))
         etiqueta_numero1.pack()
 
         etiqueta_texto1 = tk.Label(marco_actividades, text="Actividades completadas")
@@ -341,8 +353,20 @@ class usuario_perfil:
         etiqueta_imagen2.configure(bg="#E9D5FF")
         etiqueta_imagen2.pack(expand=True)
 
-        etiqueta_numero2 = tk.Label(marco_recordatorios, text="aqui")
-        etiqueta_numero2.configure(bg="yellow", fg="medium purple", font=("Quicksand",22,"bold"))
+        try:
+            _con2 = conectarBd()
+            _cur2 = _con2.cursor()
+            _cur2.execute(
+                "SELECT COUNT(*) FROM recordatorio WHERE idPaciente=%s AND tipoRecordatorio='Actividad' AND estado='Pendiente'",
+                (self.idPaciente,))
+            _count2 = _cur2.fetchone()[0]
+            _cur2.close()
+            _con2.close()
+        except:
+            _count2 = 0
+
+        etiqueta_numero2 = tk.Label(marco_recordatorios, text=str(_count2))
+        etiqueta_numero2.configure(bg="#E9D5FF", fg="#6D28D9", font=("Quicksand",28,"bold"))
         etiqueta_numero2.pack()
 
         etiqueta_texto2 = tk.Label(marco_recordatorios, text="Ejercicios pendientes")
