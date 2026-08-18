@@ -801,12 +801,14 @@ class memoramaa:
 
             self.root.deiconify()
 
-            # Restaurar tamaño y posición
-            self.root.geometry(
-                "520x700+520+60"
-            )
-
+            # Restaurar tamaño y posición centrado
+            self.root.geometry("650x700+0+0")
             self.root.update_idletasks()
+            ancho = self.root.winfo_width()
+            alto = self.root.winfo_height()
+            x = (self.root.winfo_screenwidth() // 2) - (ancho // 2)
+            y = (self.root.winfo_screenheight() // 2) - (alto // 2)
+            self.root.geometry(f"{ancho}x{alto}+{x}+{y}")
 
 
     # ==========================================================
@@ -824,11 +826,13 @@ class memoramaa:
 
             self.root.deiconify()
 
-            self.root.geometry(
-                "520x700+520+60"
-            )
-
+            self.root.geometry("650x700+0+0")
             self.root.update_idletasks()
+            ancho = self.root.winfo_width()
+            alto = self.root.winfo_height()
+            x = (self.root.winfo_screenwidth() // 2) - (ancho // 2)
+            y = (self.root.winfo_screenheight() // 2) - (alto // 2)
+            self.root.geometry(f"{ancho}x{alto}+{x}+{y}")
 
 
 # ==============================================================

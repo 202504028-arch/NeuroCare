@@ -14,7 +14,16 @@ class usuario_perfil:
         
 
             self.ventana.title(" NEUROCARE -- PERFIL")
-            self.ventana.geometry("650x700+500+10")
+            self.ventana.geometry("650x700+0+0")
+            # Centrar ventana en pantalla
+            self.ventana.update_idletasks()
+            ancho_ventana = self.ventana.winfo_width()
+            alto_ventana = self.ventana.winfo_height()
+            ancho_pantalla = self.ventana.winfo_screenwidth()
+            alto_pantalla = self.ventana.winfo_screenheight()
+            x = (ancho_pantalla // 2) - (ancho_ventana // 2)
+            y = (alto_pantalla // 2) - (alto_ventana // 2)
+            self.ventana.geometry(f"{ancho_ventana}x{alto_ventana}+{x}+{y}")
             self.ventana.config(bg="lavender")
 
             self.ventana.minsize(False,False)

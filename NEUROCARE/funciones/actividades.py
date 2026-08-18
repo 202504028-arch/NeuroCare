@@ -15,7 +15,16 @@ class juegos:
         self.ventana = tk.Toplevel(root)
 
         self.ventana.title("NEUROCARE -- ACTIVIDADES")
-        self.ventana.geometry("520x700+520+60")
+        self.ventana.geometry("650x700+0+0")
+        # Centrar ventana en pantalla
+        self.ventana.update_idletasks()
+        ancho_ventana = self.ventana.winfo_width()
+        alto_ventana = self.ventana.winfo_height()
+        ancho_pantalla = self.ventana.winfo_screenwidth()
+        alto_pantalla = self.ventana.winfo_screenheight()
+        x = (ancho_pantalla // 2) - (ancho_ventana // 2)
+        y = (alto_pantalla // 2) - (alto_ventana // 2)
+        self.ventana.geometry(f"{ancho_ventana}x{alto_ventana}+{x}+{y}")
         self.ventana.config(bg="lavender")
         self.ventana.attributes("-alpha")
 
@@ -32,7 +41,7 @@ class juegos:
 #-------------------- MENÚ INFERIOR (fijo, fuera del scroll) --------------------#
 
         marco_menu = tk.Frame(self.ventana)
-        marco_menu.configure(width=480,height=80,
+        marco_menu.configure(width=610,height=80,
         bg="white",relief="solid",bd=1)
 
         marco_menu.pack(side="bottom", pady=(0,10))
@@ -96,7 +105,7 @@ class juegos:
             (0,0),
             window=self.marco_principal,
             anchor="nw",
-            width=500
+            width=610
         )
 
         self.marco_principal.bind(
@@ -108,7 +117,7 @@ class juegos:
 #-------------------- CONTENEDOR --------------------#
 
         marco_contenedor = tk.Frame(self.marco_principal)
-        marco_contenedor.configure(width=480,height=820,
+        marco_contenedor.configure(width=610,height=820,
         bg="lavender")
 
         marco_contenedor.pack(pady=10, padx=10)
@@ -117,7 +126,7 @@ class juegos:
 #-------------------- TITULO --------------------#
 
         marco_titulo = tk.Frame(marco_contenedor)
-        marco_titulo.configure(width=480,height=80,bg="lavender")
+        marco_titulo.configure(width=610,height=80,bg="lavender")
         marco_titulo.pack(pady=(15,10))
         marco_titulo.pack_propagate(False)
 
@@ -134,7 +143,7 @@ class juegos:
 #-------------------- TARJETA MEMORAMA --------------------#
 
         marco_tarjeta_memorama = ctk.CTkFrame(marco_contenedor)
-        marco_tarjeta_memorama.configure(width=480,height=180,
+        marco_tarjeta_memorama.configure(width=610,height=180,
         fg_color="white",corner_radius=25,
         border_width=3,border_color="#801AEE")
 
@@ -216,7 +225,7 @@ class juegos:
 #-------------------- TARJETA ROMPECABEZAS --------------------#
 
         marco_tarjeta_rompecabezas = ctk.CTkFrame(marco_contenedor)
-        marco_tarjeta_rompecabezas.configure(width=480,height=180,fg_color="white",corner_radius=25,
+        marco_tarjeta_rompecabezas.configure(width=610,height=180,fg_color="white",corner_radius=25,
         border_width=3,border_color="#3B82F6")
 
         marco_tarjeta_rompecabezas.pack(pady=(0,20))
@@ -307,7 +316,7 @@ class juegos:
 #-------------------- TARJETA EJERCICIOS FÍSICOS --------------------#
 
         marco_tarjeta_ejercicios = ctk.CTkFrame(marco_contenedor)
-        marco_tarjeta_ejercicios.configure(width=480,height=180,fg_color="white",corner_radius=25,border_width=3,border_color="#22C55E")
+        marco_tarjeta_ejercicios.configure(width=610,height=180,fg_color="white",corner_radius=25,border_width=3,border_color="#22C55E")
         marco_tarjeta_ejercicios.pack(pady=(0,20))
         marco_tarjeta_ejercicios.pack_propagate(False)
 
